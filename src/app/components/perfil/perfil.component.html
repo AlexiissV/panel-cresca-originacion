@@ -1,0 +1,18 @@
+<section>
+    <div class="grid">
+        <div class="col-6">
+            <div class="text-xl font-bold colorp font-italic my-2">{{info.empresa}}</div>
+            <img [src]="local.empresa.empresa_logo" width="100%" alt="">
+        </div>
+        <div class="col-6 align-self-center">
+            <div class="grid">
+                <div class="col-4">Nombre:</div>
+                <div class="col-8">{{info.nombre}} {{info.apellidos}}</div>
+                <div class="col-4">Correo:</div>
+                <div class="col-8">{{info.email}}</div>
+                <div class="col-4">Perfil:</div>
+                <div class="col-8">{{info.perfil_text}}</div>
+            </div>
+        </div>
+    </div>
+</section>

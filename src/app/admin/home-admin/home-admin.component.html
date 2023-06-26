@@ -1,0 +1,36 @@
+<section>
+    <p-table [value]="solicitudes" selectionMode="single" [(selection)]="selectedProduct" dataKey="id"
+    (onRowSelect)="onRowSelect($event)" [tableStyle]="{'width': '100%'}"
+    styleClass="p-datatable-sm">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <div class="text-3xl">
+                    Solicitudes
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center">Promotor</th>
+                <th class="text-center">Credito</th>
+                <th class="text-center">Producto</th>
+                <th class="text-center">Producto Financiero</th>
+                <th class="text-center">Fecha Solicitud</th>
+                <th class="text-center">Ultima Actualización</th>
+                <th class="text-center">Status</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body"let-solicitud >
+            <tr [pSelectableRow]="solicitud" 
+            [ngClass]="solicitud.status ==10?'bg-yellow-300 text-white':''||solicitud.status ==20?'bg-orange-300 text-white':''||solicitud.status ==30?'bg-primary-300 text-white':''||solicitud.status ==40?'bg-teal-400 text-white':''|| solicitud.status ==50?'bg-green-600 text-white':''|| solicitud.status ==1?'bg-red-500 text-white':'' ">
+                <td class="text-center">{{solicitud.operador}}</td>
+                <td class="text-center">{{solicitud.importe_financiamiento_valor | currency}}</td>
+                <td class="text-center">{{solicitud.producto}}</td>
+                <td class="text-center">{{solicitud.producto_financiero}}</td>
+                <td class="text-center">{{solicitud.registro}}</td>
+                <td class="text-center">{{solicitud.modificado}}</td>
+                <td class="text-center">{{solicitud.status_text}}</td>
+              </tr>
+        </ng-template>
+    </p-table>
+</section>

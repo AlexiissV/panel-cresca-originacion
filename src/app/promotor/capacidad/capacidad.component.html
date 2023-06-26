@@ -1,0 +1,44 @@
+<p-toast></p-toast>
+<section>
+    <div class="grid">
+        <div class="col-12 text-center">
+            <div>Selecciona evaluación de crédito</div>
+            <p-dropdown styleClass="p-inputtext-sm w-5 my-2" [(ngModel)]="select" (onChange)="seleccion($event)"
+                [options]="p_financiero" optionLabel="nombre"></p-dropdown>
+        </div>
+    </div>
+    <div *ngIf="formulario.length!=0" class="grid">
+        <div *ngFor="let form of formulario ; let n = index" class="col-12">
+            <div class="grid">
+                <div class="col-12">
+                    <div>{{form.label}}</div>
+                    <hr>
+                </div>
+                <div *ngFor="let pre of form.items ; let i= index" class="sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                    <div class="grid">
+                        <div class="sm:col-12 md:col-12 lg:col-6 xl:col-6 p-0 px-1 align-self-center">{{pre.label}}
+                        </div>
+                        <div *ngIf="pre.tipo_dato!=40" class="sm:col-12 md:col-12 lg:col-6 xl:col-6 p-0 px-1">
+                            <input [type]="pre.tipo_dato_text" [(ngModel)]="formulario[n].items[i].value_register"
+                                [disabled]="pre.tipo_dato==50" pInputText class="p-inputtext-sm w-full" />
+                        </div>
+                        <div *ngIf="pre.tipo_dato==40 && pre.items_list"
+                            class="sm:col-12 md:col-12 lg:col-6 xl:col-6 p-0 px-1">
+                            <p-dropdown [options]="pre.items_list" [(ngModel)]="formulario[n].items[i].select"
+                                (onChange)="selectuno($event,n,i)" optionLabel="text"
+                                styleClass="p-inputtext-sm w-full"></p-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="estatus_solicitud==2 || estatus_solicitud==0" class="col-12">
+            <div class="flex align-items-center justify-content-between">
+                <button pButton label="Anterior" routerLink="/promotor/originacion/simulador"
+                    class="mt-3 bg-primary-700"></button>
+                    <button pButton label="Guardar y Salir" (click)="guardasale()" class="mt-3 mr-3 bg-yellow-500"></button>
+                <button pButton (click)="findelproceso()" label="Guardar y Continuar" class="mt-3 bg-red-700"></button>
+            </div>
+        </div>
+    </div>
+</section>

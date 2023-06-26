@@ -1,0 +1,422 @@
+<section>
+
+    <p-tabView>
+        <p-tabPanel header="FICHA DE IDENTIFICACIÓN">
+            <p-tabView *ngIf="detalle_solicitud.capacidad_id!=null">
+                <p-tabPanel *ngFor="let item of Cuestionario; let n = index" [header]="item.label">
+                    <div class="grid mt-3">
+                        <div *ngFor="let pre of item.items; let i= index" class="col-12">
+                            <div class="grid">
+                                <div class="sm:col-12 md:col-12 lg:col-6 xl:col-6 p-0 px-1 align-self-center">
+                                    {{pre.label}}
+                                </div>
+                                <div *ngIf="pre.tipo_dato!=40" class="sm:col-12 md:col-12 lg:col-6 xl:col-6 p-0 px-1">
+                                    <input [type]="pre.tipo_dato_text"
+                                        [(ngModel)]="Cuestionario[n].items[i].value_register" [disabled]="true"
+                                        pInputText class="p-inputtext-sm w-full" />
+                                </div>
+                                <div *ngIf="pre.tipo_dato==40 && pre.items_list"
+                                    class="sm:col-12 md:col-12 lg:col-6 xl:col-6 p-0 px-1">
+                                    <p-dropdown [options]="pre.items_list" [disabled]="true"
+                                        [(ngModel)]="Cuestionario[n].items[i].select" optionLabel="text"
+                                        styleClass="p-inputtext-sm w-full"></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+            </p-tabView>
+        </p-tabPanel>
+        <p-tabPanel header="PRESUPUESTO">
+            <div class="grid" *ngIf="detalle_solicitud.presupuesto[0].producto.id!=null">
+                <div class="col-12">
+                    <div class="grid">
+                        <div class="col-3 text-center">
+                            <div>Producto</div>
+                            <input type="text" [ngModel]="detalle_solicitud.presupuesto[0].producto.nombre"
+                                [disabled]="true" class="p-inputtext-sm w-full my-2 text-center" pInputText />
+                        </div>
+                        <div class="col-3 text-center">
+                            <div>Marca</div>
+                            <input type="text" [ngModel]="detalle_solicitud.presupuesto[0].producto.marca"
+                                [disabled]="true" class="p-inputtext-sm w-full my-2 text-center" pInputText />
+                        </div>
+                        <div class="col-3 text-center">
+                            <div>Serie</div>
+                            <input type="text" [ngModel]="detalle_solicitud.presupuesto[0].producto.serie"
+                                [disabled]="true" class="p-inputtext-sm w-full my-2 text-center" pInputText />
+                        </div>
+                        <div class="col-3 text-center">
+                            <div>Modelo</div>
+                            <input type="text" [ngModel]="detalle_solicitud.presupuesto[0].producto.modelo"
+                                [disabled]="true" class="p-inputtext-sm w-full my-2 text-center" pInputText />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="grid text-center">
+                        <div class="col-4">
+                            <div>Precio de Lista (moneda de origen);</div>
+                            <p-inputNumber class="w-full" [ngModel]="detalle_solicitud.presupuesto[0].producto.precio"
+                                [minFractionDigits]="2" mode="currency" currency="USD" locale="en-US" [disabled]="true"
+                                styleClass="p-inputtext-sm w-full my-2 text-center"></p-inputNumber>
+                        </div>
+                        <div class="col-4">
+                            <div>Moneda</div>
+                            <input type="text" [disabled]="true"
+                                [ngModel]="detalle_solicitud.presupuesto[0].producto.moneda_text"
+                                class="p-inputtext-sm w-full my-2 text-center" pInputText />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="grid mt-2">
+                        <div class="col-6">
+                            <div class="grid">
+                                <div class="col-5 align-self-center p-0 text-center">
+                                    Precio de Venta en pe$os;
+                                </div>
+                                <div class="col-7 p-1 align-self-center">
+                                    <p-inputNumber class="w-full"
+                                        [ngModel]="detalle_solicitud.presupuesto[0].precio_venta"
+                                        [minFractionDigits]="2" mode="currency" currency="USD" locale="en-US"
+                                        [disabled]="true"
+                                        styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                                </div>
+                                <div *ngIf="detalle_solicitud.presupuesto[0].producto.apply_iva==10 || detalle_solicitud.presupuesto[0].producto.apply_iva==0"
+                                    class="col-5 align-self-center p-0 text-center">
+                                    IVA;
+                                </div>
+                                <div *ngIf="detalle_solicitud.presupuesto[0].producto.apply_iva==10 || detalle_solicitud.presupuesto[0].producto.apply_iva==0"
+                                    class="col-7 p-1 align-self-center">
+                                    <p-inputNumber class="w-full" [ngModel]="detalle_solicitud.presupuesto[0].iva"
+                                        [minFractionDigits]="2" mode="currency" currency="USD" locale="en-US"
+                                        [disabled]="true"
+                                        styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                                </div>
+                                <div class="col-5 align-self-center p-0 text-center">
+                                    Núm. Unidades;
+                                </div>
+                                <div class="col-7 p-1 align-self-center">
+                                    <p-inputNumber class="w-full" [ngModel]="detalle_solicitud.presupuesto[0].cantidad"
+                                    [disabled]="true"
+                                        [min]="1" styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                                </div>
+                                <div class="col-5 align-self-center p-0 text-center">
+                                    Cotización Total;
+                                </div>
+                                <div class="col-7 p-1 align-self-center">
+                                    <p-inputNumber class="w-full"
+                                        [ngModel]="detalle_solicitud.presupuesto[0].cotizacion" [minFractionDigits]="2"
+                                        mode="currency" currency="USD" locale="en-US"
+                                        [disabled]="true"
+                                        styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="grid">
+                                <div class="col-5 align-self-center p-1 text-center">
+                                    Comisión por apertura del Crédito (incluye IVA) >
+                                </div>
+                                <div class="col-7 p-1 align-self-center">
+                                    <div class="grid">
+                                        <div class="col-2">
+                                            <p-inputNumber inputStyleClass="w-3rem" suffix="%"
+                                                styleClass="p-inputtext-sm text-center"
+                                                [disabled]="true"
+                                                [ngModel]="detalle_solicitud.presupuesto[0].comision_apertura_porcentaje"></p-inputNumber>
+                                        </div>
+                                        <div class="col-10">
+                                            <p-inputNumber class="w-full"
+                                                [ngModel]="detalle_solicitud.presupuesto[0].comision_apertura"
+                                                [disabled]="true"
+                                                [minFractionDigits]="2" mode="currency" currency="MXN" locale="es-MX"
+                                                styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 align-self-center p-0 text-center">
+                                    Seguro del Equipo (incluye IVA) >
+                                </div>
+                                <div class="col-7 p-1 align-self-center">
+                                    <p-inputNumber class="w-full"
+                                        [ngModel]="detalle_solicitud.presupuesto[0].seguro_equipo"
+                                        [minFractionDigits]="2" mode="currency" currency="USD" locale="en-US"
+                                        [disabled]="true"
+                                        styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                                </div>
+                                <div class="col-5 align-self-center p-0 text-center">
+                                    INVERSION TOTAL (pesos) >
+                                </div>
+                                <div class="col-7 p-1 align-self-center">
+                                    <p-inputNumber class="w-full"
+                                        [ngModel]="detalle_solicitud.presupuesto[0].inversion_total"
+                                        [minFractionDigits]="2" mode="currency" currency="USD" locale="en-US"
+                                        [disabled]="true"
+                                        styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                                </div>
+                                <div class="col-5 align-self-center p-0 text-center">
+                                    Descuentos;
+                                </div>
+                                <div class="col-7 p-1 align-self-center">
+                                    <p-inputNumber class="w-full"
+                                        [ngModel]="detalle_solicitud.presupuesto[0].descuento_valor"
+                                        [minFractionDigits]="2" mode="currency" currency="USD" locale="en-US"
+                                        [disabled]="true"
+                                        styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="grid">
+                        <div class="col-4"></div>
+                        <div class="col-8">
+                            <div class="grid">
+                                <div class="col-6 align-self-center p-0 text-right">
+                                    Importe Final;
+                                </div>
+                                <div class="col-6 p-1 align-self-center">
+                                    <p-inputNumber class="w-full"
+                                        [ngModel]="detalle_solicitud.presupuesto[0].importe_final"
+                                        [disabled]="true"
+                                        [minFractionDigits]="2" mode="currency" currency="USD" locale="en-US"
+                                        [disabled]="true"
+                                        styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                                </div>
+                                <div class="col-6 align-self-center p-0 text-right">
+                                    Aportación del productor (incluye enganche);
+                                </div>
+                                <div class="col-6 p-1 align-self-center">
+                                    <div class="grid">
+                                        <div class="col-2">
+                                            <p-inputNumber inputStyleClass="w-4rem" suffix="%"
+                                                [ngModel]="detalle_solicitud.presupuesto[0].aportacion_producto_porcentaje"
+                                                [disabled]="true"
+                                                [min]="20" styleClass="p-inputtext-sm text-center"></p-inputNumber>
+                                        </div>
+                                        <div class="col-10">
+                                            <p-inputNumber class="w-full"
+                                                [ngModel]="detalle_solicitud.presupuesto[0].aportacion_producto_valor"
+                                                [minFractionDigits]="2" mode="currency" currency="USD" locale="en-US"
+                                                [disabled]="true"
+                                                styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 align-self-center p-0 text-right">
+                                    Importe a Financiamiento (pesos);
+                                </div>
+                                <div class="col-6 p-1 align-self-center">
+                                    <div class="grid">
+                                        <div class="col-2">
+                                            <p-inputNumber inputStyleClass="w-4rem" suffix="%"
+                                                styleClass="p-inputtext-sm text-center"
+                                                [disabled]="true"
+                                                [ngModel]="detalle_solicitud.presupuesto[0].importe_financiamiento_porcentaje"></p-inputNumber>
+                                        </div>
+                                        <div class="col-10">
+                                            <p-inputNumber class="w-full" [minFractionDigits]="2" mode="currency"
+                                                currency="USD" locale="en-US"
+                                                [disabled]="true"
+                                                [ngModel]="detalle_solicitud.presupuesto[0].importe_financiamiento_valor"
+                                                styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="TERMINOS DE CRÉDITO">
+            <div class="grid">
+                <div class="col-6">
+                    <div class="grid">
+                        <div class="col-5 align-self-center p-0 text-center">
+                            Importe del Crédito (pesos) >
+                        </div>
+                        <div class="col-7 p-1 align-self-center">
+                            <p-inputNumber class="w-full" [minFractionDigits]="2" mode="currency" currency="USD" locale="en-US"
+                            [ngModel]="detalle_solicitud.termino_credito[0].importe_credito" [disabled]="true"  inputStyleClass="text-center" styleClass="p-inputtext-sm w-full"></p-inputNumber>
+                        </div>
+                        <div class="col-5 align-self-center p-0 text-center">
+                            Plazo del crédito (meses) >
+                        </div>
+                        <div class="col-7 p-1 align-self-center">
+                            <p-inputNumber class="w-full" [max]="60" mode="decimal"  locale="es-MX" [minFractionDigits]="1"
+                            [ngModel]="detalle_solicitud.termino_credito[0].plazo_credito" [disabled]="true"   inputStyleClass="text-center" styleClass="p-inputtext-sm w-full"></p-inputNumber>
+                        </div>
+                        <div class="col-5 flex justify-content-between align-self-center p-0">
+                            <div>
+                                Tasa Indicativa
+                            </div>
+                            <div>
+                                fija Anual>
+                            </div>
+                        </div>
+                        <div class="col-7 p-1 align-self-center">
+                            <p-inputNumber class="w-full" suffix="%" inputStyleClass="text-center"
+                              [ngModel]="detalle_solicitud.termino_credito[0].taza_fija_anual" [disabled]="true"   styleClass="p-inputtext-sm w-full"></p-inputNumber>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-9 p-0">
+                    <div class="grid">
+                        <div class="col-5 flex justify-content-between align-self-center">
+                            <div>
+                                Garantías >
+                            </div>
+                            <div>
+                                prendaria
+                            </div>
+                        </div>
+                        <div class="col-7 align-self-center">
+                            <input type="text" [ngModel]="detalle_solicitud.termino_credito[0].garantias" [disabled]="true"  pInputText class="p-inputtext-sm w-full">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-9 p-0">
+                    <div class="grid">
+                        <div class="col-5 flex justify-content-between align-self-center">
+                            <div>
+                                Forma de disposicón >
+                            </div>
+                        </div>
+                        <div class="col-7 align-self-center">
+                            <input type="text" [ngModel]="detalle_solicitud.termino_credito[0].forma_disposicion" [disabled]="true"  pInputText class="p-inputtext-sm w-full">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="grid">
+                        <div class="col-5 align-self-center p-0 text-center">
+                            Fecha estimada del otorgamiento del crédito >
+                        </div>
+                        <div class="col-7 p-1 align-self-center">
+                        <p-inputMask  mask="99/99/9999" placeholder="dd/mm/yyyy" slotChar="dd/mm/yyyy"
+                        [ngModel]="detalle_solicitud.termino_credito[0].fecha_estimada_otorgamiento" [disabled]="true"  inputStyleClass="text-center" styleClass="p-inputtext-sm w-full"></p-inputMask>
+                            
+                        </div>
+                    </div>
+        
+                </div>
+                <div class="col-12 p-0">
+                    <div class="grid">
+                        <div class="col-6">
+                            <div class="grid">
+                                <div class="col-5 align-self-center">Forma de pago del Capital…</div>
+                                <div class="col-7 align-self-center">
+                                    <p-dropdown styleClass=" text-center p-inputtext-sm w-full" [options]="list_Meses"
+                                    [ngModel]="detalle_solicitud.termino_credito[0].forma_pago_capital" [disabled]="true" ></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="grid">
+                                <div class="col-4 text-center align-self-center">En los meses de</div>
+                                <div class="col-8 align-self-center">
+                                    <input type="text" pInputText class="p-inputtext-sm w-full"
+                                    [ngModel]="detalle_solicitud.termino_credito[0].forma_pago_capital_mes" [disabled]="true" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 p-0">
+                    <div class="grid">
+                        <div class="col-6">
+                            <div class="grid">
+                                <div class="col-5 align-self-center">Forma de pago de los intereses…</div>
+                                <div class="col-7 align-self-center">
+                                    <p-dropdown styleClass=" text-center p-inputtext-sm w-full" [options]="list_Meses"
+                                    [ngModel]="detalle_solicitud.termino_credito[0].forma_pago_interes" [disabled]="true" ></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="grid">
+                                <div class="col-4 text-center align-self-center">En los meses de</div>
+                                <div class="col-8 align-self-center">
+                                    <input type="text" pInputText class="p-inputtext-sm w-full"
+                                    [ngModel]="detalle_solicitud.termino_credito[0].forma_pago_interes_mes" [disabled]="true" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="FICHA DE CAPACIDAD">
+            <div class="grid" *ngIf="detalle_solicitud.capacidad[0].groups.length!=0">
+                <div *ngFor="let form of detalle_solicitud.capacidad[0].groups; let n = index" class="col-12">
+                    <div class="grid">
+                        <div class="col-12">
+                            <div class="my-2">{{form.label}}</div>
+                            <hr>
+                        </div>
+                        <div *ngFor="let pre of form.items; let i= index" class="sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                            <div class="grid">
+                                <div class="sm:col-12 md:col-12 lg:col-6 xl:col-6 p-0 px-1 align-self-center">
+                                    {{pre.label}}
+                                </div>
+                                <div *ngIf="pre.tipo_dato!=40" class="sm:col-12 md:col-12 lg:col-6 xl:col-6 p-0 px-1">
+                                    <input [type]="pre.tipo_dato_text" [(ngModel)]="pre.value_register"
+                                        [disabled]="true" pInputText class="p-inputtext-sm w-full" />
+                                </div>
+                                <div *ngIf="pre.tipo_dato==40 && pre.items_list"
+                                    class="sm:col-12 md:col-12 lg:col-6 xl:col-6 p-0 px-1">
+                                    <p-dropdown [options]="pre.items_list" [disabled]="true" [(ngModel)]="pre.select"
+                                        optionLabel="text" styleClass="p-inputtext-sm w-full"></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="EXPEDIENTE DIGITAL">
+            <div class="grid">
+                <div class="col-12">
+                    <div class="text-xl">
+                        {{'Documentos Generales' | uppercase}}
+                    </div>
+                    <hr>
+                </div>
+                <div class="col-6" *ngFor="let item of detalle_solicitud.expediente_digital.generales;let i = index">
+                    <div class="grid">
+                        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 align-self-center">
+                            <div class="my-2">{{item.documento}}</div>
+                        </div>
+                        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 align-self-center">
+                            <a *ngIf="item.file_url!=null" [href]="item.file_url" target="_blank">
+                                <button pButton label="ver" class="p-button-sm bg-red-700"></button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid mt-4">
+                <div class="col-12">
+                    <div class="text-xl">
+                        {{'Documentos de Producto Financiero' | uppercase}}
+                    </div>
+                    <hr>
+                </div>
+                <div class="col-6" *ngFor="let item of detalle_solicitud.expediente_digital.capacidad; let i = index">
+                    <div class="grid">
+                        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 align-self-center">
+                            <div class="my-2">{{item.documento}}</div>
+                        </div>
+                        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 align-self-center">
+                            <a *ngIf="item.file_url!=null" [href]="item.file_url" target="_blank">
+                                <button pButton label="ver" class="p-button-sm bg-red-700"></button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</section>

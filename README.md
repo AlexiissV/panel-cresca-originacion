@@ -1,6 +1,9 @@
-# CrescaOriginacion
+# Aretra
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.2.
+This project was generated with [Node js CLI](https://nodejs.org/es) version 18.10.0.
+This project was generated with [PrimeFlex CLI](https://www.primefaces.org/primeflex/) version
+This project was generated with [PrimeNG CLI](https://primeng.org/) version
 
 ## Development server
 

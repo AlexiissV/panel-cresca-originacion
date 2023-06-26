@@ -1,0 +1,41 @@
+<p-toast></p-toast>
+<section>
+    <div class="grid">
+        <div class="col-12">
+            <div class="text-xl">
+                {{'Documentos Generales' | uppercase}}
+            </div>
+            <hr>
+        </div>
+        <div class="col-6" *ngFor="let item of doc_general;let i = index">
+            <div>{{item.documento}}</div>
+            <a *ngIf="item.file_url!=null" [href]="item.file_url" target="_blank">{{item.documento}} Cargado</a>
+            <p-button *ngIf="item.file_url!=null" (click)="remplazar(i,10)" icon="pi pi-trash" styleClass="ml-3 p-button-rounded p-button-danger p-button-outlined"></p-button>
+            <input [disabled]="item.file_url!=null" class="input-file w-full my-2" type="file" (change)="file($event,i,10)" />
+        </div>
+    </div>
+    <div class="grid mt-4">
+        <div class="col-12">
+            <div class="text-xl">
+                {{'Documentos de Producto Financiero' | uppercase}}
+            </div>
+            <hr>
+        </div>
+        <div class="col-6" *ngFor="let item of doc_finaciero; let i = index">
+            <div>{{item.documento}}</div>
+            <a *ngIf="item.file_url!=null" [href]="item.file_url" target="_blank">{{item.documento}} Cargado</a>
+            <p-button *ngIf="item.file_url!=null" (click)="remplazar(i,20)" icon="pi pi-trash" styleClass="ml-3 p-button-rounded p-button-danger p-button-outlined"></p-button>
+            <input [disabled]="item.file_url!=null" class="input-file w-full my-2" type="file" (change)="file($event,i,20)" />
+        </div>
+    </div>
+    <div *ngIf="estatus_solicitud==2 || estatus_solicitud==0" class="grid mt-4">
+        <div class="col-12">
+            <div class="flex align-items-center justify-content-between">
+                <button pButton label="Anterior" routerLink="/promotor/originacion/capacidad"
+                    class="mt-3 bg-primary-700"></button>
+                    <button pButton label="Guardar y Salir" (click)="guardasale()" class="mt-3 mr-3 bg-yellow-500"></button>
+                <button pButton label="Guardar y Enviar a Análisis" (click)="guardar()" class="mt-3 bg-red-700"></button>
+            </div>
+        </div>
+    </div>
+</section>

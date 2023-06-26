@@ -1,0 +1,50 @@
+.bg-img{
+background-image: url(/assets/img/bg-home.jpeg)}
+#bg-overlay8{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: .8;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.card{
+    background-color: var(--color-principal);
+    color: white;
+    border-radius: 2rem;
+    display: block;
+    padding: 1rem;
+}
+.formulario{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+}
+@media ( min-width: 700px) {
+    .formulario{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+}
+@media ( min-width: 800px) {
+    .formulario{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 30%;
+        transform: translate(-50%, -50%);
+    }
+ }

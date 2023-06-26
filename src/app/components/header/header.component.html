@@ -1,0 +1,71 @@
+<div class="header" [ngClass]="getheaderClass()">
+    <div class="head-content">
+        <div class="head-content-left">
+            <div class="text-2xl font-italic colorp font-bold">{{local.empresa.empresa_nombre |uppercase}}</div>
+        </div>
+        <div class="head-content-right">
+            <div class="head-menu">
+                <!--<div class="head-menu-item">
+                   <button class="head-menu-item-btn ripple" routerLink="/dash/shopping-cart">
+                    <img *ngIf="cart.mi_carrito.length==0" src="/assets/icons/carrito.png" pBadge [value]="cart.mi_carrito.length+''" severity="danger" style="width: 2.2rem;" alt="">
+                    <i *ngIf="cart.mi_carrito.length!=0" class="pi pi-shopping-cart menu-icon" pBadge [value]="cart.mi_carrito.length+''" severity="danger" style="font-size: 2rem"></i>
+                </button>
+                </div>-->
+                <div class="head-menu-item">
+                   <!-- <button class="head-menu-item-btn ripple" [cdkMenuTriggerFor]="overlayNotificaciones">
+                        <i *ngIf="local.noti.length==0" class="fas fa-bell"  style="font-size: 2rem"></i>
+                        <i *ngIf="local.noti.length!=0" class="fas fa-bell" pBadge [value]="local.noti.length +''" severity="danger"  style="font-size: 2rem"></i>
+                    </button>-->
+                    <div class="font-italic colorp font-bold">{{nombre}}</div>
+                </div>
+                <div class="head-menu-item">
+                   <!-- <p-tag *ngIf="auth.usuario.status=='PENDIENTE'" class="warn" icon="pi pi-exclamation-triangle" pTooltip="Completa tu perfil" severity="warning" value="Warning"></p-tag>-->
+                    <button class="head-menu-item-btn ripple"[cdkMenuTriggerFor]="perfiluser">
+                        <i class="fas fa-user"  style="font-size: 2rem"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #overlayNotificaciones>
+    <div class="overlay-mini overlay-noti overlay-fall-mini" cdkMenu>
+        <ul class="p-0">
+            <li class="notification-head-container" cdkMenuItem>
+                <div class="notification-head">Notificaciones</div>
+                <span class="view-all-link">
+                    <a>Eliminar Todas</a>
+                </span>
+            </li>
+            <li class="notificacion-message-container" cdkMenuItem *ngFor="let item of [1,1,1]">
+                <i class="far fa-bell menu-icon"></i>
+                <div routerLink="dash/mis-solicitudes">
+                    <div class="notificacion-subject">
+                        nada
+                    </div>
+                    <p class="notification-desc">
+nada                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</ng-template>
+<ng-template #perfiluser>
+    <div class="overlay-mini overlay-perfil overlay-fall-mini" cdkMenu>
+        <ul>
+            <li cdkMenuItem (click)="showperfil()">
+               <a>
+                <i class="icon fas fa-user"></i>
+                <span>Mi Perfil</span>
+               </a> 
+            </li>
+            <li cdkMenuItem (click)="cerrarsesion()">
+               <a>
+                <i class="icon fas fa-lock"></i>
+                <span>Cerrar Sesión</span>
+               </a> 
+            </li>
+        </ul>
+    </div>
+</ng-template>

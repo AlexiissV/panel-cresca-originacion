@@ -1,0 +1,130 @@
+<p-toast></p-toast>
+<section>
+    <div class="text-2xl my-2 font-bold">
+        Visitas Programadas
+    </div>
+    <p-tabView>
+        <p-tabPanel header="VISITAS DE VERIFICACION">
+            <p-table [value]="vistaverificacion" selectionMode="single" [(selection)]="selectedProduct" dataKey="id"
+                (onRowSelect)="onRowSelect()" [tableStyle]="{'width': '100%'}" styleClass="p-datatable-sm">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="text-center">solicitud</th>
+                        <th class="text-center">producto</th>
+                        <th class="text-center">marca</th>
+                        <th class="text-center">modelo</th>
+                        <th class="text-center">serie</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Asignado</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-solicitud>
+                    <tr [pSelectableRow]="solicitud"
+                    [ngClass]="solicitud.visita_status=='VERIFICACION - SUPERVISION'?'bg-yellow-300 text-white':''||solicitud.visita_status =='SOLICITUD'?'bg-primary-300 text-white':'' || solicitud.visita_status =='TERMINADO'?'bg-green-600 text-white':''">
+                        <td class="text-center">{{solicitud.solicitud}}</td>
+                        <td class="text-center">{{solicitud.producto}}</td>
+                        <td class="text-center">{{solicitud.marca}}</td>
+                        <td class="text-center">{{solicitud.modelo}}</td>
+                        <td class="text-center">{{solicitud.serie}}</td>
+                        <td class="text-center">{{solicitud.visita_status}}</td>
+                        <td class="text-center">{{solicitud.visita_asignado}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+        <p-tabPanel header="VISITAS DE ENTREGA">
+            <p-table [value]="vistaentregas" selectionMode="single" [(selection)]="selectedProduct" dataKey="id"
+                (onRowSelect)="onRowSelect2()" [tableStyle]="{'width': '100%'}" styleClass="p-datatable-sm">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="text-center">solicitud</th>
+                        <th class="text-center">producto</th>
+                        <th class="text-center">marca</th>
+                        <th class="text-center">modelo</th>
+                        <th class="text-center">serie</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Asignado</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-solicitud>
+                    <tr [pSelectableRow]="solicitud"
+                    [ngClass]="solicitud.visita_status=='VERIFICACION - SUPERVISION'?'bg-yellow-300 text-white':''||solicitud.visita_status =='SOLICITUD'?'bg-primary-300 text-white':'' || solicitud.visita_status =='TERMINADO'?'bg-green-600 text-white':''">
+                        <td class="text-center">{{solicitud.solicitud}}</td>
+                        <td class="text-center">{{solicitud.producto}}</td>
+                        <td class="text-center">{{solicitud.marca}}</td>
+                        <td class="text-center">{{solicitud.modelo}}</td>
+                        <td class="text-center">{{solicitud.serie}}</td>
+                        <td class="text-center">{{solicitud.visita_status}}</td>
+                        <td class="text-center">{{solicitud.visita_asignado}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+    </p-tabView>
+
+    <p-dialog header="Visita de verificación de la existencia del Equipo en las Instalaciones de la Empresa por parte del Promotor" [(visible)]="verifica" [modal]="true" [style]="{ width: '50vw' }"
+        [draggable]="false" [resizable]="false">
+        <div class="text-lg font-bold">
+            ¿Se encuentra el Equipo a Financiar físicamente disponible para su entrega?
+        </div>
+        <div class="flex flex-wrap my-3 gap-3">
+            <div class="flex align-items-center">
+                <p-radioButton name="pizza" value="10" [(ngModel)]="ingredient" inputId="ingredient1"></p-radioButton>
+                <label for="ingredient1" class="ml-2">SI</label>
+            </div>
+
+            <div class="flex align-items-center">
+                <p-radioButton name="pizza" value="20" [(ngModel)]="ingredient" inputId="ingredient2"></p-radioButton>
+                <label for="ingredient2" class="ml-2">NO</label>
+            </div>
+        </div>
+        <hr>
+        <div class="text-lg my-3 font-bold">
+            cargar fotografias del numero de serie del equipo.
+        </div>
+        <input class="input-file my-2" accept="image/*" (change)="file($event)" type="file" />
+        <div class="grid" *ngFor="let item of imges; let i = index">
+            <div class="col-12">
+
+                <div class="flex align-items-center justify-content-between">
+                    <img [src]="item" width="10%">
+                    <p-button icon="pi pi-times" (click)="eliminarimg(i)" styleClass=" p-button-sm p-button-danger p-button-text"></p-button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <button pButton label="Enviar" icon="pi pi-cloud-upload" (click)="enviarinfo()" class="mt-3 bg-red-700"></button>
+    </p-dialog>
+    <p-dialog header="Visita de verificación de la entrega del equipo al cliente final por parte del promotor" [(visible)]="entrega" [modal]="true" [style]="{ width: '50vw' }"
+        [draggable]="false" [resizable]="false">
+        <div class="text-lg font-bold">
+            ¿ Se ha entregado el equipo objeto del Financiamiento a entera satisfacción en las instalaciones del Acreditado?
+        </div>
+        <div class="flex flex-wrap my-3 gap-3">
+            <div class="flex align-items-center">
+                <p-radioButton name="pizza" value="10" [(ngModel)]="ingredient" inputId="ingredient1"></p-radioButton>
+                <label for="ingredient1" class="ml-2">SI</label>
+            </div>
+
+            <div class="flex align-items-center">
+                <p-radioButton name="pizza" value="20" [(ngModel)]="ingredient" inputId="ingredient2"></p-radioButton>
+                <label for="ingredient2" class="ml-2">NO</label>
+            </div>
+        </div>
+        <hr>
+        <div class="text-lg my-3 font-bold">
+            Cargar fotografias del numero de serie del equipo, del acreditado junto al equipo y fachada de las instalaciones.
+        </div>
+        <input class="input-file my-2" accept="image/*" (change)="file($event)" type="file" />
+        <div class="grid" *ngFor="let item of imges; let i = index">
+            <div class="col-12">
+                <div class="flex align-items-center justify-content-between">
+                    <img [src]="item" width="10%">
+                    <p-button icon="pi pi-times" (click)="eliminarimg(i)" styleClass=" p-button-sm p-button-danger p-button-text"></p-button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <button pButton label="Enviar" icon="pi pi-cloud-upload" (click)="enviarinfodos()" class="mt-3 bg-red-700"></button>
+    </p-dialog>
+</section>
