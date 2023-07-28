@@ -1,0 +1,15 @@
+<p-toast></p-toast>
+<section>
+    <div class="text-lg font-bold">Descargar y/o Carga Formato Carta Autorización para solicitar Reportes de Crédito
+    </div>
+            <p-button label="descargar Formato SIC" icon="pi pi-download"
+                (click)="descargarsic()" styleClass="mt-3 mb-2 p-button-sm p-button-success"></p-button>
+            <hr>
+            <div class="my-3 text-lg font-bold">Subir Formato Firmado Carta Autorización para solicitar Reportes de Crédito</div>
+            <input class="input-file max-w-full" type="file" (change)="file($event)"/>
+            <div *ngIf="estatus_solicitud==2 || estatus_solicitud==0" class="flex align-items-center justify-content-between">
+                <button pButton label="Anterior" routerLink="/promotor/originacion/simulador" class="mt-3 bg-primary-700"></button>
+                <button pButton label="Guardar y Salir" (click)="guardasale()" class="mt-3 mr-3 bg-yellow-500"></button>
+            <button pButton (click)="enviarsic()" label="Guardar y Continuar" class="mt-3 bg-red-700"></button>
+             </div>
+</section>

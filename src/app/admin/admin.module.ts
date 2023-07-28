@@ -6,6 +6,7 @@ import { HomeAdminComponent } from './home-admin/home-admin.component';
 import { PrimengModule } from '../primeng/primeng.module';
 import { SolicitudComponent } from './solicitud/solicitud.component';
 import { FormsModule } from '@angular/forms';
+import { ComponentsModule } from '../components/components.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     PrimengModule,
     FormsModule,
+    ComponentsModule,
     AdminRoutingModule
   ]
 })

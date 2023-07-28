@@ -16,6 +16,8 @@ import { DocumentacionComponent } from './documentacion/documentacion.component'
 import { ContratoComponent } from './contrato/contrato.component';
 import { ContratoDetailComponent } from './contrato-detail/contrato-detail.component';
 import { InspeccionComponent } from './inspeccion/inspeccion.component';
+import { SicComponent } from './sic/sic.component';
+import { ComponentsModule } from '../components/components.module';
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import { InspeccionComponent } from './inspeccion/inspeccion.component';
     ContratoComponent,
     ContratoDetailComponent,
     InspeccionComponent,
+    SicComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +41,7 @@ import { InspeccionComponent } from './inspeccion/inspeccion.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    ComponentsModule,
     OriginRoutingModule
   ]
 })

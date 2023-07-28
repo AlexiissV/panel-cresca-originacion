@@ -58,6 +58,9 @@ export class HomeComponent implements OnInit {
         this.local.estatus_solicitud = Number(event.data['status']);
         this.local.Cuestionario = resp.solicitud_detail['cuestionario-identificacion'][0]['groups'];
         this.local.doc_general = resp.solicitud_detail.expediente_digital.generales;
+        this.local.formsolicitante = resp.solicitud_detail.solicitante;
+        this.local.formrepresentante = resp.solicitud_detail.legal;
+        this.local.formsaval = resp.solicitud_detail.aval;
         if (resp.solicitud_detail.presupuesto[0].iva != null) {
           this.local.presupuesto_info = resp.solicitud_detail.presupuesto[0];
           this.local.binding = resp.solicitud_detail.presupuesto[0].producto;
@@ -102,7 +105,7 @@ export class HomeComponent implements OnInit {
     this.local.doc_general = [];
     this.local.estatus_solicitud=0;
     //@ts-ignore
-    this.local.solicitud_id=null;
+    this.local.solicitud_id=0;
     this.local.doc_finaciero = [];
     this.router.navigate(['/promotor/originacion']);
   }

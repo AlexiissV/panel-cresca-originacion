@@ -1,0 +1,298 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="text-xl font-bold">VALIDACIÓN DE IDENTIDAD</div>
+        <hr class="mb-3">
+    </div>
+    <div class="col-12">
+        <p-panel header="CURP" [toggleable]="true" expandIcon="pi pi-minus" collapseIcon="pi pi-plus">
+            <div class="grid" *ngIf="reporte.Person.Curp_Consulta.data!=null">
+                <div class="col-12 flex">
+                    <div class="font-bold mr-2">CURP:</div>{{reporte.Person.Curp_Consulta.data.curpdata[0].curp}}
+                </div>
+                <div class="col-6">
+                    <div class="flex my-2">
+                        <div class="font-bold mr-2">Nombre (s): </div>
+                        {{reporte.Person.Curp_Consulta.data.curpdata[0].nombres}}
+                    </div>
+                    <div class="flex my-2">
+                        <div class="font-bold mr-2">Apellido Paterno: </div>
+                        {{reporte.Person.Curp_Consulta.data.curpdata[0].primerApellido}}
+                    </div>
+                    <div class="flex my-2">
+                        <div class="font-bold mr-2">Apellido Materno: </div>
+                        {{reporte.Person.Curp_Consulta.data.curpdata[0].segundoApellido}}
+                    </div>
+                    <div class="flex my-2">
+                        <div class="font-bold mr-2">Estatus: </div>
+                        {{reporte.Person.Curp_Consulta.data.curpdata[0].statusCurp}}
+                    </div>
+                    <div class="flex my-2">
+                        <div class="font-bold mr-2">Fecha de Nacimiento: </div>
+                        {{reporte.Person.Curp_Consulta.data.curpdata[0].fechaNacimiento}}
+                    </div>
+                    <div class="flex my-2">
+                        <div class="font-bold mr-2">Entidad de Registro: </div>
+                        {{reporte.Person.Curp_Consulta.data.curpdata[0].datosDocProbatorio.entidadRegistro}}
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="flex my-2">
+                        <div class="font-bold mr-2">Nacionalidad:</div>
+                        {{reporte.Person.Curp_Consulta.data.curpdata[0].nacionalidad}}
+                    </div>
+                    <div class="flex my-2">
+                        <div class="font-bold mr-2">Año de Registro:</div>
+                        {{reporte.Person.Curp_Consulta.data.curpdata[0].datosDocProbatorio.anioReg}}
+                    </div>
+                    <div class="flex my-2">
+                        <div class="font-bold mr-2">Municipio de Registro:</div>
+                        {{reporte.Person.Curp_Consulta.data.curpdata[0].datosDocProbatorio.municipioRegistro}}
+                    </div>
+                    <div class="flex my-2">
+                        <div class="font-bold mr-2">Sexo:</div>
+                        {{reporte.Person.Curp_Consulta.data.curpdata[0].sexo}}
+                    </div>
+                    <div class="flex my-2">
+                        <div class="font-bold mr-2">Entidad de Nacimiento:</div>
+                        {{reporte.Person.Curp_Consulta.data.curpdata[0].entidad}}
+                    </div>
+                    <div class="flex my-2">
+                        <div class="font-bold mr-2">Número de Acta:</div>
+                        {{reporte.Person.Curp_Consulta.data.curpdata[0].datosDocProbatorio.numActa}}
+                    </div>
+                </div>
+            </div>
+        </p-panel>
+    </div>
+    <div class="col-12 mt-2">
+        <p-panel header="Registro Federal de Contribuyentes (RFC)" [toggleable]="true" expandIcon="pi pi-minus"
+            collapseIcon="pi pi-plus">
+            <div class="grid mt-3"
+                *ngIf="reporte.Person.RFC_Consulta.data!= null && reporte.Person.RFC_Estatus.data!=null">
+                <div class="col-12 flex align-self-center mr-2 ">
+                    <div class="font-bold">RFC validado ante el SAT </div>
+                    <p-tag class="ml-2" *ngIf="reporte.Person.RFC_Estatus.status=='success'" icon="pi pi-check"
+                        severity="success" value="Success"></p-tag>
+                </div>
+                <div class="col-12 flex align-self-center">
+                    <div class="font-bold">Resultado: </div>
+                    <div class="ml-2">{{reporte.Person.RFC_Estatus.message}}</div>
+                </div>
+                <div class="col-12 flex align-self-center">
+                    <div class="font-bold">RFC: </div>
+                    <div class="ml-2">{{reporte.Person.RFC_Consulta.data.rfc}}</div>
+                </div>
+                <div class="col-12 flex align-self-center">
+                    <div class="font-bold">Nombre / Razón social a quien corresponde: </div>
+                </div>
+            </div>
+            <div *ngIf="reporte.Person.CertificadoSat_Consulta.data!=null" class="col-12 text-center text-lg">
+                Documentos Encontrados</div>
+            <div *ngIf="reporte.Person.CertificadoSat_Consulta.data==null" class="col-12 text-center text-lg">
+                Documentos No Encontrados</div>
+            <div *ngIf="reporte.Person.CertificadoSat_Consulta.data!=null" class="grid">
+                <div class="col-3" *ngFor="let item of reporte.Person.CertificadoSat_Consulta.data.certificados">
+                    <p-card>
+                        <div>
+                            <div class="font-bold">Número de Serie: </div>{{item.numero_serie}}
+                        </div>
+                        <div>
+                            <div class="font-bold">Estado: </div>{{item.estado}}
+                        </div>
+                        <div>
+                            <div class="font-bold">Tipo: </div>{{item.tipo}}
+                        </div>
+                        <div>
+                            <div class="font-bold">Fecha Inicial: </div>{{item.fecha_inicial}}
+                        </div>
+                        <div>
+                            <div class="font-bold">Fecha Final: </div>{{item.fecha_final}}
+                        </div>
+                        <br>
+                        <p-button *ngIf="item.estado=='Activo'" styleClass="p-button-sm" label="certificado"
+                            icon="pi pi-check"></p-button>
+                    </p-card>
+                </div>
+            </div>
+        </p-panel>
+    </div>
+    <div class="col-12 mt-2">
+        <p-panel header="Registro Público de Comercio (SIGER)" [toggleable]="true" expandIcon="pi pi-minus"
+            collapseIcon="pi pi-plus">
+            <div class="mt-3" *ngIf="reporte.Person.Siger_Consulta.count==0">
+                {{reporte.Person.Siger_Consulta.message}}
+            </div>
+            <div class="grid">
+                <div class="col-12" *ngFor="let item of reporte.Person.Siger_Consulta.data">
+                    <p-panel [header]="item.razon_social" [toggleable]="true" [collapsed]="false"
+                        expandIcon="pi pi-minus" collapseIcon="pi pi-plus">
+                        <div class="grid">
+                            <div class="col-6">
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">FME </div>{{item.fme}}
+                                </div>
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">Duracion de sociedad </div>
+                                    {{item.duracion_sociedad}}
+                                </div>
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">Domicilio social </div>{{item.domicilio_social}}
+                                </div>
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">Nacionalidad </div>{{item.nacionalidad}}
+                                </div>
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">Estatus FME </div>{{item.estatus_fme}}
+                                </div>
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">RFC </div>{{item.rfc}}
+                                </div>
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">No. Socios </div>{{item.numero_socios}}
+                                </div>
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">Tipo de Persona </div>{{item.tipo_persona}}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">Antecedente registral </div>
+                                    {{item.antecedente_registral}}
+                                </div>
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">Regimen juridico </div>{{item.regimen_juridico}}
+                                </div>
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">giro </div>{{item.giro}}
+                                </div>
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">Entidad federativa </div>{{item.entidad_federativa}}
+                                </div>
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">Municipio </div>{{item.municipio}}
+                                </div>
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">Oficina registral </div>{{item.oficina_registral}}
+                                </div>
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">Fecha de inscripción </div>{{item.fecha_incripcion}}
+                                </div>
+                                <div class="flex my-2">
+                                    <div class="font-bold mr-3">CURP </div>{{item.curp}}
+                                </div>
+                            </div>
+                        </div>
+                    </p-panel>
+                </div>
+            </div>
+        </p-panel>
+    </div>
+    <div class="col-12 mt-2">
+        <p-panel header="Registro Nacional de Profesiones" [toggleable]="true" expandIcon="pi pi-minus"
+            collapseIcon="pi pi-plus">
+            <div class="text-lg font-bold" *ngIf="reporte.Person.CedulaProfesional_Consulta.data.length==0">
+                {{reporte.Person.CedulaProfesional_Consulta.mensaje}}
+            </div>
+            <div class="grid" *ngIf="reporte.Person.CedulaProfesional_Consulta.data.length>=1">
+                <div class="col-12">
+                    <p-panel *ngFor="let item of reporte.Person.CedulaProfesional_Consulta.data"
+                        [toggleable]="true" expandIcon="pi pi-minus">
+                        <div class="grid">
+                            <div class="col-12">
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Nombre: </div>{{item.nombre}}
+                                </div>
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">No. Cedula: </div>{{item.numCedula}}
+                                </div>
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Profesión: </div>{{item.profesion}}
+                                </div>
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Genero: </div>{{item.genero}}
+                                </div>
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Institucion: </div>{{item.institucion}}
+                                </div>
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Fecha de Registro: </div>{{item.fechaRegistro}}
+                                </div>
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Tipo: </div>{{item.tipo}}
+                                </div>
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Estado: </div>{{item.estado}}
+                                </div>
+                            </div>
+                        </div>
+                    </p-panel>
+                </div>
+            </div>
+        </p-panel>
+    </div>
+    <div class="col-12">
+        <div class="text-xl font-bold mt-2">LISTAS NEGRAS</div>
+        <hr class="mb-3">
+    </div>
+    <div class="col-12 mt-2">
+        <p-panel header="LISTAS NEGRAS INTERNACIONALES" [toggleable]="true" expandIcon="pi pi-minus"
+            collapseIcon="pi pi-plus">
+
+        </p-panel>
+    </div>
+    <div class="col-12 mt-2">
+        <p-panel header="Lista Negra SAT (69B)" [toggleable]="true" expandIcon="pi pi-minus"
+            collapseIcon="pi pi-plus">
+            <div *ngIf="reporte.Person.ContribuyentesBoletinados69B_Consulta.data==null" class="text-lg text-center font-bold">
+                {{reporte.Person.ContribuyentesBoletinados69B_Consulta.message}}
+            </div>
+        </p-panel>
+    </div>
+    <div class="col-12 mt-2">
+        <p-panel header="Antecedentes Judiciales Persona Fisica Nacional" [toggleable]="true" expandIcon="pi pi-minus"
+            collapseIcon="pi pi-plus">
+            <div class="text-center text-lg font-bold" *ngIf="reporte.Person.AntecedentesJudiciales_PersonaFisicaNacional.data.numero_resultados==0">
+                No se encontraron resultados
+            </div>
+            <div class="grid" *ngIf="reporte.Person.AntecedentesJudiciales_PersonaFisicaNacional.data.numero_resultados!=0">
+                <div class="col-12" *ngFor="let item of reporte.Person.AntecedentesJudiciales_PersonaFisicaNacional.data.resultados">
+                    <p-panel [toggleable]="true" expandIcon="pi pi-minus" collapseIcon="pi pi-plus">
+                        <div class="grid">
+                            <div class="col-12">
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Entidad: </div>{{item.entidad}}
+                                </div>
+                            </div>
+                            <div class="col-6" *ngFor="let expediente of item.expedientes ">
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Expediente: </div>{{expediente.expediente}}
+                                </div>
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Actor: </div>{{expediente.actor}}
+                                </div>
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Demandado: </div>{{expediente.demandado}}
+                                </div>
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Entidad: </div>{{expediente.entidad}}
+                                </div>
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Juzgado: </div>{{expediente.juzgado}}
+                                </div>
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Tipo: </div>{{expediente.tipo}}
+                                </div>
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Fuero: </div>{{expediente.fuero}}
+                                </div>
+                                <div class="flex my-1">
+                                    <div class="font-bold mr-3">Fecha: </div>{{expediente.fecha}}
+                                </div>
+                            </div>
+                        </div>
+                    </p-panel>
+                </div>
+            </div>
+        </p-panel>
+    </div>
+</div>

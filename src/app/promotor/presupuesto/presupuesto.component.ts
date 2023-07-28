@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../services/post.service';
-import { Group, Producto } from 'src/app/interfaces/general.interface';
+import { Producto } from 'src/app/interfaces/general.interface';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalService } from '../../services/local.service';
 import { MessageService } from 'primeng/api';
@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
   providers: [MessageService]
 })
 export class PresupuestoComponent implements OnInit {
+
   estatus_solicitud:number = 0;
   salir: boolean=false;
   productos: Producto[] = [];
@@ -30,9 +31,9 @@ export class PresupuestoComponent implements OnInit {
   comision_apertura: AbstractControl;
   seguro_equipo: AbstractControl;
   inversion_total: AbstractControl;
-  precio_venta: AbstractControl;
   descuento_porcentaje: AbstractControl;
   descuento_valor: AbstractControl;
+  precio_venta: AbstractControl;
   importe_final: AbstractControl;
   aportacion_producto_porcentaje: AbstractControl;
   aportacion_producto_valor: AbstractControl;
@@ -86,6 +87,18 @@ export class PresupuestoComponent implements OnInit {
           Validators.required
         ],
       ],
+      descuento_porcentaje: [
+        null,
+        [
+          Validators.required
+        ],
+      ],
+      descuento_valor: [
+        null,
+        [
+          Validators.required
+        ],
+      ],
       tipo_cambio: [
         null,
         [
@@ -93,7 +106,7 @@ export class PresupuestoComponent implements OnInit {
         ],
       ],
       comision_apertura: [
-        { value: null, disabled: true },
+        null,
         [
           Validators.required
         ],
@@ -112,18 +125,6 @@ export class PresupuestoComponent implements OnInit {
       ],
       precio_venta: [
         { value: null, disabled: true },
-        [
-          Validators.required
-        ],
-      ],
-      descuento_porcentaje: [
-        null,
-        [
-          Validators.required
-        ],
-      ],
-      descuento_valor: [
-        null,
         [
           Validators.required
         ],
@@ -198,9 +199,9 @@ export class PresupuestoComponent implements OnInit {
     this.seguro_equipo = this.presupuestoForm.controls['seguro_equipo'];
     this.inversion_total = this.presupuestoForm.controls['inversion_total'];
     this.precio_venta = this.presupuestoForm.controls['precio_venta'];
+    this.importe_final = this.presupuestoForm.controls['importe_final'];
     this.descuento_porcentaje = this.presupuestoForm.controls['descuento_porcentaje'];
     this.descuento_valor = this.presupuestoForm.controls['descuento_valor'];
-    this.importe_final = this.presupuestoForm.controls['importe_final'];
     this.aportacion_producto_porcentaje = this.presupuestoForm.controls['aportacion_producto_porcentaje'];
     this.aportacion_producto_valor = this.presupuestoForm.controls['aportacion_producto_valor'];
     this.importe_financiamiento_porcentaje = this.presupuestoForm.controls['importe_financiamiento_porcentaje'];
@@ -218,6 +219,7 @@ export class PresupuestoComponent implements OnInit {
       this.peso_valor = this.local.presupuesto_info['tipo_cambio'];
       this.monedas = this.binding.moneda == 10 ? 'MXN' : 'USD';
       this.presupuestoForm.reset(this.local.presupuesto_info);
+      this.producto_id.setValue(Number(this.binding.id));
       this.estatus_solicitud=this.local.estatus_solicitud;
     }
     this.post.getProductos().subscribe({
@@ -248,9 +250,10 @@ export class PresupuestoComponent implements OnInit {
     this.binding = this.productos.find(item => item.nombre.toLocaleLowerCase() == event.toLocaleLowerCase());
     this.monedas = this.binding.moneda == 10 ? 'MXN' : 'USD';
     this.moneda.setValue(this.binding.moneda);
-    this.producto_id.setValue(this.binding.id);
+    this.producto_id.setValue(this.binding.id);    
     if (this.monedas == 'MXN') {
       this.precio_venta.setValue(this.binding.precio);
+      this.tipo_cambio.disable();
       if(this.binding.apply_iva==10){
         this.iva.setValue(this.precio_venta.value * 0.16);
       }else{
@@ -320,16 +323,30 @@ export class PresupuestoComponent implements OnInit {
 
   elsubtotal() {
     this.cotizacion.setValue((this.precio_venta.value + this.iva.value) * this.cantidad.value);
-    let uno = this.cotizacion.value * this.importe_financiamiento_porcentaje.value;
-    let dos = (uno * this.comision_apertura_porcentaje.value) / 100;
-    this.comision_apertura.setValue((dos * 1.16) / 100);
+    let uno = this.cotizacion.value *(this.importe_financiamiento_porcentaje.value/100);
+    let dos = uno *(this.comision_apertura_porcentaje.value / 100);
+    this.comision_apertura.setValue((dos * 1.16));
+    this.otromas();
   }
-  async otromas() {
+  cambiocomsion() {
     this.importe_financiamiento_porcentaje.setValue(100 - this.aportacion_producto_porcentaje.value);
-    await this.elsubtotal();
+    let uno = this.comision_apertura.value / 1.16;
+    let dos = (uno / this.importe_financiamiento_valor.value) * 100;
+    this.comision_apertura_porcentaje.setValue(dos.toFixed(2));
+    this.elresto();
+    }
+  async otromas() {    
+    this.importe_financiamiento_porcentaje.setValue(100 - this.aportacion_producto_porcentaje.value);
+    this.cotizacion.setValue((this.precio_venta.value + this.iva.value) * this.cantidad.value);
+    let uno = this.cotizacion.value *(this.importe_financiamiento_porcentaje.value/100);
+    let dos = uno *(this.comision_apertura_porcentaje.value / 100);
+    this.comision_apertura.setValue((dos * 1.16));
+    this.elresto();
+  }
+  elresto(){
     this.inversion_total.setValue(this.cotizacion.value + this.comision_apertura.value + this.seguro_equipo.value);
     this.descuento_valor.setValue(this.comision_apertura.value + this.seguro_equipo.value);
-    this.importe_final.setValue(this.inversion_total.value - this.descuento_valor.value);
+    this.importe_final.setValue(this.inversion_total.value - this.descuento_valor.value); // esto ya se elimina y queda igual a la inversion total
     this.aportacion_producto_valor.setValue(this.importe_final.value * (this.aportacion_producto_porcentaje.value / 100));
     this.importe_financiamiento_valor.setValue(this.importe_final.value - this.aportacion_producto_valor.value);
     let p_venta = this.precio_venta.value / this.cotizacion.value;
@@ -354,7 +371,8 @@ export class PresupuestoComponent implements OnInit {
     this.importe_financiamiento_valor.setValue(this.importe_final.value - this.aportacion_producto_valor.value);
     }
   alrevez() {
-    this.aportacion_producto_porcentaje.setValue((this.aportacion_producto_valor.value * 100) / this.importe_final.value);
+    let uno = (this.aportacion_producto_valor.value * 100) / this.importe_final.value
+    this.aportacion_producto_porcentaje.setValue(uno.toFixed(2));
     this.otromas();
   }
 
@@ -362,13 +380,20 @@ export class PresupuestoComponent implements OnInit {
     this.presupuestoForm.controls['iva'].enable();
     this.presupuestoForm.controls['comision_apertura'].enable();
     this.presupuestoForm.controls['inversion_total'].enable();
-    // this.presupuestoForm.controls['precio_venta'].enable();
+    this.presupuestoForm.controls['precio_venta'].enable();
     this.presupuestoForm.controls['importe_final'].enable();
     this.presupuestoForm.controls['importe_financiamiento_porcentaje'].enable();
     this.presupuestoForm.controls['importe_financiamiento_valor'].enable();
     this.presupuestoForm.controls['cotizacion'].enable();
+    
     if (this.presupuestoForm.invalid) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Campos incompletos' });
+      return;
+    }
+    this.presupuestoForm.controls['tipo_cambio'].enable();
+
+    if (this.local.solicitud_id == null || this.local.solicitud_id == 0){
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Aun no ha iniciado una Solicitud ' });
       return;
     }
     this.local.show();

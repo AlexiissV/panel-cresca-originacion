@@ -23,31 +23,31 @@ export class SolicitudComponent implements OnInit {
   ];
   detalle_solicitud:SolicitudDetail={
     'cuestionario-identificacion': [{
-      groups:[]
+      groups: []
     }],
     presupuesto: [
       {
-        cantidad:0,
-moneda:0,
-iva:0,
-iva_porcentaje:0,
-cotizacion:0,
-cotizacion_total_porcentaje:0,
-tipo_cambio:0,
-comision_apertura:0,
-comision_apertura_porcentaje:0,
-seguro_equipo:0,
-inversion_total:0,
-precio_venta:0,
-precio_venta_porcentaje:0,
-descuento_porcentaje:0,
-descuento_valor:0,
-importe_final:0,
-aportacion_producto_porcentaje:0,
-aportacion_producto_valor:0,
-importe_financiamiento_porcentaje:0,
-importe_financiamiento_valor:0,
-        producto:{
+        cantidad: 0,
+        moneda: 0,
+        iva: 0,
+        iva_porcentaje: 0,
+        cotizacion: 0,
+        cotizacion_total_porcentaje: 0,
+        tipo_cambio: 0,
+        comision_apertura: 0,
+        comision_apertura_porcentaje: 0,
+        seguro_equipo: 0,
+        inversion_total: 0,
+        precio_venta: 0,
+        precio_venta_porcentaje: 0,
+        descuento_porcentaje: 0,
+        descuento_valor: 0,
+        importe_final: 0,
+        aportacion_producto_porcentaje: 0,
+        aportacion_producto_valor: 0,
+        importe_financiamiento_porcentaje: 0,
+        importe_financiamiento_valor: 0,
+        producto: {
           id: 0,
           apply_iva: 0,
           clave: '',
@@ -64,13 +64,58 @@ importe_financiamiento_valor:0,
     capacidad_id: 0,
     termino_credito: [],
     capacidad: [{
-      groups:[]
+      groups: []
     }],
     expediente_digital: {
       generales: [],
       capacidad: []
     },
-    tabla_amortizacion: []
+    tabla_amortizacion: [],
+    solicitante: {
+      curp: '',
+      fecha_nacimiento: '',
+      entidad: '',
+      tipo_persona: '',
+      sexo: '',
+      nombre: '',
+      apellido_paterno: '',
+      apellido_materno: '',
+      correo: '',
+      telefono: '',
+      img_frente: '',
+      img_reverso: '',
+      reporte_id: ''
+    },
+    legal: {
+      curp: '',
+      fecha_nacimiento: '',
+      entidad: '',
+      tipo_persona: '',
+      sexo: '',
+      nombre: '',
+      apellido_paterno: '',
+      apellido_materno: '',
+      correo: '',
+      telefono: '',
+      img_frente: '',
+      img_reverso: '',
+      reporte_id: ''
+    },
+    aval: {
+      curp: '',
+      fecha_nacimiento: '',
+      entidad: '',
+      tipo_persona: '',
+      sexo: '',
+      nombre: '',
+      apellido_paterno: '',
+      apellido_materno: '',
+      correo: '',
+      telefono: '',
+      img_frente: '',
+      img_reverso: '',
+      reporte_id: ''
+    }
   };
 
   constructor(private active: ActivatedRoute, private post: PostService, private local: LocalService) {

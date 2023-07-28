@@ -2,34 +2,20 @@
 <section>
     <form [formGroup]="terminosForm">
         <div class="grid">
-            <div class="col-6">
+            <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6">
                 <div class="grid">
-
-                    <div class="col-5 align-self-center">
-                        Importe del Crédito (pesos) >
+                    <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">
+                        <div>Selecciona evaluación de crédito</div>
                     </div>
-                    <div class="col-7 p-1 align-self-center">
-                        <p-inputNumber class="w-full" [minFractionDigits]="2" mode="currency" currency="USD"
-                            locale="en-US" formControlName="importe_credito" inputStyleClass="text-center"
-                            styleClass="p-inputtext-sm w-full"></p-inputNumber>
+                    <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
+                        <p-dropdown styleClass="p-inputtext-sm w-full" formControlName="productof"
+                            (onChange)="seleccion($event)" [options]="p_financiero" optionLabel="nombre"></p-dropdown>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6">
                 <div class="grid">
-                    <div class="col-5 align-self-center">
-                        Plazo del crédito (meses) >
-                    </div>
-                    <div class="col-7 p-1 align-self-center">
-                        <p-inputNumber class="w-full" [max]="60" mode="decimal" locale="es-MX" [minFractionDigits]="1"
-                            formControlName="plazo_credito" inputStyleClass="text-center"
-                            styleClass="p-inputtext-sm w-full"></p-inputNumber>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="grid">
-                    <div class="col-5 flex justify-content-between align-self-center p-0">
+                    <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 flex justify-content-between align-self-center p-0">
                         <div>
                             Tasa Indicativa
                         </div>
@@ -37,30 +23,42 @@
                             fija Anual>
                         </div>
                     </div>
-                    <div class="col-7 p-1 align-self-center">
+                    <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
                         <p-inputNumber class="w-full" suffix="%" inputStyleClass="text-center"
                             formControlName="taza_fija_anual" styleClass="p-inputtext-sm w-full"></p-inputNumber>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6">
                 <div class="grid">
-                    <div class="col-5 flex justify-content-between align-self-center">
-                        <div>
-                            Forma de disposicón >
-                        </div>
+                    <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">
+                        Importe del Crédito (pesos) >
                     </div>
-                    <div class="col-7 align-self-center">
-                        <input type="text" formControlName="forma_disposicion" pInputText class="p-inputtext-sm w-full">
+                    <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
+                        <p-inputNumber class="w-full" [minFractionDigits]="2" mode="currency" currency="USD"
+                            locale="en-US" formControlName="importe_credito" inputStyleClass="text-center"
+                            styleClass="p-inputtext-sm w-full"></p-inputNumber>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6">
                 <div class="grid">
-                    <div class="col-5 align-self-center p-0 text-center">
+                    <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">
+                        Plazo del crédito (meses) >
+                    </div>
+                    <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
+                        <p-inputNumber class="w-full" [max]="60" mode="decimal" locale="es-MX" [minFractionDigits]="1"
+                            formControlName="plazo_credito" inputStyleClass="text-center"
+                            styleClass="p-inputtext-sm w-full"></p-inputNumber>
+                    </div>
+                </div>
+            </div>
+            <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                <div class="grid">
+                    <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center p-0 text-center">
                         Fecha estimada del otorgamiento del crédito >
                     </div>
-                    <div class="col-7 p-1 align-self-center">
+                    <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
                         <p-inputMask mask="99/99/9999" placeholder="dd/mm/yyyy" slotChar="dd/mm/yyyy"
                             formControlName="fecha_estimada_otorgamiento" inputStyleClass="text-center"
                             styleClass="p-inputtext-sm w-full"></p-inputMask>
@@ -69,12 +67,12 @@
                 </div>
 
             </div>
-            <div class="col-6">
+            <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6">
                 <div class="grid">
                     <div class="col-12">
                         <div class="grid">
-                            <div class="col-5 align-self-center">Forma de pago del Capital…</div>
-                            <div class="col-7 align-self-center">
+                            <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Forma de pago del Capital…</div>
+                            <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
                                 <p-dropdown styleClass=" text-center p-inputtext-sm w-full" [options]="list_Meses"
                                     formControlName="forma_pago_capital"></p-dropdown>
                             </div>
@@ -82,12 +80,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6">
                 <div class="grid">
                     <div class="col-12">
                         <div class="grid">
-                            <div class="col-5 align-self-center">Forma de pago de los intereses…</div>
-                            <div class="col-7 align-self-center">
+                            <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Forma de pago de los intereses…</div>
+                            <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
                                 <p-dropdown styleClass=" text-center p-inputtext-sm w-full" [options]="list_Meses"
                                     formControlName="forma_pago_interes"></p-dropdown>
                             </div>
@@ -95,9 +93,48 @@
                     </div>
                 </div>
             </div>
+            <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6">
+                <div class="grid">
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Aplica Periodo de Gracia Capital</div>
+                            <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
+                                <p-inputSwitch (onChange)="elswich($event)"></p-inputSwitch>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6" *ngIf="apply_periodo==10">
+                <div class="grid">
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Meses de Gracia Capital</div>
+                            <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
+                                <p-dropdown [options]="meses_gracia" (onChange)="selectperiodo($event)"
+                                    styleClass="p-inputtext-sm w-full"></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6" *ngIf="apply_periodo==10">
+                <div class="grid">
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Tipo de Pago Capital</div>
+                            <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
+                                <p-dropdown [options]="tipo_pagolts" (onChange)="selectpago($event)"
+                                    styleClass="p-inputtext-sm w-full"></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
-        <div *ngIf="estatus_solicitud==2 || estatus_solicitud==0" class="flex align-items-center justify-content-between">
+        <div *ngIf="estatus_solicitud==2 || estatus_solicitud==0"
+            class="flex align-items-center justify-content-between">
             <button pButton label="Anterior" routerLink="/promotor/originacion/presupuesto"
                 class="mt-3 bg-primary-700"></button>
             <button pButton label="Guardar y Salir" (click)="guardasale()" class="mt-3 mr-3 bg-yellow-500"></button>

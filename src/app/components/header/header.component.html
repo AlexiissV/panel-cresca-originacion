@@ -1,7 +1,7 @@
 <div class="header" [ngClass]="getheaderClass()">
     <div class="head-content">
         <div class="head-content-left">
-            <div class="text-2xl font-italic colorp font-bold">{{local.empresa.empresa_nombre |uppercase}}</div>
+            <div class="sm:text-lg md:text-lg lg:text-xl xl:text-2xl font-italic colorp font-bold">{{local.empresa.empresa_nombre |uppercase}}</div>
         </div>
         <div class="head-content-right">
             <div class="head-menu">
@@ -16,7 +16,7 @@
                         <i *ngIf="local.noti.length==0" class="fas fa-bell"  style="font-size: 2rem"></i>
                         <i *ngIf="local.noti.length!=0" class="fas fa-bell" pBadge [value]="local.noti.length +''" severity="danger"  style="font-size: 2rem"></i>
                     </button>-->
-                    <div class="font-italic colorp font-bold">{{nombre}}</div>
+                    <div class="font-italic colorp font-bold sm:text-sm md:text-sm lg:text-md xl:text-lg">{{nombre}}</div>
                 </div>
                 <div class="head-menu-item">
                    <!-- <p-tag *ngIf="auth.usuario.status=='PENDIENTE'" class="warn" icon="pi pi-exclamation-triangle" pTooltip="Completa tu perfil" severity="warning" value="Warning"></p-tag>-->

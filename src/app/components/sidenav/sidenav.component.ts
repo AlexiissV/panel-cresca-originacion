@@ -65,9 +65,9 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit(): void {
       this.screenWidth = window.innerWidth;
-      if(this.local.barra==true){
+     /* if(this.local.barra==true){
         this.toggleCollapse();
-      }
+      }*/
   }
 
   toggleCollapse(): void {

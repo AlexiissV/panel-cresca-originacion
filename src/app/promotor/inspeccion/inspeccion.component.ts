@@ -12,6 +12,8 @@ import { MessageService } from 'primeng/api';
 export class InspeccionComponent implements OnInit {
 
   vistaverificacion: Visita[] = [];
+  visita_v: number=0;
+  vista_e: number=0;
   ingredient: string = '';
   verifica: boolean = false;
   entrega: boolean = false;
@@ -37,8 +39,16 @@ export class InspeccionComponent implements OnInit {
   ngOnInit(): void {
     this.post.getvisitasverificacion()
       .subscribe({
-        next: (resp) => {
+        next: async (resp) => {
           this.vistaverificacion = resp.visita;
+          let conta=0;
+         await this.vistaverificacion.forEach(item =>{
+            if(item.visita_status=='SOLICITUD'){
+              conta++;
+            }
+          }
+          );
+          this.visita_v=conta;
         },
         error: () => {
 
@@ -48,6 +58,14 @@ export class InspeccionComponent implements OnInit {
       .subscribe({
         next: (resp) => {
           this.vistaentregas = resp.visita;
+          let conta=0;
+          this.vistaentregas.forEach(item =>{
+            if(item.visita_status=='SOLICITUD'){
+              conta++;
+            }
+          }
+          );
+          this.vista_e=conta;
         },
         error: () => {
 

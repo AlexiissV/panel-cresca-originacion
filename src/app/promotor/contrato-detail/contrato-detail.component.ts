@@ -96,20 +96,30 @@ export class ContratoDetailComponent implements OnInit {
   }
 
   descargarcontrato() {
-    var link = document.createElement("a");
+    let win = window.open(this.dwcontrato, '_blank');
+    // Cambiar el foco al nuevo tab (punto opcional)
+    //@ts-ignore
+      win.focus();
+
+   /* var link = document.createElement("a");
     link.download = `contrato.pdf`;
     link.href = this.dwcontrato;
     document.body.appendChild(link);
     link.click();
-    document.body.removeChild(link);
+    document.body.removeChild(link);*/
   }
   descargarpagare() {
+    let win = window.open(this.dwpagare, '_blank');
+    // Cambiar el foco al nuevo tab (punto opcional)
+    //@ts-ignore
+      win.focus();
+      /*
     var link = document.createElement("a");
     link.download = `pagare.pdf`;
     link.href = this.dwpagare;
     document.body.appendChild(link);
     link.click();
-    document.body.removeChild(link);
+    document.body.removeChild(link);*/
   }
 
   enviarFactura() {
@@ -200,7 +210,7 @@ export class ContratoDetailComponent implements OnInit {
     this.post.getfilepagare(this.info.id).subscribe({
       next: (resp) => {
         if (resp.code == 202) {
-          this.dwpagare = 'data:application/pdf;base64,' + resp.pagare;
+          this.dwpagare = resp.pagare+'';
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });
         }
@@ -215,7 +225,7 @@ export class ContratoDetailComponent implements OnInit {
     this.post.getfilecontrato(this.info.id).subscribe({
       next: (resp) => {
         if (resp.code == 202) {
-          this.dwcontrato = 'data:application/pdf;base64,' + resp.contrato;
+          this.dwcontrato = resp.contrato+'';
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });
         }

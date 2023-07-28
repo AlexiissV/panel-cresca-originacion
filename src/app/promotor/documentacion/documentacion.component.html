@@ -7,11 +7,11 @@
             </div>
             <hr>
         </div>
-        <div class="col-6" *ngFor="let item of doc_general;let i = index">
+        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6" *ngFor="let item of doc_general;let i = index">
             <div>{{item.documento}}</div>
             <a *ngIf="item.file_url!=null" [href]="item.file_url" target="_blank">{{item.documento}} Cargado</a>
             <p-button *ngIf="item.file_url!=null" (click)="remplazar(i,10)" icon="pi pi-trash" styleClass="ml-3 p-button-rounded p-button-danger p-button-outlined"></p-button>
-            <input [disabled]="item.file_url!=null" class="input-file w-full my-2" type="file" (change)="file($event,i,10)" />
+            <input [disabled]="item.file_url!=null" class="input-file w-full max-w-full my-2" type="file" (change)="file($event,i,10)" />
         </div>
     </div>
     <div class="grid mt-4">
@@ -21,11 +21,11 @@
             </div>
             <hr>
         </div>
-        <div class="col-6" *ngFor="let item of doc_finaciero; let i = index">
+        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6" *ngFor="let item of doc_finaciero; let i = index">
             <div>{{item.documento}}</div>
             <a *ngIf="item.file_url!=null" [href]="item.file_url" target="_blank">{{item.documento}} Cargado</a>
             <p-button *ngIf="item.file_url!=null" (click)="remplazar(i,20)" icon="pi pi-trash" styleClass="ml-3 p-button-rounded p-button-danger p-button-outlined"></p-button>
-            <input [disabled]="item.file_url!=null" class="input-file w-full my-2" type="file" (change)="file($event,i,20)" />
+            <input [disabled]="item.file_url!=null" class="input-file w-full max-w-full my-2" type="file" (change)="file($event,i,20)" />
         </div>
     </div>
     <div *ngIf="estatus_solicitud==2 || estatus_solicitud==0" class="grid mt-4">

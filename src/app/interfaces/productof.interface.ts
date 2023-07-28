@@ -2,7 +2,7 @@
 
 import { arraydocs } from "./general.interface";
 
-export interface Productofinanciero {
+export interface restProductofinanciero {
     code:                  number;
     name:                  string;
     "producto-financiero": ProductoFinanciero[];
@@ -12,6 +12,7 @@ export interface Productofinanciero {
 export interface ProductoFinanciero {
     id:             number;
     nombre:         string;
+    tasa_porcentual: number | null;
     documentos:     arraydocs[]
     secciones:      Seccione[];
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Group, Producto, RestInfoLogin, arraydocs } from '../interfaces/general.interface';
+import { Group, Producto, RestInfoLogin, arraydocs, formNufi } from '../interfaces/general.interface';
 import { TablaAmortizacion } from '../interfaces/productof.interface';
 
 @Injectable({
@@ -31,6 +31,51 @@ export class LocalService {
     moneda: 0,
     moneda_text: '',
     apply_iva: 0
+  };
+  formsolicitante: formNufi = {
+    curp: '',
+    fecha_nacimiento: '',
+    entidad: '',
+    tipo_persona: '',
+    sexo: '',
+    nombre: '',
+    apellido_paterno: '',
+    apellido_materno: '',
+    correo: '',
+    telefono: '',
+    img_frente: '',
+    img_reverso: '',
+    reporte_id: ''
+  };
+  formrepresentante: formNufi = {
+    curp: '',
+    fecha_nacimiento: '',
+    entidad: '',
+    tipo_persona: '',
+    sexo: '',
+    nombre: '',
+    apellido_paterno: '',
+    apellido_materno: '',
+    correo: '',
+    telefono: '',
+    img_frente: '',
+    img_reverso: '',
+    reporte_id: ''
+  };
+  formsaval: formNufi = {
+    curp: '',
+    fecha_nacimiento: '',
+    entidad: '',
+    tipo_persona: '',
+    sexo: '',
+    nombre: '',
+    apellido_paterno: '',
+    apellido_materno: '',
+    correo: '',
+    telefono: '',
+    img_frente: '',
+    img_reverso: '',
+    reporte_id: ''
   };
   presupuesto_info: any=null;
   terminos_credito: any=null;

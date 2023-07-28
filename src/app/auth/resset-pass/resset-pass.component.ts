@@ -12,7 +12,7 @@ import { NufiService } from '../../services/nufi.service';
   styleUrls: ['./resset-pass.component.scss'],
   providers:[MessageService]
 })
-export class RessetPassComponent implements AfterViewInit {
+export class RessetPassComponent {
 
   loginreset: FormGroup;
   email: AbstractControl;
@@ -33,16 +33,6 @@ export class RessetPassComponent implements AfterViewInit {
       ]
     });
     this.email = this.loginreset.controls['email'];
-  }
-  ngAfterViewInit(): void {
-    this.nufi.validacurp('curp','VISH760905HSRLNN06')
-    .subscribe({
-      next:(resp)=>{
-        console.table(resp)
-      },
-      error:()=>{
-      }
-    });
   }
   regreso() {
     this.router.navigate(['/auth/sign-in',this.local.empresa.token]);

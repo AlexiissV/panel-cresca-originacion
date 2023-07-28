@@ -16,8 +16,10 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TabViewModule } from 'primeng/tabview';
 import { FieldsetModule } from 'primeng/fieldset';
-
-
+import { TagModule } from 'primeng/tag';
+import { CardModule } from 'primeng/card';
+import { PanelModule } from 'primeng/panel';
+import { BadgeModule } from 'primeng/badge';
 
 
 @NgModule({
@@ -39,6 +41,10 @@ import { FieldsetModule } from 'primeng/fieldset';
     DynamicDialogModule,
     TabViewModule,
     FieldsetModule,
+    TagModule,
+    CardModule,
+    PanelModule,
+    BadgeModule,
   ],
   exports:[
     InputTextModule,
@@ -57,6 +63,10 @@ import { FieldsetModule } from 'primeng/fieldset';
     DynamicDialogModule,
     TabViewModule,
     FieldsetModule,
+    TagModule,
+    CardModule,
+    PanelModule,
+    BadgeModule,
   ]
 })
 export class PrimengModule { }

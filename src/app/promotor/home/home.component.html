@@ -12,6 +12,7 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
+                <th class="text-center">Cliente</th>
                 <th class="text-center">Credito</th>
                 <th class="text-center">Producto</th>
                 <th class="text-center">Producto Financiero</th>
@@ -23,6 +24,7 @@
         <ng-template pTemplate="body" let-solicitud>
             <tr [pSelectableRow]="solicitud"
                 [ngClass]="solicitud.status ==10?'bg-yellow-300 text-white':''||solicitud.status ==20?'bg-orange-300 text-white':''||solicitud.status ==30?'bg-primary-300 text-white':''||solicitud.status ==40?'bg-teal-400 text-white':''|| solicitud.status ==50?'bg-green-600 text-white':''|| solicitud.status ==1?'bg-red-500 text-white':'' ">
+                <td class="text-center">Alexis Valencia Romero</td>
                 <td class="text-center">{{solicitud.importe_financiamiento_valor | currency}}</td>
                 <td class="text-center">{{solicitud.producto}}</td>
                 <td class="text-center">{{solicitud.producto_financiero}}</td>

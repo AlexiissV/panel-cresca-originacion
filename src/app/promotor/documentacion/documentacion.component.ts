@@ -63,7 +63,7 @@ export class DocumentacionComponent implements OnInit {
     let final: arraydocs[] = [];
     final.push(...this.doc_general);
     final.push(...this.doc_finaciero);
-    /*let bandera: boolean = false;
+    let bandera: boolean = false;
     for (let uno of final) {
       if (uno.file_base64 == null || uno.file_base64 == '') {
         bandera = true;
@@ -72,7 +72,11 @@ export class DocumentacionComponent implements OnInit {
     if (bandera) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No a Cargado los documentos Necesarios' });
       return;
-    }*/
+    }
+    if (this.local.solicitud_id == null || this.local.solicitud_id == 0){
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Aun no ha iniciado una Solicitud ' });
+      return;
+    }
     let archivos: any[] = [];
     for (let uno of final) {
       if (uno.file_base64 != '') {
@@ -99,7 +103,7 @@ export class DocumentacionComponent implements OnInit {
         if (resp.code == 202) {
           this.router.navigateByUrl('/promotor');
           setTimeout(() => {
-            location.reload();
+          //  location.reload();
           }, 700);
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });

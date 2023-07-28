@@ -12,6 +12,8 @@ import { DocumentacionComponent } from './documentacion/documentacion.component'
 import { ContratoComponent } from './contrato/contrato.component';
 import { ContratoDetailComponent } from './contrato-detail/contrato-detail.component';
 import { InspeccionComponent } from './inspeccion/inspeccion.component';
+import { SicComponent } from './sic/sic.component';
+import { SolicitudGuard } from '../guards/solicitud.guard';
 
 const routes: Routes = [
   {path:'home', component:HomeComponent, canActivate:[BarrasiGuard]},
@@ -23,12 +25,13 @@ const routes: Routes = [
     component: OriginacionComponent,canActivate:[BarrasiGuard],
     children: [
       {path: '', redirectTo: 'informacion', pathMatch: 'full'},
-      { path: 'informacion', component: InfoComponent, canActivate:[BarrasiGuard] },
-      { path: 'presupuesto', component: PresupuestoComponent, canActivate:[BarrasiGuard] },
-      { path: 'terminos', component: TerminosComponent, canActivate:[BarrasiGuard] },
-      { path: 'simulador', component: SimuladorComponent, canActivate:[BarrasiGuard] },
-      { path: 'capacidad', component: CapacidadComponent, canActivate:[BarrasiGuard] },
-      { path: 'documentacion', component: DocumentacionComponent, canActivate:[BarrasiGuard] },
+      { path: 'informacion', component: InfoComponent, canActivate:[BarrasiGuard,SolicitudGuard] },
+      { path: 'presupuesto', component: PresupuestoComponent, canActivate:[BarrasiGuard,SolicitudGuard] },
+      { path: 'terminos', component: TerminosComponent, canActivate:[BarrasiGuard,SolicitudGuard] },
+      { path: 'simulador', component: SimuladorComponent, canActivate:[BarrasiGuard,SolicitudGuard] },
+      { path: 'sic', component: SicComponent, canActivate:[BarrasiGuard,SolicitudGuard] },
+      { path: 'capacidad', component: CapacidadComponent, canActivate:[BarrasiGuard,SolicitudGuard] },
+      { path: 'documentacion', component: DocumentacionComponent, canActivate:[BarrasiGuard,SolicitudGuard] },
     ],
   },
   {path:'**', redirectTo:'home', pathMatch:'full'},

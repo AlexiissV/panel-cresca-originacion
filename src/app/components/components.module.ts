@@ -10,6 +10,9 @@ import { PrimengModule } from '../primeng/primeng.module';
 import { RouterModule } from '@angular/router';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { FormgeneralesComponent } from './formgenerales/formgenerales.component';
+import { ReportenufiComponent } from './reportenufi/reportenufi.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -20,18 +23,24 @@ import { PerfilComponent } from './perfil/perfil.component';
     HeaderComponent,
     SidenavComponent,
     NotfoundComponent,
-    PerfilComponent
+    PerfilComponent,
+    FormgeneralesComponent,
+    ReportenufiComponent
   ],
   exports:[
     LoaderComponent,
     BodyComponent,
     HeaderComponent,
-    SidenavComponent],
+    SidenavComponent,
+    FormgeneralesComponent,
+    ReportenufiComponent],
   imports: [
     CommonModule,
     OverlayModule,
     CdkMenuModule,
     PrimengModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule
   ]
 })

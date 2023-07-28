@@ -2,30 +2,47 @@
 
     <p-tabView>
         <p-tabPanel header="FICHA DE IDENTIFICACIÓN">
-            <p-tabView *ngIf="detalle_solicitud.capacidad_id!=null">
-                <p-tabPanel *ngFor="let item of Cuestionario; let n = index" [header]="item.label">
-                    <div class="grid mt-3">
-                        <div *ngFor="let pre of item.items; let i= index" class="col-12">
-                            <div class="grid">
-                                <div class="sm:col-12 md:col-12 lg:col-6 xl:col-6 p-0 px-1 align-self-center">
-                                    {{pre.label}}
-                                </div>
-                                <div *ngIf="pre.tipo_dato!=40" class="sm:col-12 md:col-12 lg:col-6 xl:col-6 p-0 px-1">
-                                    <input [type]="pre.tipo_dato_text"
-                                        [(ngModel)]="Cuestionario[n].items[i].value_register" [disabled]="true"
-                                        pInputText class="p-inputtext-sm w-full" />
-                                </div>
-                                <div *ngIf="pre.tipo_dato==40 && pre.items_list"
-                                    class="sm:col-12 md:col-12 lg:col-6 xl:col-6 p-0 px-1">
-                                    <p-dropdown [options]="pre.items_list" [disabled]="true"
-                                        [(ngModel)]="Cuestionario[n].items[i].select" optionLabel="text"
-                                        styleClass="p-inputtext-sm w-full"></p-dropdown>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <p-tabView>
+                <p-tabPanel header="SOLICITANTE">
+                    <app-formgenerales class="scalein animation-duration-500" [view]="false" [formulario]=" detalle_solicitud.solicitante"></app-formgenerales>
+                </p-tabPanel>
+                <p-tabPanel header="REPRESENTANTE LEGAL">
+                    <app-formgenerales class="scalein animation-duration-500"  [view]="false" [formulario]=" detalle_solicitud.legal"></app-formgenerales>
+                </p-tabPanel>
+                <p-tabPanel header="AVAL U OBLIGADO SOLIDARIO">
+                    <app-formgenerales class="scalein animation-duration-500"  [view]="false" [formulario]=" detalle_solicitud.aval"></app-formgenerales>
                 </p-tabPanel>
             </p-tabView>
+            <br>
+            <br>
+            <div class="text-2xl font-bold">INFORMACIÓN ADICIONAL</div>
+    <div class="grid mt-2" >
+        <div *ngFor="let item of Cuestionario; let n = index" class=" sm:col-12 md:col-6 lg:col-6 xl:col-6"  [id]="n">
+            <div  class="grid">
+                <div class="col-12">
+                    <div class="text-xl">
+                        {{item.label}}
+                    </div>
+                    <hr>
+                </div>
+                <div *ngFor="let pre of item.items; let i= index" class="col-12">
+                    <div class="grid">
+                        <div class="sm:col-12 md:col-12 lg:col-6 xl:col-6 p-0 px-1 align-self-center">{{pre.label}}
+                        </div>
+                        <div *ngIf="pre.tipo_dato!=40" class="sm:col-12 md:col-12 lg:col-6 xl:col-6 p-0 px-1">
+                            <input [type]="pre.tipo_dato_text" [(ngModel)]="Cuestionario[n].items[i].value_register" [disabled]="pre.tipo_dato==50" pInputText
+                                class="p-inputtext-sm w-full" />
+                        </div>
+                        <div *ngIf="pre.tipo_dato==40 && pre.items_list"
+                            class="sm:col-12 md:col-12 lg:col-6 xl:col-6 p-0 px-1">
+                            <p-dropdown [options]="pre.items_list" [(ngModel)]="Cuestionario[n].items[i].select"  optionLabel="text"
+                                styleClass="p-inputtext-sm w-full"></p-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
         </p-tabPanel>
         <p-tabPanel header="PRESUPUESTO">
             <div class="grid" *ngIf="detalle_solicitud.presupuesto[0].producto.id!=null">
@@ -156,16 +173,6 @@
                                         [disabled]="true"
                                         styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
                                 </div>
-                                <div class="col-5 align-self-center p-0 text-center">
-                                    Descuentos;
-                                </div>
-                                <div class="col-7 p-1 align-self-center">
-                                    <p-inputNumber class="w-full"
-                                        [ngModel]="detalle_solicitud.presupuesto[0].descuento_valor"
-                                        [minFractionDigits]="2" mode="currency" currency="USD" locale="en-US"
-                                        [disabled]="true"
-                                        styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -264,33 +271,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-9 p-0">
-                    <div class="grid">
-                        <div class="col-5 flex justify-content-between align-self-center">
-                            <div>
-                                Garantías >
-                            </div>
-                            <div>
-                                prendaria
-                            </div>
-                        </div>
-                        <div class="col-7 align-self-center">
-                            <input type="text" [ngModel]="detalle_solicitud.termino_credito[0].garantias" [disabled]="true"  pInputText class="p-inputtext-sm w-full">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-9 p-0">
-                    <div class="grid">
-                        <div class="col-5 flex justify-content-between align-self-center">
-                            <div>
-                                Forma de disposicón >
-                            </div>
-                        </div>
-                        <div class="col-7 align-self-center">
-                            <input type="text" [ngModel]="detalle_solicitud.termino_credito[0].forma_disposicion" [disabled]="true"  pInputText class="p-inputtext-sm w-full">
-                        </div>
-                    </div>
-                </div>
                 <div class="col-6">
                     <div class="grid">
                         <div class="col-5 align-self-center p-0 text-center">
@@ -315,15 +295,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="grid">
-                                <div class="col-4 text-center align-self-center">En los meses de</div>
-                                <div class="col-8 align-self-center">
-                                    <input type="text" pInputText class="p-inputtext-sm w-full"
-                                    [ngModel]="detalle_solicitud.termino_credito[0].forma_pago_capital_mes" [disabled]="true" >
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-12 p-0">
@@ -334,15 +305,6 @@
                                 <div class="col-7 align-self-center">
                                     <p-dropdown styleClass=" text-center p-inputtext-sm w-full" [options]="list_Meses"
                                     [ngModel]="detalle_solicitud.termino_credito[0].forma_pago_interes" [disabled]="true" ></p-dropdown>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="grid">
-                                <div class="col-4 text-center align-self-center">En los meses de</div>
-                                <div class="col-8 align-self-center">
-                                    <input type="text" pInputText class="p-inputtext-sm w-full"
-                                    [ngModel]="detalle_solicitud.termino_credito[0].forma_pago_interes_mes" [disabled]="true" >
                                 </div>
                             </div>
                         </div>

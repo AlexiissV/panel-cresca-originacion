@@ -28,6 +28,10 @@ export class OriginacionComponent implements OnInit {
       routerLink: 'simulador'
     },
     {
+      label: 'SIC',
+      routerLink: 'sic'
+    },
+    {
       label: 'Capacidad',
       routerLink: 'capacidad'
     },

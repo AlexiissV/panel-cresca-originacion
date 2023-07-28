@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environments.prod';
 import { AuthService } from './auth.service';
 import { Respuesta, RestDetailSolicitud, RestGenerales, RestProductos, RestSolicitudes, postInfo } from '../interfaces/general.interface';
-import { Productofinanciero, RestSimulador, Restdocuments, Restvisitaverificacion } from '../interfaces/productof.interface';
+import { Restvisitaverificacion, restProductofinanciero } from '../interfaces/productof.interface';
 
 const url= environment.url+'empresa/'
 
@@ -21,7 +21,7 @@ export class PostService {
 
   getProductoFinaciero(){
     //http://originacion.lerco.agency/web/v1/producto-financiero/get-producto-financiero
-   return this.http.post<Productofinanciero>(`${url}get-producto-financiero`,{token: this.auth.usuario.token});
+   return this.http.post<restProductofinanciero>(`${url}get-producto-financiero`,{token: this.auth.usuario.token});
   }
   getProductos(){
     //http://localhost/dev.originacion/web/v1/empresa/get-productos
@@ -95,5 +95,14 @@ export class PostService {
       evidencia
     };
     return this.http.post<Respuesta>(`${url}post-seguimiento-visita-verificacion-entrega`,data);
+  }
+  cargarsic(solicitud_id: number,sic:string){
+    // https://originacion.lerco.agency/web/v1/empresa/post-load-sic
+    let data ={
+        token: this.auth.usuario.token,
+        solicitud_id,
+        sic
+    };
+    return this.http.post<Respuesta>(`${url}post-load-sic`,data);
   }
 }

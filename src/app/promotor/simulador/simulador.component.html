@@ -6,6 +6,9 @@
                 <div class="text-3xl">
                     TABLA DE AMORTIZACIÓN
                 </div>
+                <p-button styleClass="sm:p-button-sm md:p-button-sm lg:p-button-lg xl:p-button-lg p-colorsa"
+                (click)="imprimir()" [disabled]="tabla.length==0"
+                icon="pi pi-file-pdf" label="Descargar"></p-button>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
@@ -35,6 +38,6 @@
     </p-table>
     <div *ngIf="estatus_solicitud==2 || estatus_solicitud==0" class="flex align-items-center justify-content-between">
         <button pButton label="Anterior" routerLink="/promotor/originacion/terminos" class="mt-3 bg-primary-700"></button>
-        <button pButton label="Continuar" routerLink="/promotor/originacion/capacidad" class="mt-3 bg-red-700"></button>
+        <button pButton label="Continuar" routerLink="/promotor/originacion/sic" class="mt-3 bg-red-700"></button>
      </div>
 </section>

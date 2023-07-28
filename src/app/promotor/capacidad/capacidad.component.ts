@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalService } from '../../services/local.service';
 import { PostService } from '../../services/post.service';
-import { Group, ProductoFinanciero } from 'src/app/interfaces/productof.interface';
+import { Group } from 'src/app/interfaces/productof.interface';
 import { MessageService } from 'primeng/api';
 import { postInfo } from 'src/app/interfaces/general.interface';
 import { Router } from '@angular/router';
@@ -15,16 +15,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class CapacidadComponent implements OnInit {
   salir:boolean=false;
-  capacidad_id: number = 0;
   estatus_solicitud:number = 0;
-  p_financiero: ProductoFinanciero[] = [];
   formulario: Group[] = [];
-  select: ProductoFinanciero = {
-    id: 0,
-    nombre: '',
-    secciones: [],
-    documentos: []
-  };
 
   constructor(private local: LocalService,
     private post: PostService,
@@ -33,37 +25,12 @@ export class CapacidadComponent implements OnInit {
     private router: Router) {
   }
   async ngOnInit(): Promise<void> {
-    this.p_financiero.push({
-      id: 0,
-      nombre: '',
-      secciones: [],
-      documentos:[]
-    });
-   this.post.getProductoFinaciero()
-      .subscribe({
-        next: (resp) => {
-          this.p_financiero.push(...resp['producto-financiero']);
-          if (this.local.capacidad_info != null) {
-            this.formulario = this.local.capacidad_info;
-            //@ts-ignore
-            this.select = this.p_financiero.find((item => item.id == this.local.capacidad_id));
-            this.estatus_solicitud=this.local.estatus_solicitud;
-          }
-        },
-        error: () => {
-        }
-      });
-  }
-
-  seleccion(event: any) {
-    this.capacidad_id = event.value['id'];
-    this.local.capacidad_id=this.capacidad_id;
-    this.local.doc_finaciero= event.value['documentos'];    
-    let cuestions: Group[] = event.value.secciones[0]['groups'];
-    for (let i = 0; i < cuestions.length; i++) {
-      cuestions[i].items = cuestions[i].items.map(item => ({ ...item, value_register: '' }));
+    if (this.local.capacidad_info != null) {
+      this.formulario = this.local.capacidad_info;
+      //@ts-ignore
+      this.estatus_solicitud=this.local.estatus_solicitud;
     }
-    this.formulario = cuestions;
+
   }
   selectuno(event: any, n: number, i: number) {
     this.formulario[n].items[i].value_register = event.value['text'];
@@ -86,6 +53,10 @@ export class CapacidadComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Campos incompletos' });
       return;
     }
+    if (this.local.solicitud_id == null || this.local.solicitud_id == 0){
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Aun no ha iniciado una Solicitud ' });
+      return;
+    }
     this.local.show();
     let info: postInfo[] = [];
     for (let uno of this.formulario) {
@@ -98,7 +69,7 @@ export class CapacidadComponent implements OnInit {
       }
     }
     this.local.show();   
-    this.post.guardarsolicitud({ token: this.auth.usuario.token, solicitud_id: this.local.solicitud_id, seccion: 40,capacidad_id:this.capacidad_id,capacidad:info})
+    this.post.guardarsolicitud({ token: this.auth.usuario.token, solicitud_id: this.local.solicitud_id, seccion: 40,capacidad:info})
     .subscribe({
       next: (resp) => {
         this.local.hide();

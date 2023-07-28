@@ -67,3 +67,17 @@ body {
   color: #565A90;
   transition: all .25s ease-in;
 }
+.p-panel.p-panel-toggleable .p-panel-header {
+  padding: 0.75rem 1.25rem;
+  background-color: var(--color-principal);
+  color: white;
+}
+
+@media only screen and (max-width:767px){
+  .p-steps ul{
+    display: block !important;
+  }
+  .p-steps-item{
+    margin: 10px !important;
+  }
+}
