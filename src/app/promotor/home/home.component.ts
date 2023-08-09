@@ -31,7 +31,8 @@ export class HomeComponent implements OnInit {
     registro: '',
     modificado: '',
     operador_id: 0,
-    operador: ''
+    operador: '',
+    solicitante: ''
   };
   
 
@@ -59,11 +60,14 @@ export class HomeComponent implements OnInit {
         this.local.Cuestionario = resp.solicitud_detail['cuestionario-identificacion'][0]['groups'];
         this.local.doc_general = resp.solicitud_detail.expediente_digital.generales;
         this.local.formsolicitante = resp.solicitud_detail.solicitante;
-        this.local.formrepresentante = resp.solicitud_detail.legal;
+        this.local.formrepresentante = {...resp.solicitud_detail.legal,is_aval:(resp.solicitud_detail.legal.apply_legal_condicional==10)?true:false};
         this.local.formsaval = resp.solicitud_detail.aval;
         if (resp.solicitud_detail.presupuesto[0].iva != null) {
           this.local.presupuesto_info = resp.solicitud_detail.presupuesto[0];
           this.local.binding = resp.solicitud_detail.presupuesto[0].producto;
+        }
+        if(resp.solicitud_detail.file_sic!=null){
+          this.local.file_sic = resp.solicitud_detail.file_sic;
         }
         if (resp.solicitud_detail.termino_credito[0].importe_credito != null) {
           this.local.terminos_credito = resp.solicitud_detail.termino_credito[0];

@@ -29,7 +29,8 @@ export class ContratoComponent implements OnInit {
     registro: '',
     modificado: '',
     operador_id: 0,
-    operador: ''
+    operador: '',
+    solicitante: ''
   };
 
   constructor(private post: PostService, private router: Router){

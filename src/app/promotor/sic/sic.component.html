@@ -5,6 +5,10 @@
             <p-button label="descargar Formato SIC" icon="pi pi-download"
                 (click)="descargarsic()" styleClass="mt-3 mb-2 p-button-sm p-button-success"></p-button>
             <hr>
+            <br>
+            <i *ngIf="file_sic!=''" class="pi pi-file-pdf" style="color: green; font-size: 2rem"></i>
+            <a *ngIf="file_sic!=''" [href]="file_sic" target="_blank">Formato Firmado Cargado</a>
+            <br>
             <div class="my-3 text-lg font-bold">Subir Formato Firmado Carta Autorización para solicitar Reportes de Crédito</div>
             <input class="input-file max-w-full" type="file" (change)="file($event)"/>
             <div *ngIf="estatus_solicitud==2 || estatus_solicitud==0" class="flex align-items-center justify-content-between">

@@ -27,7 +27,7 @@
     <div class="grid text-center">
         <div class="sm:col-12 md:col-4 lg:col-4 xl:col-4">
             <div>Precio de Lista (moneda de origen)</div>
-            <p-inputNumber class="w-full" [(ngModel)]="binding.precio" (onBlur)="preciocambio()" [minFractionDigits]="2"
+            <p-inputNumber class="w-full" [(ngModel)]="binding.precio" [minFractionDigits]="2"
                 mode="currency" currency="USD" locale="en-US"
                 styleClass="p-inputtext-sm w-full my-2 text-center"></p-inputNumber>
         </div>
@@ -38,8 +38,9 @@
         </div>
         <div *ngIf="binding.moneda==20" class="sm:col-12 md:col-4 lg:col-4 xl:col-4">
             <div>Tipo Cambio</div>
-            <p-inputNumber class="w-full" [(ngModel)]="peso_valor" (onBlur)="preciocambio()" [minFractionDigits]="2"
+            <p-inputNumber class="w-full" [(ngModel)]="peso_valor" [minFractionDigits]="2"
                 mode="currency" currency="USD" locale="en-US"
+                (onBlur)="cambiodolar()"
                 styleClass="p-inputtext-sm w-full my-2 text-center"></p-inputNumber>
         </div>
     </div>
@@ -68,7 +69,8 @@
                     </div>
                     <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
                         <p-inputNumber class="w-full" formControlName="cantidad" [min]="1"
-                            styleClass="p-inputtext-sm w-full text-center" (onBlur)="elsubtotal()"></p-inputNumber>
+                        (onBlur)="cambiocantidad()"
+                            styleClass="p-inputtext-sm w-full text-center" ></p-inputNumber>
                     </div>
                     <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center p-0 text-center">
                         Cotización Total
@@ -83,7 +85,7 @@
             <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6">
                 <div class="grid">
                     <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center p-1 text-center">
-                        Comisión por apertura del Crédito (incluye IVA)
+                        Comisión por apertura del Crédito
                     </div>
                     <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
                         <div class="grid">
@@ -93,8 +95,8 @@
                                     formControlName="comision_apertura_porcentaje"></p-inputNumber>
                             </div>
                             <div class="sm:col-12 md:col-9 lg:col-9 xl:col-9">
-                                <p-inputNumber class="w-full" formControlName="comision_apertura"
-                                    [minFractionDigits]="2"  mode="currency" (onBlur)="cambiocomsion()" currency="MXN" locale="es-MX"
+                                <p-inputNumber class="w-full" formControlName="comision_apertura" (onBlur)="cambiocomsion()"
+                                    [minFractionDigits]="2"  mode="currency" currency="MXN" locale="es-MX"
                                     styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
                             </div>
                         </div>
@@ -103,8 +105,9 @@
                         gatos de contratación
                     </div>
                     <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
-                        <p-inputNumber class="w-full" formControlName="seguro_equipo" (onBlur)="otromas()"
+                        <p-inputNumber class="w-full" formControlName="seguro_equipo"
                             [minFractionDigits]="2" mode="currency" currency="USD" locale="en-US"
+                            (onBlur)="elresto()"
                             styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
                     </div>
                     <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center p-0 text-center">
@@ -112,7 +115,8 @@
                     </div>
                     <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
                         <p-inputNumber class="w-full" formControlName="descuento_valor" [minFractionDigits]="2"
-                            mode="currency" currency="USD" locale="en-US" (onBlur)="cambiodescuento()"
+                            mode="currency" currency="USD" locale="en-US"
+                            (onBlur)="elresto()"
                             styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
                     </div>
                     <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center p-0 text-center">
@@ -146,12 +150,12 @@
                         <div class="grid">
                             <div class="sm:col-12 md:col-3 lg:col-3 xl:col-3">
                                 <p-inputNumber inputStyleClass="w-full" suffix="%" [minFractionDigits]="1"
-                                    formControlName="aportacion_producto_porcentaje" [min]="20" (onBlur)="otromas()"
+                                    formControlName="aportacion_producto_porcentaje" [min]="20" (onBlur)="importeaprtacion()"
                                     styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
                             </div>
                             <div class="sm:col-12 md:col-9 lg:col-9 xl:col-9">
                                 <p-inputNumber class="w-full" formControlName="aportacion_producto_valor"
-                                    (onBlur)="alrevez()" [minFractionDigits]="2" mode="currency" currency="USD"
+                                 [minFractionDigits]="2" mode="currency" currency="USD" (onBlur)="alrevez()"
                                     locale="en-US" styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
                             </div>
                         </div>

@@ -32,7 +32,8 @@ export class ContratoDetailComponent implements OnInit {
     registro: '',
     modificado: '',
     operador_id: 0,
-    operador: ''
+    operador: '',
+    solicitante: ''
   };
   facturabase64: string = '';
   contratobase64: string = '';

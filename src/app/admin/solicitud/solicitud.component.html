@@ -84,6 +84,11 @@
                                 [ngModel]="detalle_solicitud.presupuesto[0].producto.moneda_text"
                                 class="p-inputtext-sm w-full my-2 text-center" pInputText />
                         </div>
+                        <div *ngIf="detalle_solicitud.presupuesto[0].producto.moneda==20" class="sm:col-12 md:col-4 lg:col-4 xl:col-4">
+                            <div>Tipo Cambio</div>
+                            <p-inputNumber class="w-full" [disabled]="true" [ngModel]="detalle_solicitud.presupuesto[0].tipo_cambio" [minFractionDigits]="2"
+                                mode="currency" currency="USD" locale="en-US" styleClass="p-inputtext-sm w-full my-2 text-center"></p-inputNumber>
+                        </div>
                     </div>
                 </div>
                 <div class="col-12">
@@ -134,7 +139,7 @@
                         <div class="col-6">
                             <div class="grid">
                                 <div class="col-5 align-self-center p-1 text-center">
-                                    Comisión por apertura del Crédito (incluye IVA) >
+                                    Comisión por apertura del Crédito
                                 </div>
                                 <div class="col-7 p-1 align-self-center">
                                     <div class="grid">
@@ -154,7 +159,7 @@
                                     </div>
                                 </div>
                                 <div class="col-5 align-self-center p-0 text-center">
-                                    Seguro del Equipo (incluye IVA) >
+                                    gatos de contratación
                                 </div>
                                 <div class="col-7 p-1 align-self-center">
                                     <p-inputNumber class="w-full"
@@ -163,8 +168,18 @@
                                         [disabled]="true"
                                         styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
                                 </div>
+                                <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center p-0 text-center">
+                                    Descuentos;
+                                </div>
+                                <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
+                                    <p-inputNumber class="w-full" [minFractionDigits]="2"
+                                        mode="currency" currency="USD" locale="en-US"
+                                        [disabled]="true"
+                                        [ngModel]="detalle_solicitud.presupuesto[0].descuento_valor"
+                                        styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                                </div>
                                 <div class="col-5 align-self-center p-0 text-center">
-                                    INVERSION TOTAL (pesos) >
+                                    INVERSION TOTAL (pesos)
                                 </div>
                                 <div class="col-7 p-1 align-self-center">
                                     <p-inputNumber class="w-full"
@@ -240,7 +255,7 @@
             </div>
         </p-tabPanel>
         <p-tabPanel header="TERMINOS DE CRÉDITO">
-            <div class="grid">
+            <div class="grid p-3">
                 <div class="col-6">
                     <div class="grid">
                         <div class="col-5 align-self-center p-0 text-center">
@@ -313,7 +328,7 @@
             </div>
         </p-tabPanel>
         <p-tabPanel header="FICHA DE CAPACIDAD">
-            <div class="grid" *ngIf="detalle_solicitud.capacidad[0].groups.length!=0">
+            <div class="grid p-3" *ngIf="detalle_solicitud.capacidad[0].groups.length!=0">
                 <div *ngFor="let form of detalle_solicitud.capacidad[0].groups; let n = index" class="col-12">
                     <div class="grid">
                         <div class="col-12">
@@ -374,6 +389,25 @@
                         </div>
                         <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 align-self-center">
                             <a *ngIf="item.file_url!=null" [href]="item.file_url" target="_blank">
+                                <button pButton label="ver" class="p-button-sm bg-red-700"></button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid mt-4">
+                <div class="col-12">
+                    <div class="text-xl">
+                        {{' Carta Autorización para solicitar Reportes de Crédit' | uppercase}}
+                    </div>
+                    <hr>
+                </div>
+                <div class="col-6">
+                    <div *ngIf="detalle_solicitud.file_sic!='' && detalle_solicitud.file_sic!=null" class="grid">
+                        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 align-self-center">
+                            <div class="my-2">Formato Firmado</div>
+                        </div>
+                        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 align-self-center">
+                            <a [href]="detalle_solicitud.file_sic" target="_blank">
                                 <button pButton label="ver" class="p-button-sm bg-red-700"></button></a>
                         </div>
                     </div>

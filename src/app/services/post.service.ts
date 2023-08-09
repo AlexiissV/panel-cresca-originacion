@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environments.prod';
 import { AuthService } from './auth.service';
-import { Respuesta, RestDetailSolicitud, RestGenerales, RestProductos, RestSolicitudes, postInfo } from '../interfaces/general.interface';
+import { Respuesta, RestDetailSolicitud, RestGenerales, RestProductos, RestSolicitudes } from '../interfaces/general.interface';
 import { Restvisitaverificacion, restProductofinanciero } from '../interfaces/productof.interface';
 
 const url= environment.url+'empresa/'

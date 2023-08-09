@@ -7,10 +7,12 @@ import { formNufi } from '../../interfaces/general.interface';
   templateUrl: './formgenerales.component.html',
   styleUrls: ['./formgenerales.component.scss']
 })
-export class FormgeneralesComponent implements AfterViewInit{
+export class FormgeneralesComponent implements AfterViewInit {
+
   @Output() form: EventEmitter<any> = new EventEmitter();
   @Output() tipopersona: EventEmitter<string> = new EventEmitter();
-  @Input() formulario: formNufi= {
+  @Output() vaaseraval: EventEmitter<boolean> = new EventEmitter();
+  @Input() formulario: formNufi = {
     curp: '',
     fecha_nacimiento: '',
     entidad: '',
@@ -23,9 +25,18 @@ export class FormgeneralesComponent implements AfterViewInit{
     telefono: '',
     img_frente: '',
     img_reverso: '',
-    reporte_id: ''
+    reporte_id: '',
+    rfc: '',
+    ine_numero: '',
+    ine_vigencia: '',
+    domicilio_cp: '',
+    domicilio_estado: '',
+    domicilio_municipio: '',
+    domicilio_colonia: '',
+    domicilio_direccion: ''
   };
-  @Input() view: boolean= true;
+  @Input() view: boolean = true;
+  @Input() check: boolean = false;
   list_genero: string[] = [
     'Seleccionar',
     'Hombre',
@@ -33,47 +44,48 @@ export class FormgeneralesComponent implements AfterViewInit{
   ];
   list_estados: string[] = [
     '',
-      'Aguascalientes',
-      'Baja California',
-      'Baja California Sur',
-      'Campeche',
-      'Coahuila',
-      'Colima',
-      'Chiapas',
-      'Chihuahua',
-      'Ciudad de México',
-      'Durango',
-      'Guanajuato',
-      'Guerrero',
-      'Hidalgo',
-      'Jalisco',
-      'Estado de México',
-      'Michoacán',
-      'Morelos',
-      'Nayarit',
-      'Nuevo León',
-      'Oaxaca',
-      'Puebla',
-      'Querétaro',
-      'Quintana Roo',
-      'San Luis Potosí',
-      'Sinaloa',
-      'Sonora',
-      'Tabasco',
-      'Tamaulipas',
-      'Tlaxcala',
-      'Veracruz',
-      'Yucatán',
-      'Zacatecas',
-      'Nacido en el extranjero',
+    'Aguascalientes',
+    'Baja California',
+    'Baja California Sur',
+    'Campeche',
+    'Coahuila',
+    'Colima',
+    'Chiapas',
+    'Chihuahua',
+    'Ciudad de México',
+    'Durango',
+    'Guanajuato',
+    'Guerrero',
+    'Hidalgo',
+    'Jalisco',
+    'Estado de México',
+    'Michoacán',
+    'Morelos',
+    'Nayarit',
+    'Nuevo León',
+    'Oaxaca',
+    'Puebla',
+    'Querétaro',
+    'Quintana Roo',
+    'San Luis Potosí',
+    'Sinaloa',
+    'Sonora',
+    'Tabasco',
+    'Tamaulipas',
+    'Tlaxcala',
+    'Veracruz',
+    'Yucatán',
+    'Zacatecas',
+    'Nacido en el extranjero',
   ];
-  list_persona:string[]=[
+  list_persona: string[] = [
     '',
     'Fisica',
     'Moral'
   ];
   infoforms: FormGroup;
   tipo_persona: AbstractControl;
+  is_aval: AbstractControl;
   curp: AbstractControl;
   fecha_nacimiento: AbstractControl;
   reporte_id: AbstractControl;
@@ -86,11 +98,19 @@ export class FormgeneralesComponent implements AfterViewInit{
   telefono: AbstractControl;
   img_frente: AbstractControl;
   img_reverso: AbstractControl;
+  rfc: AbstractControl;
+  ine_numero: AbstractControl;
+  ine_vigencia: AbstractControl;
+  domicilio_cp: AbstractControl;
+  domicilio_estado: AbstractControl;
+  domicilio_municipio: AbstractControl;
+  domicilio_colonia: AbstractControl;
+  domicilio_direccion: AbstractControl;
   //@ts-ignore
   myfile: File;
 
-   
-  constructor(private fb: FormBuilder){
+
+  constructor(private fb: FormBuilder) {
     this.infoforms = this.fb.group({
       curp: [
         '',
@@ -111,6 +131,9 @@ export class FormgeneralesComponent implements AfterViewInit{
         '', [
           Validators.required
         ]
+      ],
+      is_aval: [
+        false
       ],
       tipo_persona: [
         '', [
@@ -158,6 +181,46 @@ export class FormgeneralesComponent implements AfterViewInit{
           Validators.required
         ]
       ],
+      rfc: [
+        '', [
+          Validators.required,
+          Validators.minLength(12),
+          Validators.maxLength(13)
+        ]
+      ],
+      ine_numero: [
+        '', [
+          Validators.required
+        ]
+      ],
+      ine_vigencia: [
+        '', [
+          Validators.required
+        ]
+      ],
+      domicilio_cp: [
+        '', [
+          Validators.required
+        ]
+      ],
+      domicilio_estado: [
+        ''
+      ],
+      domicilio_municipio: [
+        '', [
+          Validators.required
+        ]
+      ],
+      domicilio_colonia: [
+        '', [
+          Validators.required
+        ]
+      ],
+      domicilio_direccion: [
+        '', [
+          Validators.required
+        ]
+      ],
       reporte_id: [
         ''
       ]
@@ -175,26 +238,35 @@ export class FormgeneralesComponent implements AfterViewInit{
     this.img_frente = this.infoforms.controls['img_frente'];
     this.img_reverso = this.infoforms.controls['img_reverso'];
     this.reporte_id = this.infoforms.controls['reporte_id'];
+    this.rfc = this.infoforms.controls['rfc'];
+    this.ine_numero = this.infoforms.controls['ine_numero'];
+    this.ine_vigencia = this.infoforms.controls['ine_vigencia'];
+    this.domicilio_cp = this.infoforms.controls['domicilio_cp'];
+    this.domicilio_estado = this.infoforms.controls['domicilio_estado'];
+    this.domicilio_municipio = this.infoforms.controls['domicilio_municipio'];
+    this.domicilio_colonia = this.infoforms.controls['domicilio_colonia'];
+    this.domicilio_direccion = this.infoforms.controls['domicilio_direccion'];
+    this.is_aval = this.infoforms.controls['is_aval'];
   }
   ngAfterViewInit(): void {
-    if(this.formulario.curp!=''){
+    if (this.formulario.curp != '') {
       this.infoforms.reset(this.formulario);
     }
   }
 
-  async file(event: any,tipo: number) {
+  async file(event: any, tipo: number) {
     this.myfile = event.target.files[0];
     if (this.myfile != null || this.myfile != undefined) {
-      this.getBase64(this.myfile,tipo);
+      this.getBase64(this.myfile, tipo);
     }
   }
-  getBase64(file: File,tipo: number) {
+  getBase64(file: File, tipo: number) {
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async () => {
-      if(tipo==10){
+      if (tipo == 10) {
         this.img_frente.setValue(reader.result + '');
-      }else if(tipo==20){
+      } else if (tipo == 20) {
         this.img_reverso.setValue(reader.result + '');
       }
     };
@@ -203,13 +275,17 @@ export class FormgeneralesComponent implements AfterViewInit{
   }
   tipodepersona(event: any) {
     this.tipopersona.emit(event.value);
-    
-    }
-  generareporte() {
-    if(this.infoforms.invalid){
-      this.form.emit({message:'Campos incompletos, revisa tu informacion'});
+
+  }
+  generareporte() {    
+    if (this.infoforms.invalid) {
+      this.form.emit({ message: 'Campos incompletos, revisa tu informacion' });
       return;
     }
+    this.domicilio_estado.setValue(this.entidad.value);
     this.form.emit(this.infoforms.value);
   }
+  tambienaval(event: any) {
+    this.vaaseraval.emit(event['checked']);
+    }
 }

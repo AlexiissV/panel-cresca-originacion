@@ -1,6 +1,10 @@
 <form class="grid mt-3" [formGroup]="infoforms" (ngSubmit)="generareporte()">
         <div class=" sm:col-12 md:col-6 lg:col-6 xl:col-6">
                 <div class="grid">
+                        <div *ngIf="check" class="col-12 text-center">
+                                <p-checkbox [binary]="true" formControlName="is_aval" label="Es aval u obligado solidario" style="font-size: 1.2rem;"
+                                (onChange)="tambienaval($event)"></p-checkbox>
+                        </div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Tipo de Persona</div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-dropdown
                                         formControlName="tipo_persona" styleClass=" text-center p-inputtext-sm w-full"
@@ -8,6 +12,10 @@
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">CURP</div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input type="text" id="curp"
                                         name="curp" formControlName="curp" minlength="18" maxlength="18" pInputText
+                                        class="p-inputtext-sm w-full uppercase"></div>
+                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">RFC</div>
+                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input type="text" id="rfc"
+                                        name="rfc" minlength="12" maxlength="13" pInputText formControlName="rfc"
                                         class="p-inputtext-sm w-full uppercase"></div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Nombre(s)</div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input type="text"
@@ -26,17 +34,38 @@
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-dropdown
                                         formControlName="sexo" styleClass=" text-center p-inputtext-sm w-full"
                                         [options]="list_genero"></p-dropdown></div>
+                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">calle y número exterior /
+                                int;</div>
+                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
+                                <input type="text" name="address" id="address" formControlName="domicilio_direccion"
+                                        pInputText class="p-inputtext-sm w-full">
+                        </div>
+                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Colonia</div>
+                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
+                                <input type="text" pInputText formControlName="domicilio_colonia"
+                                        class="p-inputtext-sm w-full">
+                        </div>
+                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Municipio</div>
+                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
+                                <input type="text" pInputText formControlName="domicilio_municipio"
+                                        class="p-inputtext-sm w-full">
+                        </div>
                 </div>
         </div>
         <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 segundo">
                 <div class="grid">
+                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">C.P.</div>
+                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
+                                <input type="number" id="zip" name="zip" formControlName="domicilio_cp" pInputText
+                                        class="p-inputtext-sm w-full">
+                        </div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Estado de Nacimiento </div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-dropdown
                                         formControlName="entidad" styleClass=" text-center p-inputtext-sm w-full"
                                         [options]="list_estados"></p-dropdown></div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Fecha de Nacimiento</div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-inputMask
-                                        mask="99/99/9999" formControlName="fecha_nacimiento" placeholder="dd/mm/yyyy"
+                                        mask="99/99/9999" autocomplete="disabled" formControlName="fecha_nacimiento" placeholder="dd/mm/yyyy"
                                         slotChar="dd/mm/yyyy"
                                         styleClass="p-inputtext-sm w-full text-center"></p-inputMask></div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Teléfono celular</div>
@@ -47,14 +76,27 @@
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Correo Electrónico</div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input type="text"
                                         name="email" id="email" formControlName="correo" pInputText
-                                        class="p-inputtext-sm w-full"></div>
+                                        class="p-inputtext-sm w-full">
+                        </div>
+                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">INE Numero</div>
+                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
+                                <input type="text" pInputText formControlName="ine_numero"
+                                        class="p-inputtext-sm w-full uppercase">
+                        </div>
+                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">INE Vigencia</div>
+                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-inputMask
+                                        mask="99/99/9999" autocomplete="disabled"  placeholder="dd/mm/yyyy" slotChar="dd/mm/yyyy"
+                                        formControlName="ine_vigencia"
+                                        styleClass="p-inputtext-sm w-full text-center"></p-inputMask></div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5  align-self-center">Frente de INE</div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input
-                                        class="input-file max-w-full" (change)="file($event,10)" accept="image/*" type="file" />
+                                        class="input-file max-w-full" (change)="file($event,10)" accept="image/*"
+                                        type="file" />
                         </div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Reverso de INE</div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input
-                                        class="input-file max-w-full" (change)="file($event,20)" accept="image/*" type="file" />
+                                        class="input-file max-w-full" (change)="file($event,20)" accept="image/*"
+                                        type="file" />
                         </div>
                 </div>
         </div>

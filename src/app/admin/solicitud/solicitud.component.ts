@@ -84,7 +84,15 @@ export class SolicitudComponent implements OnInit {
       telefono: '',
       img_frente: '',
       img_reverso: '',
-      reporte_id: ''
+      reporte_id: '',
+      rfc: '',
+      ine_numero: '',
+      ine_vigencia: '',
+      domicilio_cp: '',
+      domicilio_estado: '',
+      domicilio_municipio: '',
+      domicilio_colonia: '',
+      domicilio_direccion: ''
     },
     legal: {
       curp: '',
@@ -99,7 +107,15 @@ export class SolicitudComponent implements OnInit {
       telefono: '',
       img_frente: '',
       img_reverso: '',
-      reporte_id: ''
+      reporte_id: '',
+      rfc: '',
+      ine_numero: '',
+      ine_vigencia: '',
+      domicilio_cp: '',
+      domicilio_estado: '',
+      domicilio_municipio: '',
+      domicilio_colonia: '',
+      domicilio_direccion: ''
     },
     aval: {
       curp: '',
@@ -114,8 +130,17 @@ export class SolicitudComponent implements OnInit {
       telefono: '',
       img_frente: '',
       img_reverso: '',
-      reporte_id: ''
-    }
+      reporte_id: '',
+      rfc: '',
+      ine_numero: '',
+      ine_vigencia: '',
+      domicilio_cp: '',
+      domicilio_estado: '',
+      domicilio_municipio: '',
+      domicilio_colonia: '',
+      domicilio_direccion: ''
+    },
+    file_sic: ''
   };
 
   constructor(private active: ActivatedRoute, private post: PostService, private local: LocalService) {

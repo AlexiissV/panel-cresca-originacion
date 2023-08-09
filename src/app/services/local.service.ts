@@ -10,6 +10,7 @@ export class LocalService {
   barra:boolean=false;
   //@ts-ignore
   solicitud_id:number = null;
+  file_sic:string = '';
   estatus_solicitud:number = 0;
   empresa:RestInfoLogin ={
     code: 0,
@@ -45,7 +46,15 @@ export class LocalService {
     telefono: '',
     img_frente: '',
     img_reverso: '',
-    reporte_id: ''
+    reporte_id: '',
+    rfc: '',
+    ine_numero: '',
+    ine_vigencia: '',
+    domicilio_cp: '',
+    domicilio_estado: '',
+    domicilio_municipio: '',
+    domicilio_colonia: '',
+    domicilio_direccion: ''
   };
   formrepresentante: formNufi = {
     curp: '',
@@ -60,7 +69,15 @@ export class LocalService {
     telefono: '',
     img_frente: '',
     img_reverso: '',
-    reporte_id: ''
+    reporte_id: '',
+    rfc: '',
+    ine_numero: '',
+    ine_vigencia: '',
+    domicilio_cp: '',
+    domicilio_estado: '',
+    domicilio_municipio: '',
+    domicilio_colonia: '',
+    domicilio_direccion: ''
   };
   formsaval: formNufi = {
     curp: '',
@@ -75,7 +92,15 @@ export class LocalService {
     telefono: '',
     img_frente: '',
     img_reverso: '',
-    reporte_id: ''
+    reporte_id: '',
+    rfc: '',
+    ine_numero: '',
+    ine_vigencia: '',
+    domicilio_cp: '',
+    domicilio_estado: '',
+    domicilio_municipio: '',
+    domicilio_colonia: '',
+    domicilio_direccion: ''
   };
   presupuesto_info: any=null;
   terminos_credito: any=null;

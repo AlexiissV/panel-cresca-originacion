@@ -3,6 +3,7 @@ import { Component, Output, EventEmitter, OnInit, HostListener } from '@angular/
 import { PromotorMenu, AdmindMenu } from '../../services/nav-data';
 import { LocalService } from '../../services/local.service';
 import { AuthService } from '../../services/auth.service';
+import { PostService } from '../../services/post.service';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -46,7 +47,7 @@ export class SidenavComponent implements OnInit {
   screenWidth = 0;
   navData: any;
 
-  constructor(public local: LocalService, private auth: AuthService){
+  constructor(public local: LocalService, public auth: AuthService,private post: PostService){
     if(auth.usuario.perfil == 10){
       this.navData= AdmindMenu;
     }else{
@@ -65,9 +66,9 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit(): void {
       this.screenWidth = window.innerWidth;
-     /* if(this.local.barra==true){
+      if(this.local.barra==true){
         this.toggleCollapse();
-      }*/
+      }
   }
 
   toggleCollapse(): void {

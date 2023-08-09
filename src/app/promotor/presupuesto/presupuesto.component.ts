@@ -213,6 +213,7 @@ export class PresupuestoComponent implements OnInit {
     this.precio_venta_porcentaje = this.presupuestoForm.controls['precio_venta_porcentaje'];
   }
 
+
   ngOnInit(): void {
     if (this.local.presupuesto_info != null) {
       this.binding = this.local.binding;
@@ -232,14 +233,12 @@ export class PresupuestoComponent implements OnInit {
   filterItems(event: any) {
     let filtered: any[] = [];
     let query = event.query;
-
     for (let i = 0; i < this.productos.length; i++) {
       let item = this.productos[i].nombre;
       if (item.toLowerCase().includes(query.toLowerCase())) {
         filtered.push(item);
       }
     }
-
     this.items = filtered;
   }
   productoselect(event: string) {
@@ -252,7 +251,11 @@ export class PresupuestoComponent implements OnInit {
     this.moneda.setValue(this.binding.moneda);
     this.producto_id.setValue(this.binding.id);    
     if (this.monedas == 'MXN') {
-      this.precio_venta.setValue(this.binding.precio);
+      this.cambiomxn();
+    }
+  }
+  cambiomxn() {
+    this.precio_venta.setValue(this.binding.precio);
       this.tipo_cambio.disable();
       if(this.binding.apply_iva==10){
         this.iva.setValue(this.precio_venta.value * 0.16);
@@ -262,9 +265,6 @@ export class PresupuestoComponent implements OnInit {
       this.cantidad.setValue(1);
       this.tipo_cambio.setValue(0);
       this.cotizacion.setValue((this.precio_venta.value + this.iva.value) * this.cantidad.value);
-      let uno = this.cotizacion.value * this.importe_financiamiento_porcentaje.value;
-      let dos = (uno * this.comision_apertura_porcentaje.value) / 100;
-      this.comision_apertura.setValue((dos * 1.16) / 100);
       let p_venta = this.precio_venta.value / this.cotizacion.value;
       let p_venta_entero = Number(p_venta.toFixed(2)) * 100;
       this.precio_venta_porcentaje.setValue(parseInt(p_venta_entero + ''));
@@ -273,32 +273,10 @@ export class PresupuestoComponent implements OnInit {
       this.iva_porcentaje.setValue(parseInt(iva_entero + ''));
       let p_coti = this.cotizacion.value / this.cotizacion.value * 100;
       this.cotizacion_total_porcentaje.setValue(parseInt(p_coti + ''));
-    }
+      this.cambiocantidad();
   }
 
-  preciocambio() {
-    if (this.monedas == 'MXN') {
-      this.precio_venta.setValue(this.binding.precio);
-      if(this.binding.apply_iva==10){
-        this.iva.setValue(this.precio_venta.value * 0.16);
-      }else{
-        this.iva.setValue(0);
-      }
-      this.cantidad.setValue(1);
-      this.cotizacion.setValue((this.precio_venta.value + this.iva.value) * this.cantidad.value);
-      let uno = this.cotizacion.value * this.importe_financiamiento_porcentaje.value;
-      let dos = (uno * this.comision_apertura_porcentaje.value) / 100;
-      this.comision_apertura.setValue((dos * 1.16) / 100);
-      let p_venta = this.precio_venta.value / this.cotizacion.value;
-      let p_venta_entero = Number(p_venta.toFixed(2)) * 100;
-      this.precio_venta_porcentaje.setValue(parseInt(p_venta_entero + ''));
-      let p_iva = this.iva.value / this.cotizacion.value;
-      const iva_entero = Number(Number(p_iva.toFixed(2)) * 100);
-      this.iva_porcentaje.setValue(parseInt(iva_entero + ''));
-      let p_coti = this.cotizacion.value / this.cotizacion.value * 100;
-      this.cotizacion_total_porcentaje.setValue(parseInt(p_coti + ''));
-      return;
-    }
+  cambiodolar() {
     this.precio_venta.setValue(this.binding.precio * this.peso_valor);
     this.tipo_cambio.setValue(this.peso_valor);
     if(this.binding.apply_iva==10){
@@ -308,73 +286,64 @@ export class PresupuestoComponent implements OnInit {
     }
     this.cantidad.setValue(1);
     this.cotizacion.setValue((this.precio_venta.value + this.iva.value) * this.cantidad.value);
-    let uno = this.cotizacion.value * this.importe_financiamiento_porcentaje.value;
-    let dos = (uno * this.comision_apertura_porcentaje.value) / 100;
-    this.comision_apertura.setValue((dos * 1.16) / 100);
-    let p_venta = this.precio_venta.value / this.cotizacion.value;
-    let p_venta_entero = Number(p_venta.toFixed(2)) * 100;
-    this.precio_venta_porcentaje.setValue(parseInt(p_venta_entero + ''));
-    let p_iva = this.iva.value / this.cotizacion.value;
-    const iva_entero = Number(Number(p_iva.toFixed(2)) * 100);
-    this.iva_porcentaje.setValue(parseInt(iva_entero + ''));
-    let p_coti = this.cotizacion.value / this.cotizacion.value * 100;
-    this.cotizacion_total_porcentaje.setValue(parseInt(p_coti + ''));
-  }
+    this.cambiocantidad();
+    }
+    cambiocantidad() {
+      this.cotizacion.setValue((this.precio_venta.value + this.iva.value) * this.cantidad.value);
+      // let uno = this.cotizacion.value *(this.importe_financiamiento_porcentaje.value/100);
+      let dos = this.cotizacion.value *(this.comision_apertura_porcentaje.value / 100);
+      this.comision_apertura.setValue(dos);
+      if(this.presupuestoForm.valid){
+        this.elresto();
+      }
+      return true;
+      }
+      async otromas() {    
+       // this.importe_financiamiento_porcentaje.setValue(100 - this.aportacion_producto_porcentaje.value);
+        this.cotizacion.setValue((this.precio_venta.value + this.iva.value) * this.cantidad.value);
+      // let uno = this.cotizacion.value *(this.importe_financiamiento_porcentaje.value/100);
+        let dos = this.cotizacion.value *(this.comision_apertura_porcentaje.value / 100);
+        this.comision_apertura.setValue(dos);
+        this.elresto();
+      }
+      cambiocomsion() {
+       /* this.importe_financiamiento_porcentaje.setValue(100 - this.aportacion_producto_porcentaje.value);
+        let uno = this.comision_apertura.value / 1.16;
+        let dos = (uno / this.importe_financiamiento_valor.value) * 100;*/
+        let dos = (this.comision_apertura.value * 100) / this.cotizacion.value;        
+        this.comision_apertura_porcentaje.setValue(dos.toFixed(2));
+        this.elresto();
+        }
+      elresto(){
+        this.inversion_total.setValue((this.cotizacion.value + this.comision_apertura.value + this.seguro_equipo.value)-this.descuento_valor.value);
+        this.importe_final.setValue(this.inversion_total.value);
+        this.aportacion_producto_valor.setValue(this.importe_final.value * (this.aportacion_producto_porcentaje.value / 100));
+        this.importe_financiamiento_valor.setValue(this.importe_final.value - this.aportacion_producto_valor.value);
+        let p_venta = this.precio_venta.value / this.cotizacion.value;
+        let p_venta_entero = Number(p_venta.toFixed(2)) * 100;
+        this.precio_venta_porcentaje.setValue(parseInt(p_venta_entero + ''));
+        let p_iva = this.iva.value / this.cotizacion.value;
+        const iva_entero = Number(Number(p_iva.toFixed(2)) * 100);
+        this.iva_porcentaje.setValue(parseInt(iva_entero + ''));
+        let p_coti = this.cotizacion.value / this.cotizacion.value * 100;
+        this.cotizacion_total_porcentaje.setValue(parseInt(p_coti + ''));
+        let p_descuento = this.descuento_valor.value / this.cotizacion.value;
+        const descuento_entero = Number(Number(p_descuento.toFixed(2)) * 100);
+        this.descuento_porcentaje.setValue(parseInt(descuento_entero + ''));
+      }
+      async importeaprtacion(){
+        this.importe_financiamiento_porcentaje.setValue(100 - this.aportacion_producto_porcentaje.value);
+         let si = await this.cambiocantidad();
+         this.elresto();
+      }
+      async alrevez() {
+        let uno = (this.aportacion_producto_valor.value * 100) / this.importe_final.value
+        this.aportacion_producto_porcentaje.setValue(uno.toFixed(2));
+        this.importe_financiamiento_porcentaje.setValue(100 - this.aportacion_producto_porcentaje.value);
+        let si = await this.cambiocantidad();
+         this.elresto();
+      }
 
-  elsubtotal() {
-    this.cotizacion.setValue((this.precio_venta.value + this.iva.value) * this.cantidad.value);
-    let uno = this.cotizacion.value *(this.importe_financiamiento_porcentaje.value/100);
-    let dos = uno *(this.comision_apertura_porcentaje.value / 100);
-    this.comision_apertura.setValue((dos * 1.16));
-    this.otromas();
-  }
-  cambiocomsion() {
-    this.importe_financiamiento_porcentaje.setValue(100 - this.aportacion_producto_porcentaje.value);
-    let uno = this.comision_apertura.value / 1.16;
-    let dos = (uno / this.importe_financiamiento_valor.value) * 100;
-    this.comision_apertura_porcentaje.setValue(dos.toFixed(2));
-    this.elresto();
-    }
-  async otromas() {    
-    this.importe_financiamiento_porcentaje.setValue(100 - this.aportacion_producto_porcentaje.value);
-    this.cotizacion.setValue((this.precio_venta.value + this.iva.value) * this.cantidad.value);
-    let uno = this.cotizacion.value *(this.importe_financiamiento_porcentaje.value/100);
-    let dos = uno *(this.comision_apertura_porcentaje.value / 100);
-    this.comision_apertura.setValue((dos * 1.16));
-    this.elresto();
-  }
-  elresto(){
-    this.inversion_total.setValue(this.cotizacion.value + this.comision_apertura.value + this.seguro_equipo.value);
-    this.descuento_valor.setValue(this.comision_apertura.value + this.seguro_equipo.value);
-    this.importe_final.setValue(this.inversion_total.value - this.descuento_valor.value); // esto ya se elimina y queda igual a la inversion total
-    this.aportacion_producto_valor.setValue(this.importe_final.value * (this.aportacion_producto_porcentaje.value / 100));
-    this.importe_financiamiento_valor.setValue(this.importe_final.value - this.aportacion_producto_valor.value);
-    let p_venta = this.precio_venta.value / this.cotizacion.value;
-    let p_venta_entero = Number(p_venta.toFixed(2)) * 100;
-    this.precio_venta_porcentaje.setValue(parseInt(p_venta_entero + ''));
-    let p_iva = this.iva.value / this.cotizacion.value;
-    const iva_entero = Number(Number(p_iva.toFixed(2)) * 100);
-    this.iva_porcentaje.setValue(parseInt(iva_entero + ''));
-    let p_coti = this.cotizacion.value / this.cotizacion.value * 100;
-    this.cotizacion_total_porcentaje.setValue(parseInt(p_coti + ''));
-    let p_descuento = this.descuento_valor.value / this.cotizacion.value;
-    const descuento_entero = Number(Number(p_descuento.toFixed(2)) * 100);
-    this.descuento_porcentaje.setValue(parseInt(descuento_entero + ''));
-  }
-  cambiodescuento() {
-    let p_descuento = this.descuento_valor.value / this.cotizacion.value;
-    const descuento_entero = Number(Number(p_descuento.toFixed(2)) * 100);
-    this.descuento_porcentaje.setValue(parseInt(descuento_entero + ''));
-    this.importe_final.setValue(this.inversion_total.value - this.descuento_valor.value);
-    this.aportacion_producto_valor.setValue(this.importe_final.value * (this.aportacion_producto_porcentaje.value / 100));
-    this.aportacion_producto_porcentaje.setValue((this.aportacion_producto_valor.value * 100) / this.importe_final.value);
-    this.importe_financiamiento_valor.setValue(this.importe_final.value - this.aportacion_producto_valor.value);
-    }
-  alrevez() {
-    let uno = (this.aportacion_producto_valor.value * 100) / this.importe_final.value
-    this.aportacion_producto_porcentaje.setValue(uno.toFixed(2));
-    this.otromas();
-  }
 
   resultados() {
     this.presupuestoForm.controls['iva'].enable();

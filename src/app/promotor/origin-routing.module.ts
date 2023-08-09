@@ -14,12 +14,13 @@ import { ContratoDetailComponent } from './contrato-detail/contrato-detail.compo
 import { InspeccionComponent } from './inspeccion/inspeccion.component';
 import { SicComponent } from './sic/sic.component';
 import { SolicitudGuard } from '../guards/solicitud.guard';
+import { IndicadoresGuard } from '../guards/indicadores.guard';
 
 const routes: Routes = [
-  {path:'home', component:HomeComponent, canActivate:[BarrasiGuard]},
-  {path:'contratos', component:ContratoComponent, canActivate:[BarrasiGuard]},
+  {path:'home', component:HomeComponent, canActivate:[BarrasiGuard,IndicadoresGuard]},
+  {path:'contratos', component:ContratoComponent, canActivate:[BarrasiGuard,IndicadoresGuard]},
   {path:'detail-contrato', component:ContratoDetailComponent, canActivate:[BarrasiGuard]},
-  {path:'inspeccion', component:InspeccionComponent, canActivate:[BarrasiGuard]},
+  {path:'inspeccion', component:InspeccionComponent, canActivate:[BarrasiGuard,IndicadoresGuard]},
   {
     path: 'originacion',
     component: OriginacionComponent,canActivate:[BarrasiGuard],

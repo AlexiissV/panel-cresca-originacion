@@ -96,6 +96,7 @@ export interface Restvisitaverificacion {
 export interface Visita {
     id:              number;
     solicitud:       string;
+    solicitante:       string;
     producto:        string;
     marca:           string;
     modelo:          string;

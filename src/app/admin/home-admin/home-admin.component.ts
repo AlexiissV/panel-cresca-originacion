@@ -29,7 +29,8 @@ export class HomeAdminComponent {
     registro: '',
     modificado: '',
     operador_id: 0,
-    operador: ''
+    operador: '',
+    solicitante: ''
   };
   
   

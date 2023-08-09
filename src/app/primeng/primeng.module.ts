@@ -20,6 +20,8 @@ import { TagModule } from 'primeng/tag';
 import { CardModule } from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
 import { BadgeModule } from 'primeng/badge';
+import { CheckboxModule } from 'primeng/checkbox';
+
 
 
 @NgModule({
@@ -45,6 +47,7 @@ import { BadgeModule } from 'primeng/badge';
     CardModule,
     PanelModule,
     BadgeModule,
+    CheckboxModule,
   ],
   exports:[
     InputTextModule,
@@ -67,6 +70,7 @@ import { BadgeModule } from 'primeng/badge';
     CardModule,
     PanelModule,
     BadgeModule,
+    CheckboxModule,
   ]
 })
 export class PrimengModule { }

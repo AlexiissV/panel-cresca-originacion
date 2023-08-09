@@ -1,16 +1,49 @@
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
     <div class="logo-container">
-        <button class="logo"  (click)="toggleCollapse()"><i class="pi pi-align-left" style=" font-size: 1.222rem;"></i></button>
+        <button class="logo" (click)="toggleCollapse()"><i class="pi pi-align-left"
+                style=" font-size: 1.222rem;"></i></button>
         <div class="logo-text" @fadeInOut *ngIf="collapsed"><img [src]="local.empresa.empresa_logo" width="90%"></div>
     </div>
-    <ul class="sidenav-nav">
-        <li class="sidenav-nav-item" *ngFor="let data of navData">
-            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" 
-                routerLinkActive="active"
+    <ul *ngIf="auth.usuario.perfil == 10" class="sidenav-nav">
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link" [routerLink]="['/admin/home']" routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}">
-            <i class="sidenav-link-icon" [class]="data.icon"></i>
+                <i class="sidenav-link-icon pi pi-home"></i>
                 <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
-                    {{data.label}}
+                    Inicio
+                </span>
+            </a>
+        </li>
+    </ul>
+    <ul *ngIf="auth.usuario.perfil != 10" class="sidenav-nav">
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link" [routerLink]="['/promotor/home']" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <i class="sidenav-link-icon pi pi-home"></i>
+                <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                    Inicio
+                </span>
+            </a>
+        </li>
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link" [routerLink]="['/promotor/contratos']" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <i *ngIf="auth.contatos_n ==0" class="sidenav-link-icon pi pi-file-edit"></i>
+                <i *ngIf="auth.contatos_n !=0" class="sidenav-link-icon pi pi-file-edit" pBadge
+                    [value]="auth.contatos_n+''" severity="success"></i>
+                <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                    Contratos
+                </span>
+            </a>
+        </li>
+        <li class="sidenav-nav-item">
+            <a class="sidenav-nav-link" [routerLink]="['/promotor/inspeccion']" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <i *ngIf="auth.inspeccion_n ==0" class="sidenav-link-icon pi pi-file-pdf"></i>
+                <i *ngIf="auth.inspeccion_n !=0" class="sidenav-link-icon pi pi-file-pdf" pBadge
+                    [value]="auth.inspeccion_n+''" severity="success"></i>
+                <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                    Reporte de Inspección
                 </span>
             </a>
         </li>

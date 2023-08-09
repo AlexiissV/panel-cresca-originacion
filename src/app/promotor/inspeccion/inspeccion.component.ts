@@ -26,7 +26,8 @@ export class InspeccionComponent implements OnInit {
     modelo: '',
     serie: '',
     visita_status: '',
-    visita_asignado: ''
+    visita_asignado: '',
+    solicitante: ''
   };
   imges: string[] = [];
   //@ts-ignore
