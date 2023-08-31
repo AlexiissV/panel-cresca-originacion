@@ -11,7 +11,7 @@ import { Group } from '../../interfaces/general.interface';
   styleUrls: ['./solicitud.component.scss']
 })
 export class SolicitudComponent implements OnInit {
-
+  bandera: boolean= false;
   Cuestionario: Group[]=[];
   list_Meses:string[]=[
     '',
@@ -62,7 +62,20 @@ export class SolicitudComponent implements OnInit {
       }
     ],
     capacidad_id: 0,
-    termino_credito: [],
+    termino_credito: [
+      {
+        importe_credito:             0,
+        plazo_credito:               0,
+        taza_fija_anual:             0,
+        garantias:                   '',
+        forma_disposicion:           '',
+        fecha_estimada_otorgamiento: '',
+        forma_pago_capital_mes:      '',
+        forma_pago_capital:          '',
+        forma_pago_interes:          '',
+        forma_pago_interes_mes:      '',
+          }
+    ],
     capacidad: [{
       groups: []
     }],
@@ -92,7 +105,8 @@ export class SolicitudComponent implements OnInit {
       domicilio_estado: '',
       domicilio_municipio: '',
       domicilio_colonia: '',
-      domicilio_direccion: ''
+      domicilio_direccion: '',
+      estado_civil: ''
     },
     legal: {
       curp: '',
@@ -115,7 +129,8 @@ export class SolicitudComponent implements OnInit {
       domicilio_estado: '',
       domicilio_municipio: '',
       domicilio_colonia: '',
-      domicilio_direccion: ''
+      domicilio_direccion: '',
+      estado_civil: ''
     },
     aval: {
       curp: '',
@@ -138,7 +153,8 @@ export class SolicitudComponent implements OnInit {
       domicilio_estado: '',
       domicilio_municipio: '',
       domicilio_colonia: '',
-      domicilio_direccion: ''
+      domicilio_direccion: '',
+      estado_civil: ''
     },
     file_sic: ''
   };
@@ -149,10 +165,10 @@ export class SolicitudComponent implements OnInit {
     this.local.show();
     this.post.getdetallesolicitud(Number(this.active.snapshot.paramMap.get('id'))).subscribe({
       next: async (resp) => {
-        await this.local.hide();
         this.detalle_solicitud= resp.solicitud_detail;
-        this.Cuestionario = resp.solicitud_detail['cuestionario-identificacion'][0].groups
-        
+        this.Cuestionario = resp.solicitud_detail['cuestionario-identificacion'][0].groups;
+        await this.local.hide();
+        this.bandera=true;
       },
       error: async (e) => {
         await this.local.hide();

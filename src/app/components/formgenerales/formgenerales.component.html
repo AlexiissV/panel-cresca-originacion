@@ -54,11 +54,15 @@
         </div>
         <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 segundo">
                 <div class="grid">
+                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Estado Civil </div>
+                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-dropdown
+                                        formControlName="estado_civil" styleClass=" text-center p-inputtext-sm w-full"
+                                        [options]="list_estadocivil"></p-dropdown></div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">C.P.</div>
-                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
-                                <input type="number" id="zip" name="zip" formControlName="domicilio_cp" pInputText
-                                        class="p-inputtext-sm w-full">
-                        </div>
+                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-inputMask
+                                mask="99999" autocomplete="disabled" name="cp" id="cp"  placeholder="12345"
+                                formControlName="domicilio_cp"
+                                styleClass="p-inputtext-sm w-full text-center"></p-inputMask></div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Estado de Nacimiento </div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-dropdown
                                         formControlName="entidad" styleClass=" text-center p-inputtext-sm w-full"
@@ -85,7 +89,7 @@
                         </div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">INE Vigencia</div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-inputMask
-                                        mask="99/99/9999" autocomplete="disabled"  placeholder="dd/mm/yyyy" slotChar="dd/mm/yyyy"
+                                        mask="9999" autocomplete="disabled" name="fecha" id="fecha"  placeholder="yyyy"
                                         formControlName="ine_vigencia"
                                         styleClass="p-inputtext-sm w-full text-center"></p-inputMask></div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5  align-self-center">Frente de INE</div>

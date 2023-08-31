@@ -49,7 +49,8 @@ export class InfoComponent implements OnInit {
     domicilio_estado: '',
     domicilio_municipio: '',
     domicilio_colonia: '',
-    domicilio_direccion: ''
+    domicilio_direccion: '',
+    estado_civil: ''
   };
   formrepresentante: formNufi = {
     curp: '',
@@ -72,7 +73,8 @@ export class InfoComponent implements OnInit {
     domicilio_estado: '',
     domicilio_municipio: '',
     domicilio_colonia: '',
-    domicilio_direccion: ''
+    domicilio_direccion: '',
+    estado_civil: ''
   };
   formsaval: formNufi = {
     curp: '',
@@ -95,7 +97,8 @@ export class InfoComponent implements OnInit {
     domicilio_estado: '',
     domicilio_municipio: '',
     domicilio_colonia: '',
-    domicilio_direccion: ''
+    domicilio_direccion: '',
+    estado_civil: ''
   };
 
 
@@ -281,7 +284,7 @@ export class InfoComponent implements OnInit {
     }
   }
   generareporte(event: any) {
-    /*  switch (this.activeIndex) {
+     /* switch (this.activeIndex) {
         case 0:
           this.formsolicitante.reporte_id = '67276a45-4559-4397-8ce9-4102afd06796';
           this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'reporte ID generado' });

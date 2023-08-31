@@ -269,6 +269,7 @@ export interface formNufi{
     img_frente: string;
     img_reverso: string;
     rfc:    string;
+    estado_civil:    string;
     ine_numero: string;
     ine_vigencia:   string;
     domicilio_cp:   string;

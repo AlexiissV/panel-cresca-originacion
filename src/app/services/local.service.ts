@@ -54,7 +54,8 @@ export class LocalService {
     domicilio_estado: '',
     domicilio_municipio: '',
     domicilio_colonia: '',
-    domicilio_direccion: ''
+    domicilio_direccion: '',
+    estado_civil: ''
   };
   formrepresentante: formNufi = {
     curp: '',
@@ -77,7 +78,8 @@ export class LocalService {
     domicilio_estado: '',
     domicilio_municipio: '',
     domicilio_colonia: '',
-    domicilio_direccion: ''
+    domicilio_direccion: '',
+    estado_civil: ''
   };
   formsaval: formNufi = {
     curp: '',
@@ -100,7 +102,8 @@ export class LocalService {
     domicilio_estado: '',
     domicilio_municipio: '',
     domicilio_colonia: '',
-    domicilio_direccion: ''
+    domicilio_direccion: '',
+    estado_civil: ''
   };
   presupuesto_info: any=null;
   terminos_credito: any=null;

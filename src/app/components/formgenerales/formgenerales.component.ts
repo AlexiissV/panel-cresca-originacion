@@ -33,7 +33,8 @@ export class FormgeneralesComponent implements AfterViewInit {
     domicilio_estado: '',
     domicilio_municipio: '',
     domicilio_colonia: '',
-    domicilio_direccion: ''
+    domicilio_direccion: '',
+    estado_civil: ''
   };
   @Input() view: boolean = true;
   @Input() check: boolean = false;
@@ -83,6 +84,14 @@ export class FormgeneralesComponent implements AfterViewInit {
     'Fisica',
     'Moral'
   ];
+  list_estadocivil: string[]=[
+    '',
+    'SOLTERO',
+    'CASADO',
+    'DIVORCIADO',
+    'UNION LIBRE',
+    'VIUDO'
+  ];
   infoforms: FormGroup;
   tipo_persona: AbstractControl;
   is_aval: AbstractControl;
@@ -99,6 +108,7 @@ export class FormgeneralesComponent implements AfterViewInit {
   img_frente: AbstractControl;
   img_reverso: AbstractControl;
   rfc: AbstractControl;
+  estado_civil: AbstractControl;
   ine_numero: AbstractControl;
   ine_vigencia: AbstractControl;
   domicilio_cp: AbstractControl;
@@ -221,6 +231,11 @@ export class FormgeneralesComponent implements AfterViewInit {
           Validators.required
         ]
       ],
+      estado_civil: [
+        '', [
+          Validators.required
+        ]
+      ],
       reporte_id: [
         ''
       ]
@@ -239,6 +254,7 @@ export class FormgeneralesComponent implements AfterViewInit {
     this.img_reverso = this.infoforms.controls['img_reverso'];
     this.reporte_id = this.infoforms.controls['reporte_id'];
     this.rfc = this.infoforms.controls['rfc'];
+    this.estado_civil = this.infoforms.controls['estado_civil'];
     this.ine_numero = this.infoforms.controls['ine_numero'];
     this.ine_vigencia = this.infoforms.controls['ine_vigencia'];
     this.domicilio_cp = this.infoforms.controls['domicilio_cp'];

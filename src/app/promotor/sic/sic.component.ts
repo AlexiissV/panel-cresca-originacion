@@ -70,7 +70,8 @@ export class SicComponent implements OnInit {
    domicilio_estado: '',
    domicilio_municipio: '',
    domicilio_colonia: '',
-   domicilio_direccion: ''
+   domicilio_direccion: '',
+   estado_civil: ''
  };
  legal: formNufi = {
    curp: '',
@@ -93,7 +94,8 @@ export class SicComponent implements OnInit {
    domicilio_estado: '',
    domicilio_municipio: '',
    domicilio_colonia: '',
-   domicilio_direccion: ''
+   domicilio_direccion: '',
+   estado_civil: ''
  };
  aval: formNufi = {
    curp: '',
@@ -116,7 +118,8 @@ export class SicComponent implements OnInit {
    domicilio_estado: '',
    domicilio_municipio: '',
    domicilio_colonia: '',
-   domicilio_direccion: ''
+   domicilio_direccion: '',
+   estado_civil: ''
  };
 
 
@@ -183,7 +186,7 @@ export class SicComponent implements OnInit {
 				    [{text:`Estado`,style:'gene',border:[false,false,false,false]},{text:this.solicitante.entidad, colSpan:2,border:[false,false,false,true],fontSize:10},{},{text:'Municipio',style:'gene',border:[false,false,false,false]},{text:this.solicitante.domicilio_municipio,colSpan:2,border:[false,false,false,true],fontSize:10},{},{text:'C.P.:',alignment: 'center',style:'gene',border:[false,false,false,false]},{text:this.solicitante.domicilio_cp,border:[false,false,false,true],fontSize:10}],
 				    [{text:`Teléfono:`,style:'gene',border:[false,false,false,false]},{text:this.solicitante.telefono,colSpan:3,border:[false,false,false,true],fontSize:10},{},{},{text:'',colSpan:4,border:[false,false,false,false]},{},{},{}],
 				    [{text:`Lugar y Fecha donde se firma la autorización:`,colSpan:4,style:'gene',border:[false,false,false,false]},{},{},{},{text:'',colSpan:4,border:[false,false,false,false]},{},{},{}],
-				    [{text:``,border:[false,false,false,false]},{text:`Crédito Especializado al Campo, S.A. de C.V. SOFOM, E.N.R. ${this.Mipipe.transform(new Date(), 'dd/MM/yyyy')}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}],
+				    [{text:``,border:[false,false,false,false]},{text:`Avenida Isidro Fabela Norte 931, Colonia Los Ángeles; Toluca, México C.P. 50020,  ${this.Mipipe.transform(new Date(), 'dd/MM/yyyy')}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}],
 				    [{text:`Nombre del Funcionario que recaba la autorización:`,colSpan:5,style:'gene',border:[false,false,false,false]},{},{},{},{},{text:'',colSpan:3,border:[false,false,false,false]},{},{}],
 				    [{text:``,border:[false,false,false,false]},{text:`${this.auth.usuario.nombre} ${this.auth.usuario.apellidos}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}]
 				]
@@ -258,7 +261,7 @@ export class SicComponent implements OnInit {
         [{text:`Estado`,style:'gene',border:[false,false,false,false]},{text:this.legal.entidad, colSpan:2,border:[false,false,false,true],fontSize:10},{},{text:'Municipio',style:'gene',border:[false,false,false,false]},{text:this.legal.domicilio_municipio,colSpan:2,border:[false,false,false,true],fontSize:10},{},{text:'C.P.:',alignment: 'center',style:'gene',border:[false,false,false,false]},{text:this.legal.domicilio_cp,border:[false,false,false,true],fontSize:10}],
         [{text:`Teléfono:`,style:'gene',border:[false,false,false,false]},{text:this.legal.telefono,colSpan:3,border:[false,false,false,true],fontSize:10},{},{},{text:'',colSpan:4,border:[false,false,false,false]},{},{},{}],
         [{text:`Lugar y Fecha donde se firma la autorización:`,colSpan:4,style:'gene',border:[false,false,false,false]},{},{},{},{text:'',colSpan:4,border:[false,false,false,false]},{},{},{}],
-        [{text:``,border:[false,false,false,false]},{text:`Crédito Especializado al Campo, S.A. de C.V. SOFOM, E.N.R. ${this.Mipipe.transform(new Date(), 'dd/MM/yyyy')}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}],
+        [{text:``,border:[false,false,false,false]},{text:`Avenida Isidro Fabela Norte 931, Colonia Los Ángeles; Toluca, México C.P. 50020,  ${this.Mipipe.transform(new Date(), 'dd/MM/yyyy')}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}],
         [{text:`Nombre del Funcionario que recaba la autorización:`,colSpan:5,style:'gene',border:[false,false,false,false]},{},{},{},{},{text:'',colSpan:3,border:[false,false,false,false]},{},{}],
         [{text:``,border:[false,false,false,false]},{text:`${this.auth.usuario.nombre} ${this.auth.usuario.apellidos}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}]
     ]
@@ -333,7 +336,7 @@ body: [
     [{text:`Estado`,style:'gene',border:[false,false,false,false]},{text:this.aval.entidad, colSpan:2,border:[false,false,false,true],fontSize:10},{},{text:'Municipio',style:'gene',border:[false,false,false,false]},{text:this.aval.domicilio_municipio,colSpan:2,border:[false,false,false,true],fontSize:10},{},{text:'C.P.:',alignment: 'center',style:'gene',border:[false,false,false,false]},{text:this.aval.domicilio_cp,border:[false,false,false,true],fontSize:10}],
     [{text:`Teléfono:`,style:'gene',border:[false,false,false,false]},{text:this.aval.telefono,colSpan:3,border:[false,false,false,true],fontSize:10},{},{},{text:'',colSpan:4,border:[false,false,false,false]},{},{},{}],
     [{text:`Lugar y Fecha donde se firma la autorización:`,colSpan:4,style:'gene',border:[false,false,false,false]},{},{},{},{text:'',colSpan:4,border:[false,false,false,false]},{},{},{}],
-    [{text:``,border:[false,false,false,false]},{text:`Crédito Especializado al Campo, S.A. de C.V. SOFOM, E.N.R. ${this.Mipipe.transform(new Date(), 'dd/MM/yyyy')}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}],
+    [{text:``,border:[false,false,false,false]},{text:`Avenida Isidro Fabela Norte 931, Colonia Los Ángeles; Toluca, México C.P. 50020,  ${this.Mipipe.transform(new Date(), 'dd/MM/yyyy')}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}],
     [{text:`Nombre del Funcionario que recaba la autorización:`,colSpan:5,style:'gene',border:[false,false,false,false]},{},{},{},{},{text:'',colSpan:3,border:[false,false,false,false]},{},{}],
     [{text:``,border:[false,false,false,false]},{text:`${this.auth.usuario.nombre} ${this.auth.usuario.apellidos}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}]
 ]
@@ -368,7 +371,7 @@ text:'IMPORTANTE: Este formato  debe ser  llenado individualmente, para una sola
       ],
       styles: this.misestilos
     };
-    pdfMake.createPdf(dd).download('SIC');
+     pdfMake.createPdf(dd).download('SIC');
     // pdfMake.createPdf(dd).open();
   }
   async file(event: any) {

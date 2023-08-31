@@ -1,6 +1,12 @@
 <section>
-
-    <p-tabView>
+    <p-tabView *ngIf="!bandera">
+        <p-tabPanel header="FICHA DE IDENTIFICACIÓN"></p-tabPanel>
+        <p-tabPanel header="PRESUPUESTO"></p-tabPanel>
+        <p-tabPanel header="TERMINOS DE CRÉDITO"></p-tabPanel>
+        <p-tabPanel header="FICHA DE CAPACIDAD"></p-tabPanel>
+        <p-tabPanel header="EXPEDIENTE DIGITAL"></p-tabPanel>
+    </p-tabView>
+    <p-tabView *ngIf="bandera">
         <p-tabPanel header="FICHA DE IDENTIFICACIÓN">
             <p-tabView>
                 <p-tabPanel header="SOLICITANTE">
@@ -328,7 +334,7 @@
             </div>
         </p-tabPanel>
         <p-tabPanel header="FICHA DE CAPACIDAD">
-            <div class="grid p-3" *ngIf="detalle_solicitud.capacidad[0].groups.length!=0">
+            <div class="grid p-3" *ngIf="detalle_solicitud.capacidad.length>=1">
                 <div *ngFor="let form of detalle_solicitud.capacidad[0].groups; let n = index" class="col-12">
                     <div class="grid">
                         <div class="col-12">

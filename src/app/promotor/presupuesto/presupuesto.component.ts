@@ -317,7 +317,10 @@ export class PresupuestoComponent implements OnInit {
       elresto(){
         this.inversion_total.setValue((this.cotizacion.value + this.comision_apertura.value + this.seguro_equipo.value)-this.descuento_valor.value);
         this.importe_final.setValue(this.inversion_total.value);
-        this.aportacion_producto_valor.setValue(this.importe_final.value * (this.aportacion_producto_porcentaje.value / 100));
+        let uno = (this.aportacion_producto_valor.value * 100) / this.importe_final.value;
+        this.aportacion_producto_porcentaje.setValue(uno.toFixed(2));
+        this.importe_financiamiento_porcentaje.setValue(100 - this.aportacion_producto_porcentaje.value);
+        // this.aportacion_producto_valor.setValue(this.importe_final.value * (this.aportacion_producto_porcentaje.value / 100));
         this.importe_financiamiento_valor.setValue(this.importe_final.value - this.aportacion_producto_valor.value);
         let p_venta = this.precio_venta.value / this.cotizacion.value;
         let p_venta_entero = Number(p_venta.toFixed(2)) * 100;
@@ -332,12 +335,23 @@ export class PresupuestoComponent implements OnInit {
         this.descuento_porcentaje.setValue(parseInt(descuento_entero + ''));
       }
       async importeaprtacion(){
-        this.importe_financiamiento_porcentaje.setValue(100 - this.aportacion_producto_porcentaje.value);
-         let si = await this.cambiocantidad();
-         this.elresto();
+         this.aportacion_producto_valor.setValue(this.importe_final.value * (this.aportacion_producto_porcentaje.value / 100));
+         this.importe_financiamiento_porcentaje.setValue(100 - this.aportacion_producto_porcentaje.value);
+         this.importe_financiamiento_valor.setValue(this.importe_final.value - this.aportacion_producto_valor.value);
+        let p_venta = this.precio_venta.value / this.cotizacion.value;
+        let p_venta_entero = Number(p_venta.toFixed(2)) * 100;
+        this.precio_venta_porcentaje.setValue(parseInt(p_venta_entero + ''));
+        let p_iva = this.iva.value / this.cotizacion.value;
+        const iva_entero = Number(Number(p_iva.toFixed(2)) * 100);
+        this.iva_porcentaje.setValue(parseInt(iva_entero + ''));
+        let p_coti = this.cotizacion.value / this.cotizacion.value * 100;
+        this.cotizacion_total_porcentaje.setValue(parseInt(p_coti + ''));
+        let p_descuento = this.descuento_valor.value / this.cotizacion.value;
+        const descuento_entero = Number(Number(p_descuento.toFixed(2)) * 100);
+        this.descuento_porcentaje.setValue(parseInt(descuento_entero + ''));
       }
       async alrevez() {
-        let uno = (this.aportacion_producto_valor.value * 100) / this.importe_final.value
+        let uno = (this.aportacion_producto_valor.value * 100) / this.importe_final.value;
         this.aportacion_producto_porcentaje.setValue(uno.toFixed(2));
         this.importe_financiamiento_porcentaje.setValue(100 - this.aportacion_producto_porcentaje.value);
         let si = await this.cambiocantidad();
