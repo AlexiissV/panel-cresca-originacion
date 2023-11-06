@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalService } from '../../services/local.service';
-import { PostService } from '../../services/post.service';
 import { Group } from 'src/app/interfaces/productof.interface';
 import { MessageService } from 'primeng/api';
 import { postInfo } from 'src/app/interfaces/general.interface';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { SolicitudService } from '../../services/solicitud.service';
 
 @Component({
   selector: 'app-capacidad',
@@ -19,7 +19,7 @@ export class CapacidadComponent implements OnInit {
   formulario: Group[] = [];
 
   constructor(private local: LocalService,
-    private post: PostService,
+    private post: SolicitudService,
     private auth: AuthService,
     private messageService: MessageService,
     private router: Router) {
@@ -27,6 +27,19 @@ export class CapacidadComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     if (this.local.capacidad_info != null) {
       this.formulario = this.local.capacidad_info;
+      for(let uno of this.formulario){
+        for(let dos of uno.items){
+          if(dos.tipo_dato==40){
+          if(dos.value_register!=null || dos.value_register!=''){
+            dos.items_list?.forEach(item=>{
+              if(item.text===dos.value_register){
+                dos.select= item;
+              }
+            });
+          }
+        }
+        }
+      }
       //@ts-ignore
       this.estatus_solicitud=this.local.estatus_solicitud;
     }

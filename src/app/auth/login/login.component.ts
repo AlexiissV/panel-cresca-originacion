@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   email: AbstractControl;
   password: AbstractControl;
+  bandera: boolean=false;
 
   constructor(private formBuilder: FormBuilder,
     private titulo: Title,
@@ -68,18 +69,23 @@ export class LoginComponent implements OnInit {
       this.loginForm.controls['password'].markAllAsTouched();
       return;
     }
+    if(this.bandera){
+      return;
+    }
+    this.bandera=true;
     this.loginForm.controls['token_empresa'].setValue(this.local.empresa.token);
     await this.local.show();
     this.auth.login(this.loginForm.value)
       .subscribe({
         next: async (resp) => {
           await this.local.hide();
+          this.bandera=false;
           if (resp.code == 202) {
             this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Bienvenido ' + resp.data.nombre });
             this.auth.usuario = resp.data;
             await localStorage.setItem('usuario', JSON.stringify(resp.data));
             setTimeout(() => {
-              if (resp.data.perfil == 20) {
+              if (resp.data.perfil == 20 || 30) {
                 this.router.navigate(['/promotor']);
               } else {
                 this.router.navigate(['/admin']);
@@ -93,6 +99,7 @@ export class LoginComponent implements OnInit {
         },
         error: async (e) => {
           await this.local.hide();
+          this.bandera=false;
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Contacta al soporte de Cresca' });
         }
       });

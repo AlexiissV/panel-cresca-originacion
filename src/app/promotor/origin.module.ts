@@ -18,6 +18,10 @@ import { ContratoDetailComponent } from './contrato-detail/contrato-detail.compo
 import { InspeccionComponent } from './inspeccion/inspeccion.component';
 import { SicComponent } from './sic/sic.component';
 import { ComponentsModule } from '../components/components.module';
+import { SimulaComponent } from './simula/simula.component';
+import { PresupComponent } from './presup/presup.component';
+import { TermiComponent } from './termi/termi.component';
+import { CorridaComponent } from './corrida/corrida.component';
 
 
 @NgModule({
@@ -34,6 +38,10 @@ import { ComponentsModule } from '../components/components.module';
     ContratoDetailComponent,
     InspeccionComponent,
     SicComponent,
+    SimulaComponent,
+    PresupComponent,
+    TermiComponent,
+    CorridaComponent,
   ],
   imports: [
     CommonModule,

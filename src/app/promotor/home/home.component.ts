@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../services/post.service';
-import { Solicitud } from 'src/app/interfaces/general.interface';
+import { Solicitud, formNufi } from 'src/app/interfaces/general.interface';
 import { LocalService } from '../../services/local.service';
 import { Router } from '@angular/router';
 
@@ -32,7 +32,32 @@ export class HomeComponent implements OnInit {
     modificado: '',
     operador_id: 0,
     operador: '',
-    solicitante: ''
+    solicitante: '',
+    presupuestos: []
+  };
+  restu : formNufi = {
+    curp: '',
+    fecha_nacimiento: '',
+    entidad: '',
+    tipo_persona: '',
+    sexo: '',
+    nombre: '',
+    apellido_paterno: '',
+    apellido_materno: '',
+    correo: '',
+    telefono: '',
+    img_frente: '',
+    img_reverso: '',
+    reporte_id: '',
+    rfc: '',
+    ine_numero: '',
+    ine_vigencia: '',
+    domicilio_cp: '',
+    domicilio_estado: '',
+    domicilio_municipio: '',
+    domicilio_colonia: '',
+    domicilio_direccion: '',
+    estado_civil: ''
   };
   
 
@@ -53,7 +78,8 @@ export class HomeComponent implements OnInit {
 
   async onRowSelect(event: any) {
     await this.local.show();
-    this.post.getdetallesolicitud(event.data['id']).subscribe({
+    let id= event.data['id'];
+    this.post.getdetallesolicitud(id).subscribe({
       next: async (resp) => {
         this.local.solicitud_id = Number(event.data['id']);
         this.local.estatus_solicitud = Number(event.data['status']);
@@ -62,9 +88,14 @@ export class HomeComponent implements OnInit {
         this.local.formsolicitante = resp.solicitud_detail.solicitante;
         this.local.formrepresentante = {...resp.solicitud_detail.legal,is_aval:(resp.solicitud_detail.legal.apply_legal_condicional==10)?true:false};
         this.local.formsaval = resp.solicitud_detail.aval;
-        if (resp.solicitud_detail.presupuesto[0].iva != null) {
-          this.local.presupuesto_info = resp.solicitud_detail.presupuesto[0];
-          this.local.binding = resp.solicitud_detail.presupuesto[0].producto;
+        if (resp.solicitud_detail.presupuesto.length>=1) {
+          this.local.equipos = resp.solicitud_detail.presupuesto;
+          let inversion=0;
+          this.local.equipos.forEach(item=>{
+            inversion= inversion+Number(item['importe_financiamiento_valor']);
+          });
+          this.local.inversiontotal= inversion;
+          this.local.bindings = resp.solicitud_detail.producto;
         }
         if(resp.solicitud_detail.file_sic!=null){
           this.local.file_sic = resp.solicitud_detail.file_sic;
@@ -89,19 +120,11 @@ export class HomeComponent implements OnInit {
 
   resetlocal() {
     this.local.Cuestionario = [];
-    this.local.binding = {
-      id: 0,
-      clave: '',
-      nombre: '',
-      marca: '',
-      modelo: '',
-      serie: '',
-      precio: 0,
-      moneda: 0,
-      moneda_text: '',
-      apply_iva: 0
-    };
-    this.local.presupuesto_info = null;
+    this.local.bindings = []
+    this.local.formsolicitante = this.restu;
+    this.local.formrepresentante = this.restu;
+    this.local.formsaval = this.restu;
+    this.local.equipos = [];
     this.local.terminos_credito = null;
     this.local.tabla_amortizacion = [];
     this.local.capacidad_id = null;

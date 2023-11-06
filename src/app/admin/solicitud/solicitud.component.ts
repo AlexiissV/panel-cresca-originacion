@@ -47,34 +47,23 @@ export class SolicitudComponent implements OnInit {
         aportacion_producto_valor: 0,
         importe_financiamiento_porcentaje: 0,
         importe_financiamiento_valor: 0,
-        producto: {
-          id: 0,
-          apply_iva: 0,
-          clave: '',
-          nombre: '',
-          marca: '',
-          modelo: '',
-          serie: '',
-          precio: 0,
-          moneda: 0,
-          moneda_text: ''
-        }
+        producto_id: 0
       }
     ],
     capacidad_id: 0,
     termino_credito: [
       {
-        importe_credito:             0,
-        plazo_credito:               0,
-        taza_fija_anual:             0,
-        garantias:                   '',
-        forma_disposicion:           '',
+        importe_credito: 0,
+        plazo_credito: 0,
+        taza_fija_anual: 0,
+        garantias: '',
+        forma_disposicion: '',
         fecha_estimada_otorgamiento: '',
-        forma_pago_capital_mes:      '',
-        forma_pago_capital:          '',
-        forma_pago_interes:          '',
-        forma_pago_interes_mes:      '',
-          }
+        forma_pago_capital_mes: '',
+        forma_pago_capital: '',
+        forma_pago_interes: '',
+        forma_pago_interes_mes: '',
+      }
     ],
     capacidad: [{
       groups: []
@@ -156,7 +145,8 @@ export class SolicitudComponent implements OnInit {
       domicilio_direccion: '',
       estado_civil: ''
     },
-    file_sic: ''
+    file_sic: '',
+    producto: []
   };
 
   constructor(private active: ActivatedRoute, private post: PostService, private local: LocalService) {

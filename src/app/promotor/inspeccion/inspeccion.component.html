@@ -15,27 +15,25 @@
                 [tableStyle]="{'width': '100%'}" styleClass="p-datatable-sm">
                 <ng-template pTemplate="header">
                     <tr>
+                        <th class="text-center">No. Solicitud</th>
                         <th class="text-center">Cliente</th>
-                        <th class="text-center">solicitud</th>
                         <th class="text-center">producto</th>
                         <th class="text-center">marca</th>
                         <th class="text-center">modelo</th>
                         <th class="text-center">serie</th>
                         <th class="text-center">Status</th>
-                        <th class="text-center">Asignado</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-solicitud>
                     <tr [pSelectableRow]="solicitud"
                         [ngClass]="solicitud.visita_status=='VERIFICACION - SUPERVISION'?'bg-yellow-300 text-white':''||solicitud.visita_status =='SOLICITUD'?'bg-primary-300 text-white':'' || solicitud.visita_status =='TERMINADO'?'bg-green-600 text-white':''">
-                        <td class="text-center">{{solicitud.solicitante}}</td>
                         <td class="text-center">{{solicitud.solicitud}}</td>
+                        <td class="text-center">{{solicitud.solicitante}}</td>
                         <td class="text-center">{{solicitud.producto}}</td>
                         <td class="text-center">{{solicitud.marca}}</td>
                         <td class="text-center">{{solicitud.modelo}}</td>
                         <td class="text-center">{{solicitud.serie}}</td>
                         <td class="text-center">{{solicitud.visita_status}}</td>
-                        <td class="text-center">{{solicitud.visita_asignado}}</td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -51,8 +49,8 @@
                 [tableStyle]="{'width': '100%'}" styleClass="p-datatable-sm">
                 <ng-template pTemplate="header">
                     <tr>
+                        <th class="text-center">No. Solicitud</th>
                         <th class="text-center">Cliente</th>
-                        <th class="text-center">solicitud</th>
                         <th class="text-center">producto</th>
                         <th class="text-center">marca</th>
                         <th class="text-center">modelo</th>
@@ -64,8 +62,8 @@
                 <ng-template pTemplate="body" let-solicitud>
                     <tr [pSelectableRow]="solicitud"
                         [ngClass]="solicitud.visita_status=='VERIFICACION - SUPERVISION'?'bg-yellow-300 text-white':''||solicitud.visita_status =='SOLICITUD'?'bg-primary-300 text-white':'' || solicitud.visita_status =='TERMINADO'?'bg-green-600 text-white':''">
-                        <td class="text-center">{{solicitud.solicitante}}</td>
                         <td class="text-center">{{solicitud.solicitud}}</td>
+                        <td class="text-center">{{solicitud.solicitante}}</td>
                         <td class="text-center">{{solicitud.producto}}</td>
                         <td class="text-center">{{solicitud.marca}}</td>
                         <td class="text-center">{{solicitud.modelo}}</td>

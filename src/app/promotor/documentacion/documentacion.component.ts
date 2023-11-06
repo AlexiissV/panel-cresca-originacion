@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { LocalService } from '../../services/local.service';
 import { arraydocs } from 'src/app/interfaces/general.interface';
 import { MessageService } from 'primeng/api';
-import { PostService } from '../../services/post.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { SolicitudService } from '../../services/solicitud.service';
 
 @Component({
   selector: 'app-documentacion',
@@ -25,7 +25,7 @@ export class DocumentacionComponent implements OnInit {
 
   constructor(private local: LocalService,
     private messageService: MessageService,
-    private post: PostService,
+    private post: SolicitudService,
     private router: Router,
     private auth: AuthService) {
   }
@@ -40,6 +40,10 @@ export class DocumentacionComponent implements OnInit {
   }
 
   async file(event: any, i: number, array: number) {
+    if(event.target.files[0].type!='application/pdf'){
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'el formato del archivo debe ser un PDF' });
+      return;
+    }
     this.myfile = event.target.files[0];
     if (this.myfile != null || this.myfile != undefined) {
       this.getBase64(this.myfile, i, array);
@@ -103,7 +107,7 @@ export class DocumentacionComponent implements OnInit {
         if (resp.code == 202) {
           this.router.navigateByUrl('/promotor');
           setTimeout(() => {
-          //  location.reload();
+          location.reload();
           }, 700);
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });

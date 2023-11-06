@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalService } from '../../services/local.service';
 import { MessageService } from 'primeng/api';
@@ -8,17 +8,18 @@ import { AuthService } from '../../services/auth.service';
 import { InputSwitchOnChangeEvent } from 'primeng/inputswitch';
 import { ProductoFinanciero } from 'src/app/interfaces/productof.interface';
 import { SolicitudService } from '../../services/solicitud.service';
+import { SimularService } from '../../services/simular.service';
+import { PostService } from '../../services/post.service';
 
 @Component({
-  selector: 'app-terminos',
-  templateUrl: './terminos.component.html',
-  styleUrls: ['./terminos.component.scss'],
+  selector: 'app-termi',
+  templateUrl: './termi.component.html',
+  styleUrls: ['./termi.component.scss'],
   providers: [MessageService]
 })
-export class TerminosComponent implements OnInit {
+export class TermiComponent {
 
   salir: boolean = false;
-  gracias: boolean = false;
   estatus_solicitud: number = 0;
   apply_periodo: number = 20;
   //@ts-ignore
@@ -54,10 +55,12 @@ export class TerminosComponent implements OnInit {
   forma_pago_interes: AbstractControl;
 
   constructor(private formBuilder: FormBuilder,
-    private local: LocalService,
-    private post: SolicitudService,
+    private soli: SolicitudService,
+    private post: PostService,
     private auth: AuthService,
+    private simula: SimularService,
     private router: Router,
+    private local: LocalService,
     private messageService: MessageService) {
     this.terminosForm = this.formBuilder.group({
       importe_credito: [
@@ -112,15 +115,13 @@ export class TerminosComponent implements OnInit {
       documentos: [],
       tasa_porcentual: null
     });
-   this.post.getProductoFinaciero()
+   this.soli.getProductoFinaciero()
       .subscribe({
         next: (resp) => {
           this.p_financiero.push(...resp['producto-financiero']);
-          if (this.local.capacidad_info != null) {
-            //@ts-ignore
-            this.productof.setValue(this.p_financiero.find((item => item.id == this.local.capacidad_id)));
-            this.capacidad_id= this.local.capacidad_id;
-            this.estatus_solicitud=this.local.estatus_solicitud;
+          if (this.simula.capacidad_id != null) {
+            this.productof.setValue(this.p_financiero.find((item => item.id == this.simula.capacidad_id)));
+            this.capacidad_id= this.simula.capacidad_id;
             this.taza_fija_anual.setValue(this.productof.value['tasa_porcentual']);
           }
         },
@@ -129,25 +130,21 @@ export class TerminosComponent implements OnInit {
       });
   }
   async ngAfterViewInit(): Promise<void> {
-    if (this.local.equipos.length==0) {
+    if (this.simula.inversiontotal == 0) {
       await setTimeout(() => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'necesitas completar Presupuesto para continuar' });
       }, 500);
       await setTimeout(() => {
-        this.router.navigate(['/promotor/originacion/presupuesto']);
+        this.router.navigate(['/promotor/simulador/presupuesto']);
       }, 1000);
 
     } else {
       await setTimeout(() => {
-        this.importe_credito.setValue(this.local.inversiontotal);
+        this.importe_credito.setValue(this.simula.inversiontotal);
       }, 500);
     }
-    if (this.local.terminos_credito != null) {
-      this.terminosForm.reset(this.local.terminos_credito);
-      this.estatus_solicitud = this.local.estatus_solicitud;
-      if(this.local.terminos_credito.apply_periodo==20){
-        this.gracias= true;
-      }
+    if (this.simula.terminos_credito != null) {
+      this.terminosForm.reset(this.simula.terminos_credito);
     }
   }
 
@@ -162,31 +159,27 @@ export class TerminosComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Campos incompletos' });
       return;
     }
-    if (this.local.solicitud_id == null || this.local.solicitud_id == 0){
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Aun no ha iniciado una Solicitud ' });
-      return;
-    }
+    this.simula.terminos_credito = this.terminosForm.value;
     this.local.show();
     this.taza_fija_anual.enable();
-    this.post.guardarsolicitud({ token: this.auth.usuario.token, solicitud_id: this.local.solicitud_id, seccion: 30,capacidad_id:this.capacidad_id, termino_credito: {...this.terminosForm.value,apply_periodo_gracia:this.apply_periodo,meses_gracia: this.mesnum,pago_gracia:this.value_pago} }).subscribe({
+    this.productof.disable();
+    this.post.unicosimulador({...this.terminosForm.value,apply_periodo_gracia:this.apply_periodo,meses_gracia: this.mesnum,pago_gracia:this.value_pago,  token: this.auth.usuario.token, apply_iva: this.simula.bindings[0].apply_iva}).subscribe({
       next: (resp) => {
         this.local.hide();
         if (resp.code == 202) {
-          //@ts-ignore
-          this.local.solicitud_id = resp.solicitud_id;
-          this.local.terminos_credito = this.terminosForm.value;
-          this.local.tabla_amortizacion = resp.tabla_amortizacion;
-          if (this.salir) {
-            this.router.navigate(['/promotor/promotor/']);
-          } else {
-            this.router.navigate(['/promotor/originacion/simulador']);
-          }
+          this.simula.terminos_credito = this.terminosForm.value;
+          this.simula.tabla_amortizacion = resp.tabla_amortizacion;
+            this.router.navigate(['/promotor/simulador/simulador']);
+                this.productof.enable();
+
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });
         }
+        this.productof.enable();
       },
       error: (e) => {
         this.local.hide();
+        this.productof.enable();
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Contacta al soporte de Cresca' });
       }
     });
@@ -198,14 +191,8 @@ export class TerminosComponent implements OnInit {
   }
   seleccion(event: any) {
     this.capacidad_id = event.value['id'];
-    this.local.capacidad_id=this.capacidad_id;
+    this.simula.capacidad_id=this.capacidad_id;
     this.taza_fija_anual.setValue(Number(event.value['tasa_porcentual']));
-    this.local.doc_finaciero= event.value['documentos'];    
-    let cuestions: Group[] = event.value.secciones[0]['groups'];
-    for (let i = 0; i < cuestions.length; i++) {
-      cuestions[i].items = cuestions[i].items.map(item => ({ ...item, value_register: '' }));
-    }
-    this.local.capacidad_info = cuestions;
   }
   elswich(event: InputSwitchOnChangeEvent) {
     if (event.checked) {

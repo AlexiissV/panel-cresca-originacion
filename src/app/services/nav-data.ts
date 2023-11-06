@@ -4,6 +4,11 @@ export const AdmindMenu = [
         icon: 'pi pi-home',
         label: 'Inicio'
     },
+    {
+        routeLink: '',
+        icon: 'pi pi-info-circle',
+        label: 'Mesa de Ayuda'
+    },
 ];
 export const PromotorMenu = [
     {
@@ -20,6 +25,16 @@ export const PromotorMenu = [
         routeLink: 'promotor/inspeccion',
         icon: 'pi pi-file-pdf',
         label: 'Reporte de Inspección'
+    },
+    {
+        routeLink: 'promotor/inspeccion',
+        icon: 'pi pi-file-pdf',
+        label: 'Reporte de Inspección'
+    },
+    {
+        routeLink: '',
+        icon: 'pi pi-info-circle',
+        label: 'Mesa de Ayuda'
     },
 ];
 /*

@@ -30,7 +30,8 @@ export class HomeAdminComponent {
     modificado: '',
     operador_id: 0,
     operador: '',
-    solicitante: ''
+    solicitante: '',
+    presupuestos: []
   };
   
   

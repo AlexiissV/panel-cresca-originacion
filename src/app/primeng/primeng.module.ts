@@ -21,6 +21,8 @@ import { CardModule } from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
 import { BadgeModule } from 'primeng/badge';
 import { CheckboxModule } from 'primeng/checkbox';
+import { MessagesModule } from 'primeng/messages';
+import { CalendarModule } from 'primeng/calendar';
 
 
 
@@ -48,6 +50,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     PanelModule,
     BadgeModule,
     CheckboxModule,
+    MessagesModule,
+    CalendarModule
   ],
   exports:[
     InputTextModule,
@@ -71,6 +75,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     PanelModule,
     BadgeModule,
     CheckboxModule,
+    MessagesModule,
+    CalendarModule
   ]
 })
 export class PrimengModule { }

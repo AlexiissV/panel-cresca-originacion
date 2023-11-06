@@ -51,7 +51,7 @@
                 </div>
                 <div *ngIf="bindings[i].moneda==20" class="sm:col-12 md:col-4 lg:col-4 xl:col-4">
                     <div>Tipo Cambio</div>
-                    <p-inputNumber class="w-full" [minFractionDigits]="2" formControlName="tipo_cambio" mode="currency"
+                    <p-inputNumber class="w-full" [minFractionDigits]="2" formControlName="peso_valor" mode="currency"
                         currency="USD" locale="en-US" (onBlur)="cambiodolar(i)"
                         styleClass="p-inputtext-sm w-full my-2 text-center"></p-inputNumber>
                 </div>
@@ -199,10 +199,7 @@
     <div class="col-12 flex justify-content-end">
         <button pButton label="Agregar Producto" (click)="addproducto()" class="mt-3 bg-primary-700"
             [disabled]="this.form.controls['equipos'].invalid"></button>
+
+        <button pButton label="Continuar" class="mt-3 ml-2 bg-red-700" (click)="resultados()"></button>
     </div>
 </div>
-<div *ngIf="estatus_solicitud==2 || estatus_solicitud==0" class="flex align-items-center justify-content-between">
-    <button pButton label="Anterior" routerLink="/promotor/originacion/informacion" class="mt-3 bg-primary-700"></button>
-    <button pButton label="Guardar y Salir" (click)="guardasale()" class="mt-3 mr-3 bg-yellow-500"></button>
-    <button pButton label="Guardar y Continuar" (click)="resultados()" class="mt-3 bg-red-700"></button>
- </div>

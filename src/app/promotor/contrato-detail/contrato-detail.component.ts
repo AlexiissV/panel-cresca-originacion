@@ -3,7 +3,8 @@ import { LocalService } from '../../services/local.service';
 import { Router } from '@angular/router';
 import { Solicitud } from '../../interfaces/general.interface';
 import { MessageService } from 'primeng/api';
-import { PostService } from '../../services/post.service';
+import { ContratoService } from '../../services/contrato.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-contrato-detail',
@@ -12,7 +13,8 @@ import { PostService } from '../../services/post.service';
   providers: [MessageService]
 })
 export class ContratoDetailComponent implements OnInit {
-
+  minimo:Date= new Date();
+  Mipipe = new DatePipe('en-US');
   info: Solicitud = {
     id: 0,
     empresa_id: 0,
@@ -33,21 +35,28 @@ export class ContratoDetailComponent implements OnInit {
     modificado: '',
     operador_id: 0,
     operador: '',
-    solicitante: ''
+    solicitante: '',
+    presupuestos: []
   };
-  facturabase64: string = '';
   contratobase64: string = '';
   pagarebase64: string = '';
+  fecha: Date | undefined;
   //@ts-ignore
   myfile: File;
   dwcontrato: string = '';
   dwpagare: string = '';
+  dwavisoPrivacidad:      string ='';
+  dwtarjetaFirmas:        string ='';
+  dwSolicitudCredito:     string ='';
+  dwSolicitudDisposicion: string ='';
+  dwPld:                  string ='';
+  dwBuroCredito:          string ='';
   activeIndex: number = 0;
 
   constructor(private local: LocalService,
     private router: Router,
     private messageService: MessageService,
-    private post: PostService) {
+    private post: ContratoService) {
 
   }
   ngOnInit(): void {
@@ -60,27 +69,46 @@ export class ContratoDetailComponent implements OnInit {
       }
       if (this.info.status == 46) {
         this.activeIndex = 2;
-        this.descargardocspagare();
+        
       }
     } else {
       this.router.navigate(['promotor/contratos']);
     }
   }
 
-  async file(event: any, tipo: number) {
+  async filexml(event: any, tipo: number,i:number) {
+
+    if(event.target.files[0].type!='text/xml'){
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'el formato del archivo debe ser un XML' });
+      return;
+    }
     this.myfile = event.target.files[0];
+    
+    if (this.myfile != null || this.myfile != undefined) {
+      this.getBase64(this.myfile, tipo,i);
+    }
+
+  }
+  async file(event: any, tipo: number) {    
+    if(event.target.files[0].type!='application/pdf'){
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'el formato del archivo debe ser un PDF' });
+      return;
+    }
+    this.myfile = event.target.files[0];
+    
     if (this.myfile != null || this.myfile != undefined) {
       this.getBase64(this.myfile, tipo);
     }
 
   }
-  getBase64(file: File, tipo: number) {
+  getBase64(file: File, tipo: number, i?: number) {
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async () => {
       switch (tipo) {
         case 10:
-          this.facturabase64 = reader.result + '';
+          //@ts-ignore
+          this.info.presupuestos[i].xml = reader.result + '';
           break;
         case 20:
           this.contratobase64 = reader.result + '';
@@ -96,8 +124,8 @@ export class ContratoDetailComponent implements OnInit {
     };
   }
 
-  descargarcontrato() {
-    let win = window.open(this.dwcontrato, '_blank');
+  descargarcontrato(url: string) {
+    let win = window.open(url, '_blank');
     // Cambiar el foco al nuevo tab (punto opcional)
     //@ts-ignore
       win.focus();
@@ -110,10 +138,10 @@ export class ContratoDetailComponent implements OnInit {
     document.body.removeChild(link);*/
   }
   descargarpagare() {
-    let win = window.open(this.dwpagare, '_blank');
+   //  let win = window.open(this.dwpagare, '_blank');
     // Cambiar el foco al nuevo tab (punto opcional)
-    //@ts-ignore
-      win.focus();
+    // @ts-ignore
+    //  win.focus();
       /*
     var link = document.createElement("a");
     link.download = `pagare.pdf`;
@@ -121,15 +149,32 @@ export class ContratoDetailComponent implements OnInit {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);*/
+    //@ts-ignore
+    this.descargardocspagare(this.Mipipe.transform(this.fecha,'yyyy-MM-dd'));
+    
   }
 
   enviarFactura() {
-    if (this.facturabase64 == '') {
+    let bandera:boolean = false;
+    this.info.presupuestos.forEach((item)=>{
+      if(item.xml== null || item.xml== undefined){
+        bandera=true;
+      }
+    })
+    if(bandera){
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'debes cargar el archivo antes de enviarlo' });
       return;
     }
+    let detail=[];
+    for(let uno of this.info.presupuestos){
+      let data ={
+        presupuesto_id: uno.presupuesto_id,
+        factura: uno.xml
+      }
+      detail.push(data);
+    }
     this.local.show();
-    this.post.postenviarfactura(this.info.id, this.facturabase64)
+    this.post.postenviarfactura(this.info.id,detail)
       .subscribe({
         next: (resp) => {
           this.local.hide();
@@ -204,29 +249,50 @@ export class ContratoDetailComponent implements OnInit {
       this.descargardocscontrato();
     }
     if (event['index'] == 2) {
-      this.descargardocspagare();
     }
   }
-  descargardocspagare() {
-    this.post.getfilepagare(this.info.id).subscribe({
+  descargardocspagare(fecha: string) {
+    this.local.show();
+    this.post.getfilepagare(this.info.id,fecha).subscribe({
       next: (resp) => {
+        this.local.hide();
         if (resp.code == 202) {
           this.dwpagare = resp.pagare+'';
+          this.descargararchivo();
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });
         }
       },
       error: () => {
-
+        this.local.hide();
       }
     });
 
+  }
+  descargararchivo() {
+      let win = window.open(this.dwpagare, '_blank');
+    // Cambiar el foco al nuevo tab (punto opcional)
+    // @ts-ignore
+     win.focus();
+      /*
+    var link = document.createElement("a");
+    link.download = `pagare.pdf`;
+    link.href = this.dwpagare;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);*/
   }
   descargardocscontrato() {
     this.post.getfilecontrato(this.info.id).subscribe({
       next: (resp) => {
         if (resp.code == 202) {
           this.dwcontrato = resp.contrato+'';
+          this.dwavisoPrivacidad = resp.formatoavisoPrivacidad;
+          this.dwtarjetaFirmas = resp.formatotarjetaFirmas;
+          this.dwSolicitudCredito = resp.formatoSolicitudCredito;
+          this.dwSolicitudDisposicion = resp.formatoSolicitudDisposicion;
+          this.dwPld = resp.formatoPld;
+          this.dwBuroCredito = resp.formatoBuroCredito;
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });
         }

@@ -1,20 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Producto } from 'src/app/interfaces/general.interface';
+import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
 import { SolicitudService } from '../../services/solicitud.service';
-import { LocalService } from '../../services/local.service';
-import { AuthService } from '../../services/auth.service';
+import { Producto } from '../../interfaces/general.interface';
+import { SimularService } from '../../services/simular.service';
+import { Router } from '@angular/router';
+
 @Component({
-  selector: 'app-presupuesto',
-  templateUrl: './presupuesto.component.html',
-  styleUrls: ['./presupuesto.component.scss'],
+  selector: 'app-presup',
+  templateUrl: './presup.component.html',
+  styleUrls: ['./presup.component.scss'],
   providers: [MessageService]
 })
-export class PresupuestoComponent implements OnInit {
-  estatus_solicitud:number = 0;
-  salir: boolean=false;
+export class PresupComponent {
   form: FormGroup = this.fb.group(
     {
       equipos: this.fb.array([])
@@ -29,8 +27,7 @@ export class PresupuestoComponent implements OnInit {
               private post: SolicitudService,
               private messageService: MessageService,
               private router: Router,
-              private auth: AuthService,
-              private local: LocalService){
+              private simula: SimularService){
     
   }
   ngOnInit(): void {
@@ -40,10 +37,9 @@ export class PresupuestoComponent implements OnInit {
       },
       error: () => { }
     });
-    if(this.local.equipos.length>=1){
-      this.bindings= this.local.bindings;
-      this.estatus_solicitud=this.local.estatus_solicitud;
-      for(let i=0;i < this.local.equipos.length; i++){
+    if(this.simula.equipos.length>=1){
+      this.bindings= this.simula.bindings;
+      for(let i=0;i < this.simula.equipos.length; i++){
         let primero = this.fb.group(
           {
             producto_id: [null,[Validators.required],],
@@ -53,12 +49,13 @@ export class PresupuestoComponent implements OnInit {
             modelo: [{ value: null, disabled: true },[Validators.required],],
             p_precio: [null,[Validators.required],],
             p_nombre: [{ value: null, disabled: false },[Validators.required],],
+            peso_valor: [{ value: null, disabled: false },[Validators.required],],
             cantidad: [null,[Validators.required],],
             moneda: [null,[Validators.required],],
             iva: [{ value: null, disabled: true },[Validators.required],],
             descuento_porcentaje: [null,[Validators.required],],
             descuento_valor: [null,[Validators.required],],
-            tipo_cambio: [{ value: null, disabled: false },[Validators.required],],
+            tipo_cambio: [null,[Validators.required],],
             comision_apertura: [null,[Validators.required],],
             seguro_equipo: [null,[Validators.required],],
             inversion_total: [{ value: null, disabled: true },[Validators.required],],
@@ -76,15 +73,15 @@ export class PresupuestoComponent implements OnInit {
           }
         );
         this.equipos.push(primero);        
-        this.equipos.controls[i].reset(this.local.equipos[i]);
+        this.equipos.controls[i].reset(this.simula.equipos[i]);
         //@ts-ignore
-        this.equipos.controls[i]['controls'].moneda_text.setValue(this.local.equipos[i].moneda == 10 ? 'MXN' : 'USD');
+        this.equipos.controls[i]['controls'].moneda_text.setValue(this.simula.equipos[i].moneda == 10 ? 'MXN' : 'USD');
         
-        if(this.local.equipos[i].moneda ==10){
+        if(this.simula.equipos[i].moneda ==10){
           //@ts-ignore
           this.equipos.controls[i]['controls'].tipo_cambio.setValue(0);
           //@ts-ignore
-          this.equipos.controls[i]['controls'].tipo_cambio.disable();
+          this.equipos.controls[i]['controls'].peso_valor.disable();
         }
       }
     }else{
@@ -109,12 +106,13 @@ export class PresupuestoComponent implements OnInit {
           modelo: [{ value: null, disabled: true },[Validators.required],],
           p_precio: [null,[Validators.required],],
           p_nombre: [{ value: null, disabled: false },[Validators.required],],
+          peso_valor: [{ value: null, disabled: false },[Validators.required],],
           cantidad: [null,[Validators.required],],
           moneda: [null,[Validators.required],],
           iva: [{ value: null, disabled: true },[Validators.required],],
           descuento_porcentaje: [null,[Validators.required],],
           descuento_valor: [null,[Validators.required],],
-          tipo_cambio: [{ value: null, disabled: false },[Validators.required],],
+          tipo_cambio: [null,[Validators.required],],
           comision_apertura: [null,[Validators.required],],
           seguro_equipo: [null,[Validators.required],],
           inversion_total: [{ value: null, disabled: true },[Validators.required],],
@@ -171,12 +169,13 @@ export class PresupuestoComponent implements OnInit {
         modelo: [{ value: null, disabled: true },[Validators.required],],
         p_precio: [null,[Validators.required],],
         p_nombre: [{ value: null, disabled: false },[Validators.required],],
+        peso_valor: [{ value: null, disabled: false },[Validators.required],],
         cantidad: [null,[Validators.required],],
         moneda: [null,[Validators.required],],
         iva: [{ value: null, disabled: true },[Validators.required],],
         descuento_porcentaje: [null,[Validators.required],],
         descuento_valor: [null,[Validators.required],],
-        tipo_cambio: [{ value: null, disabled: false },[Validators.required],],
+        tipo_cambio: [null,[Validators.required],],
         comision_apertura: [null,[Validators.required],],
         seguro_equipo: [null,[Validators.required],],
         inversion_total: [{ value: null, disabled: true },[Validators.required],],
@@ -199,7 +198,7 @@ export class PresupuestoComponent implements OnInit {
   productoselect(event: string, i: number) {
     this.equipos.controls[i].reset();
     //@ts-ignore
-    this.equipos.controls[i]['controls'].tipo_cambio.enable();
+    this.equipos.controls[i]['controls'].peso_valor.enable();
 
     //@ts-ignore
     this.equipos.controls[i]['controls'].importe_financiamiento_porcentaje.setValue(100);
@@ -229,7 +228,7 @@ export class PresupuestoComponent implements OnInit {
     if (this.equipos.controls[i]['controls'].moneda_text.value == 'MXN') {
       this.cambiomxn(i);
       //@ts-ignore
-       this.equipos.controls[i]['controls'].tipo_cambio.disable();
+       this.equipos.controls[i]['controls'].peso_valor.disable();
       }
   }
   cambiomxn(i: number) {
@@ -269,9 +268,9 @@ export class PresupuestoComponent implements OnInit {
   
   cambiodolar(i:number) {
     //@ts-ignore
-    this.equipos.controls[i]['controls'].precio_venta.setValue(this.bindings[i].precio * this.equipos.controls[i]['controls'].tipo_cambio.value);
+    this.equipos.controls[i]['controls'].precio_venta.setValue(this.bindings[i].precio * this.equipos.controls[i]['controls'].peso_valor.value);
     //@ts-ignore
-    this.equipos.controls[i]['controls'].tipo_cambio.setValue(this.equipos.controls[i]['controls'].tipo_cambio.value);
+    this.equipos.controls[i]['controls'].tipo_cambio.setValue(this.equipos.controls[i]['controls'].peso_valor.value);
     if(this.bindings[i].apply_iva==10){
       //@ts-ignore
       this.equipos.controls[i]['controls'].iva.setValue(this.equipos.controls[i]['controls'].precio_venta.value * 0.16);
@@ -309,7 +308,7 @@ export class PresupuestoComponent implements OnInit {
       }
       cambiocomsion(i: number) {
         //@ts-ignore
-        let dos = (this.equipos.controls[i]['controls'].comision_apertura.value * 100) / this.equipos.controls[i]['controls'].cotizacion.value;        
+        let dos = (this.equipos.controls[i]['controls'].comision_apertura.value * 100) / this.equipos.controls[i]['controls'].cotizacion.value;
         //@ts-ignore
         this.equipos.controls[i]['controls'].comision_apertura_porcentaje.setValue(Number(dos.toFixed(2)));
         this.elresto(i);
@@ -381,7 +380,7 @@ export class PresupuestoComponent implements OnInit {
         this.equipos.controls[i]['controls'].aportacion_producto_porcentaje.setValue(Number(uno.toFixed(2)));
         //@ts-ignore
         this.equipos.controls[i]['controls'].importe_financiamiento_porcentaje.setValue(100 - this.equipos.controls[i]['controls'].aportacion_producto_porcentaje.value);
-        // let si = await this.cambiocantidad(i);
+      //  let si = await this.cambiocantidad(i);
          this.elresto(i);
       }
   resultados() {
@@ -420,50 +419,23 @@ export class PresupuestoComponent implements OnInit {
       //@ts-ignore
       this.equipos.controls[i]['controls'].tipo_cambio.enable();
     }
-    if (this.local.solicitud_id == null || this.local.solicitud_id == 0){
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Aun no ha iniciado una Solicitud ' });
-      return;
-    }
     let finalarry: any[]=[];
     Object.values(this.equipos.controls).forEach(control =>{
       finalarry.push(control.value);      
     });
+    this.simula.equipos= finalarry;
+    this.simula.bindings= this.bindings;
     Object.values(this.equipos.controls).forEach(control =>{
       //@ts-ignore
     this.inversiontotal= this.inversiontotal+ control['controls'].importe_financiamiento_valor.value
     });
-    this.local.show();
-    this.post.guardarsolicitud({ token: this.auth.usuario.token, solicitud_id: this.local.solicitud_id, seccion: 20, presupuesto: finalarry }).subscribe({
-      next: (resp) => {
-        this.local.hide();
-        if (resp.code == 202) {
-          //@ts-ignore
-          this.local.solicitud_id = resp.solicitud_id;
-          this.local.bindings = this.bindings;
-          this.local.equipos = finalarry;
-          this.local.inversiontotal= this.inversiontotal;
-          if(this.salir){
-            this.router.navigate(['/promotor']);
-          }else{
-            this.router.navigate(['/promotor/originacion/terminos']);
-          }
-        } else {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });
-        }
-      },
-      error: (e) => {
-        this.local.hide();
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Contacta al soporte de Cresca' });
-      }
-    });
+    this.simula.inversiontotal = this.inversiontotal;
+    this.router.navigate(['/promotor/simulador/terminos']);
+    
   }
   eliminarpresupuesto(i: number) {
     this.bindings.pop();
     this.equipos.controls.pop();
     this.alrevez(i-1);
     }
-    guardasale() {
-      this.salir= true;
-      this.resultados();
-      }
 }

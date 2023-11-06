@@ -21,18 +21,7 @@ export class LocalService {
     type: ''
   };
   Cuestionario: Group[]= [];
-  binding: Producto={
-    id: 0,
-    clave: '',
-    nombre: '',
-    marca: '',
-    modelo: '',
-    serie: '',
-    precio: 0,
-    moneda: 0,
-    moneda_text: '',
-    apply_iva: 0
-  };
+  bindings: Producto[] =[];
   formsolicitante: formNufi = {
     curp: '',
     fecha_nacimiento: '',
@@ -105,7 +94,8 @@ export class LocalService {
     domicilio_direccion: '',
     estado_civil: ''
   };
-  presupuesto_info: any=null;
+  equipos: any[] = [];
+  inversiontotal: number= 0;
   terminos_credito: any=null;
   tabla_amortizacion: TablaAmortizacion[] = [];
   capacidad_id:any=null;

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeAdminComponent } from './home-admin/home-admin.component';
 import { BarrasiGuard } from '../guards/barrasi.guard';
 import { SolicitudComponent } from './solicitud/solicitud.component';
+import { SimulaComponent } from '../promotor/simula/simula.component';
 
 const routes: Routes = [
   {path:'home', component:HomeAdminComponent, canActivate:[BarrasiGuard]},

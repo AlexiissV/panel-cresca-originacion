@@ -25,7 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NotfoundComponent,
     PerfilComponent,
     FormgeneralesComponent,
-    ReportenufiComponent
+    ReportenufiComponent,
   ],
   exports:[
     LoaderComponent,

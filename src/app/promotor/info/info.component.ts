@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../../services/post.service';
 import { MessageService } from 'primeng/api';
 import { LocalService } from '../../services/local.service';
 import { Router } from '@angular/router';
@@ -7,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { NufiService } from '../../services/nufi.service';
 import { Group, ItemsList, formNufi, postInfo } from 'src/app/interfaces/general.interface';
 import { arraydocs } from 'src/app/interfaces/general.interface';
+import { SolicitudService } from '../../services/solicitud.service';
 
 @Component({
   selector: 'app-info',
@@ -102,7 +102,7 @@ export class InfoComponent implements OnInit {
   };
 
 
-  constructor(private post: PostService,
+  constructor(private post: SolicitudService,
     private messageService: MessageService,
     private local: LocalService,
     private auth: AuthService,
@@ -117,31 +117,53 @@ export class InfoComponent implements OnInit {
       this.formsolicitante = this.local.formsolicitante;
       this.persona = this.formsolicitante.tipo_persona;
       this.formrepresentante = this.local.formrepresentante;
+      this.formsaval = this.local.formsaval;
       if(this.formrepresentante.is_aval){
         this.view_aval=true;
       }
-      this.formsaval = this.local.formsaval;
+      for(let uno of this.Cuestionario){
+        for(let dos of uno.items){
+          if(dos.tipo_dato==40){
+          if(dos.value_register!=null || dos.value_register!=''){
+            dos.items_list?.forEach(item=>{
+              if(item.text===dos.value_register){
+                dos.select= item;
+              }
+            });
+          }
+        }
+        }
+      }
       setTimeout(() => {
         this.estatus_solicitud = this.local.estatus_solicitud;
         if (this.estatus_solicitud != 2 && this.estatus_solicitud != 0) {
           this.view = false;
         }
       }, 500);
-      return;
-    }
-    this.post.getGenerales().subscribe(
-      {
-        next: (resp) => {
-          this.Cuestionario = resp['cuestionario-identificacion'][0].groups;
-          for (let i = 0; i < this.Cuestionario.length; i++) {
-            this.Cuestionario[i].items = this.Cuestionario[i].items.map(item => ({ ...item, value_register: '' }));
-          }
-          this.doc_general = resp.documentos;
-        },
-        error: () => {
-        }
+    }else{
+      this.doc_general = this.local.doc_general;
+      this.formsolicitante = this.local.formsolicitante;
+      this.persona = this.formsolicitante.tipo_persona;
+      this.formrepresentante = this.local.formrepresentante;
+      this.formsaval = this.local.formsaval;
+      if(this.formrepresentante.is_aval){
+        this.view_aval=true;
       }
-    );
+      this.post.getGenerales().subscribe(
+        {
+          next: (resp) => {
+            this.Cuestionario = resp['cuestionario-identificacion'][0].groups;
+            for (let i = 0; i < this.Cuestionario.length; i++) {
+              this.Cuestionario[i].items = this.Cuestionario[i].items.map(item => ({ ...item, value_register: '' }));
+            }
+            this.doc_general = resp.documentos;
+          },
+          error: () => {
+          }
+        }
+      );
+    }
+    
   }
   selectuno(event: any, n: number, i: number) {
     this.Cuestionario[n].items[i].value_register = event.value['text'];
@@ -284,7 +306,7 @@ export class InfoComponent implements OnInit {
     }
   }
   generareporte(event: any) {
-     /* switch (this.activeIndex) {
+    /*  switch (this.activeIndex) {
         case 0:
           this.formsolicitante.reporte_id = '67276a45-4559-4397-8ce9-4102afd06796';
           this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'reporte ID generado' });

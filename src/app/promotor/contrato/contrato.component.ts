@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../../services/post.service';
 import { Solicitud } from 'src/app/interfaces/general.interface';
 import { Router } from '@angular/router';
+import { ContratoService } from '../../services/contrato.service';
 
 @Component({
   selector: 'app-contrato',
@@ -30,10 +30,11 @@ export class ContratoComponent implements OnInit {
     modificado: '',
     operador_id: 0,
     operador: '',
-    solicitante: ''
+    solicitante: '',
+    presupuestos: []
   };
 
-  constructor(private post: PostService, private router: Router){
+  constructor(private post: ContratoService, private router: Router){
 
   }
   ngOnInit(): void {

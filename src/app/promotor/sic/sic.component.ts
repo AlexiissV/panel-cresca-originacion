@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { LocalService } from '../../services/local.service';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import { PostService } from '../../services/post.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { formNufi } from 'src/app/interfaces/general.interface';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { SolicitudService } from '../../services/solicitud.service';
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -19,6 +19,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SicComponent implements OnInit {
   estatus_solicitud: number = 0;
+  midata: any;
   Mipipe = new DatePipe('en-US');
   pdfObject: any;
   salir: boolean=false;
@@ -127,10 +128,9 @@ export class SicComponent implements OnInit {
 			  private messageService: MessageService,
         private auth: AuthService,
 			  private router: Router,
-			  private post: PostService) { }
+			  private post: SolicitudService) { }
 
   ngOnInit(): void {
-	if (this.local.Cuestionario.length >= 1) {
 		this.solicitante= this.local.formsolicitante;
 		this.legal= this.local.formrepresentante;
 		this.aval= this.local.formsaval;
@@ -138,7 +138,6 @@ export class SicComponent implements OnInit {
     if(this.local.file_sic!=''){
       this.file_sic= this.local.file_sic;
     }
-	}
   }
   descargarsic() {
     var dd:any = {
@@ -371,8 +370,8 @@ text:'IMPORTANTE: Este formato  debe ser  llenado individualmente, para una sola
       ],
       styles: this.misestilos
     };
-     pdfMake.createPdf(dd).download('SIC');
-    // pdfMake.createPdf(dd).open();
+    pdfMake.createPdf(dd).download('Formato SIC');
+    // pdfMake.createPdf(dd).print();
   }
   async file(event: any) {
     this.myfile = event.target.files[0];

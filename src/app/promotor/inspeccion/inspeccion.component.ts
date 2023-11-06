@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../../services/post.service';
 import { Visita } from 'src/app/interfaces/productof.interface';
 import { LocalService } from '../../services/local.service';
 import { MessageService } from 'primeng/api';
+import { VisitaService } from '../../services/visita.service';
 @Component({
   selector: 'app-inspeccion',
   templateUrl: './inspeccion.component.html',
@@ -34,7 +34,7 @@ export class InspeccionComponent implements OnInit {
   myfile: File;
 
 
-  constructor(private post: PostService, private local: LocalService, private messageService: MessageService,) {
+  constructor(private post: VisitaService, private local: LocalService, private messageService: MessageService,) {
 
   }
   ngOnInit(): void {
