@@ -95,7 +95,11 @@ export class SolicitudComponent implements OnInit {
       domicilio_municipio: '',
       domicilio_colonia: '',
       domicilio_direccion: '',
-      estado_civil: ''
+      estado_civil: '',
+      solicitante_fecha_constitucion: '',
+      solicitante_nombre_contacto: '',
+      solicitante_acta_constitutiva: '',
+      solicitante_poderes_representante: ''
     },
     legal: {
       curp: '',
@@ -119,7 +123,11 @@ export class SolicitudComponent implements OnInit {
       domicilio_municipio: '',
       domicilio_colonia: '',
       domicilio_direccion: '',
-      estado_civil: ''
+      estado_civil: '',
+      solicitante_fecha_constitucion: '',
+      solicitante_nombre_contacto: '',
+      solicitante_acta_constitutiva: '',
+      solicitante_poderes_representante: ''
     },
     aval: {
       curp: '',
@@ -143,7 +151,11 @@ export class SolicitudComponent implements OnInit {
       domicilio_municipio: '',
       domicilio_colonia: '',
       domicilio_direccion: '',
-      estado_civil: ''
+      estado_civil: '',
+      solicitante_fecha_constitucion: '',
+      solicitante_nombre_contacto: '',
+      solicitante_acta_constitutiva: '',
+      solicitante_poderes_representante: ''
     },
     file_sic: '',
     producto: []

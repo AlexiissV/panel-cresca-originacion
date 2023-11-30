@@ -9,8 +9,8 @@
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-dropdown
                                         formControlName="tipo_persona" styleClass=" text-center p-inputtext-sm w-full"
                                         [options]="list_persona" (onChange)="tipodepersona($event)"></p-dropdown></div>
-                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">CURP</div>
-                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input type="text" id="curp"
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">CURP</div>
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input type="text" id="curp"
                                         name="curp" formControlName="curp" minlength="18" maxlength="18" pInputText
                                         class="p-inputtext-sm w-full uppercase"></div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">RFC</div>
@@ -22,16 +22,16 @@
                                         name="firstName" id="firstName" formControlName="nombre" pInputText
                                         class="p-inputtext-sm w-full uppercase">
                         </div>
-                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Apellido Paterno</div>
-                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input type="text"
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Apellido Paterno</div>
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input type="text"
                                         name="lastName" id="lastName" formControlName="apellido_paterno" pInputText
                                         class="p-inputtext-sm w-full uppercase"></div>
-                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Apellido Materno</div>
-                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input type="text"
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Apellido Materno</div>
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input type="text"
                                         name="lastName" id="lastName" formControlName="apellido_materno" pInputText
                                         class="p-inputtext-sm w-full uppercase"></div>
-                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Sexo</div>
-                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-dropdown
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Sexo</div>
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-dropdown
                                         formControlName="sexo" styleClass=" text-center p-inputtext-sm w-full"
                                         [options]="list_genero"></p-dropdown></div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">calle y número exterior /
@@ -54,8 +54,8 @@
         </div>
         <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 segundo">
                 <div class="grid">
-                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Estado Civil </div>
-                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-dropdown
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Estado Civil </div>
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-dropdown
                                         formControlName="estado_civil" styleClass=" text-center p-inputtext-sm w-full"
                                         [options]="list_estadocivil"></p-dropdown></div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">C.P.</div>
@@ -63,13 +63,24 @@
                                 mask="99999" autocomplete="disabled" name="cp" id="cp"  placeholder="12345"
                                 formControlName="domicilio_cp"
                                 styleClass="p-inputtext-sm w-full text-center"></p-inputMask></div>
-                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Estado de Nacimiento </div>
+                        <div *ngIf="tipo_persona.value=='Moral'" class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Estado </div>
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Estado de Nacimiento </div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-dropdown
                                         formControlName="entidad" styleClass=" text-center p-inputtext-sm w-full"
                                         [options]="list_estados"></p-dropdown></div>
-                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Fecha de Nacimiento</div>
-                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-inputMask
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Fecha de Nacimiento</div>
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-inputMask
                                         mask="99/99/9999" autocomplete="disabled" formControlName="fecha_nacimiento" placeholder="dd/mm/yyyy"
+                                        slotChar="dd/mm/yyyy"
+                                        styleClass="p-inputtext-sm w-full text-center"></p-inputMask></div>
+                        <div *ngIf="tipo_persona.value=='Moral'" class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Nombre de contacto</div>
+                        <div *ngIf="tipo_persona.value=='Moral'" class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input type="text"
+                                        name="firstName" id="firstName" formControlName="solicitante_nombre_contacto" pInputText
+                                        class="p-inputtext-sm w-full uppercase">
+                        </div>
+                        <div *ngIf="tipo_persona.value=='Moral'" class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Fecha de Constitución</div>
+                        <div *ngIf="tipo_persona.value=='Moral'" class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-inputMask
+                                        mask="99/99/9999" autocomplete="disabled" formControlName="solicitante_fecha_constitucion" placeholder="dd/mm/yyyy"
                                         slotChar="dd/mm/yyyy"
                                         styleClass="p-inputtext-sm w-full text-center"></p-inputMask></div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Teléfono celular</div>
@@ -82,24 +93,34 @@
                                         name="email" id="email" formControlName="correo" pInputText
                                         class="p-inputtext-sm w-full">
                         </div>
-                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">INE Numero</div>
-                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">INE Numero</div>
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
                                 <input type="text" pInputText formControlName="ine_numero"
                                         class="p-inputtext-sm w-full uppercase">
                         </div>
-                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">INE Vigencia</div>
-                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-inputMask
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">INE Vigencia</div>
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-inputMask
                                         mask="9999" autocomplete="disabled" name="fecha" id="fecha"  placeholder="yyyy"
                                         formControlName="ine_vigencia"
                                         styleClass="p-inputtext-sm w-full text-center"></p-inputMask></div>
-                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5  align-self-center">Frente de INE</div>
-                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-5 lg:col-5 xl:col-5  align-self-center">Frente de INE</div>
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input
                                         class="input-file max-w-full" (change)="file($event,10)" accept="image/*"
                                         type="file" />
                         </div>
-                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Reverso de INE</div>
-                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Reverso de INE</div>
+                        <div *ngIf="tipo_persona.value=='Fisica'||tipo_persona.value==''" class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input
                                         class="input-file max-w-full" (change)="file($event,20)" accept="image/*"
+                                        type="file" />
+                        </div>
+                        <div *ngIf="tipo_persona.value=='Moral'" class="sm:col-12 md:col-5 lg:col-5 xl:col-5  align-self-center">Acta Constitutiva</div>
+                        <div *ngIf="tipo_persona.value=='Moral'" class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input
+                                        class="input-file max-w-full" (change)="file($event,30)" accept="application/pdf"
+                                        type="file" />
+                        </div>
+                        <div *ngIf="tipo_persona.value=='Moral'" class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Poderes del Representante</div>
+                        <div *ngIf="tipo_persona.value=='Moral'" class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><input
+                                        class="input-file max-w-full" (change)="file($event,40)" accept="application/pdf"
                                         type="file" />
                         </div>
                 </div>

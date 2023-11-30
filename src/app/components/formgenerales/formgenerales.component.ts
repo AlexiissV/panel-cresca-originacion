@@ -34,7 +34,11 @@ export class FormgeneralesComponent implements AfterViewInit {
     domicilio_municipio: '',
     domicilio_colonia: '',
     domicilio_direccion: '',
-    estado_civil: ''
+    estado_civil: '',
+    solicitante_fecha_constitucion: '',
+    solicitante_nombre_contacto: '',
+    solicitante_acta_constitutiva: '',
+    solicitante_poderes_representante: ''
   };
   @Input() view: boolean = true;
   @Input() check: boolean = false;
@@ -116,6 +120,10 @@ export class FormgeneralesComponent implements AfterViewInit {
   domicilio_municipio: AbstractControl;
   domicilio_colonia: AbstractControl;
   domicilio_direccion: AbstractControl;
+  solicitante_fecha_constitucion: AbstractControl;
+  solicitante_nombre_contacto: AbstractControl;
+  solicitante_acta_constitutiva: AbstractControl;
+  solicitante_poderes_representante: AbstractControl;
   //@ts-ignore
   myfile: File;
 
@@ -131,6 +139,13 @@ export class FormgeneralesComponent implements AfterViewInit {
         ],
       ],
       fecha_nacimiento: [
+        '', [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10)
+        ]
+      ],
+      solicitante_fecha_constitucion: [
         '', [
           Validators.required,
           Validators.minLength(10),
@@ -236,6 +251,21 @@ export class FormgeneralesComponent implements AfterViewInit {
           Validators.required
         ]
       ],
+      solicitante_nombre_contacto:[
+        '', [
+          Validators.required
+        ]
+      ],
+      solicitante_acta_constitutiva:[
+        '', [
+          Validators.required
+        ]
+      ],
+      solicitante_poderes_representante:[
+        '', [
+          Validators.required
+        ]
+      ],
       reporte_id: [
         ''
       ]
@@ -263,10 +293,36 @@ export class FormgeneralesComponent implements AfterViewInit {
     this.domicilio_colonia = this.infoforms.controls['domicilio_colonia'];
     this.domicilio_direccion = this.infoforms.controls['domicilio_direccion'];
     this.is_aval = this.infoforms.controls['is_aval'];
+    this.solicitante_fecha_constitucion = this.infoforms.controls['solicitante_fecha_constitucion'];
+    this.solicitante_nombre_contacto = this.infoforms.controls['solicitante_nombre_contacto'];
+    this.solicitante_acta_constitutiva = this.infoforms.controls['solicitante_acta_constitutiva'];
+    this.solicitante_poderes_representante = this.infoforms.controls['solicitante_poderes_representante'];
   }
   ngAfterViewInit(): void {
-    if (this.formulario.curp != '') {
+    if (this.formulario.rfc != '') {
       this.infoforms.reset(this.formulario);
+      if(this.formulario.tipo_persona=='Fisica'){
+        this.infoforms.reset(this.formulario);
+      this.solicitante_fecha_constitucion.disable();
+      this.solicitante_nombre_contacto.disable();
+      this.solicitante_acta_constitutiva.disable();
+      this.solicitante_poderes_representante.disable();
+      }else if(this.formulario.tipo_persona=='Moral'){
+      this.solicitante_fecha_constitucion.enable();
+      this.solicitante_nombre_contacto.enable();
+      this.solicitante_acta_constitutiva.enable();
+      this.solicitante_poderes_representante.enable();
+      this.curp.disable();
+      this.fecha_nacimiento.disable();
+      this.sexo.disable();
+      this.apellido_paterno.disable();
+      this.apellido_materno.disable();
+      this.img_frente.disable();
+      this.img_reverso.disable();
+      this.ine_numero.disable();
+      this.ine_vigencia.disable();
+      this.estado_civil.disable();
+      }
     }
   }
 
@@ -280,26 +336,71 @@ export class FormgeneralesComponent implements AfterViewInit {
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async () => {
-      if (tipo == 10) {
-        this.img_frente.setValue(reader.result + '');
-      } else if (tipo == 20) {
-        this.img_reverso.setValue(reader.result + '');
+      switch(tipo){
+        case 10:
+          this.img_frente.setValue(reader.result + '');
+          break;
+        case 20:
+          this.img_reverso.setValue(reader.result + '');
+          break;
+        case 30:
+          this.solicitante_acta_constitutiva.setValue(reader.result + '');
+          break;
+        case 40:
+          this.solicitante_poderes_representante.setValue(reader.result + '');
+          break;
       }
     };
     reader.onerror = (error) => {
     };
   }
   tipodepersona(event: any) {
+    if(event.value=='Fisica'){
+      this.infoforms.reset({tipo_persona:'Fisica'});
+      this.solicitante_fecha_constitucion.disable();
+      this.solicitante_nombre_contacto.disable();
+      this.solicitante_acta_constitutiva.disable();
+      this.solicitante_poderes_representante.disable();
+    }else if(event.value=='Moral'){
+      this.infoforms.reset({tipo_persona:'Moral'});
+      this.solicitante_fecha_constitucion.enable();
+      this.solicitante_nombre_contacto.enable();
+      this.solicitante_acta_constitutiva.enable();
+      this.solicitante_poderes_representante.enable();
+      this.curp.disable();
+      this.fecha_nacimiento.disable();
+      this.sexo.disable();
+      this.apellido_paterno.disable();
+      this.apellido_materno.disable();
+      this.img_frente.disable();
+      this.img_reverso.disable();
+      this.ine_numero.disable();
+      this.ine_vigencia.disable();
+      this.estado_civil.disable();
+    }
     this.tipopersona.emit(event.value);
+    
 
   }
   generareporte() {    
-    if (this.infoforms.invalid) {
-      this.form.emit({ message: 'Campos incompletos, revisa tu informacion' });
+    console.log(this.infoforms.value);
+    
+    if (this.infoforms.invalid) {      
+        this.form.emit({ message: 'Campos incompletos, revisa tu informacion' });
       return;
     }
     this.domicilio_estado.setValue(this.entidad.value);
-    this.form.emit(this.infoforms.value);
+    /*this.curp.enable();
+      this.fecha_nacimiento.enable();
+      this.sexo.enable();
+      this.apellido_paterno.enable();
+      this.apellido_materno.enable();
+      this.img_frente.enable();
+      this.img_reverso.enable();
+      this.ine_numero.enable();
+      this.ine_vigencia.enable();
+      this.estado_civil.enable();*/
+      this.form.emit(this.infoforms.value);
   }
   tambienaval(event: any) {
     this.vaaseraval.emit(event['checked']);

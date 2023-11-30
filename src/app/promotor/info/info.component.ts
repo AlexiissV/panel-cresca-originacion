@@ -50,7 +50,11 @@ export class InfoComponent implements OnInit {
     domicilio_municipio: '',
     domicilio_colonia: '',
     domicilio_direccion: '',
-    estado_civil: ''
+    estado_civil: '',
+    solicitante_fecha_constitucion: '',
+    solicitante_nombre_contacto: '',
+    solicitante_acta_constitutiva: '',
+    solicitante_poderes_representante: ''
   };
   formrepresentante: formNufi = {
     curp: '',
@@ -74,7 +78,11 @@ export class InfoComponent implements OnInit {
     domicilio_municipio: '',
     domicilio_colonia: '',
     domicilio_direccion: '',
-    estado_civil: ''
+    estado_civil: '',
+    solicitante_fecha_constitucion: '',
+    solicitante_nombre_contacto: '',
+    solicitante_acta_constitutiva: '',
+    solicitante_poderes_representante: ''
   };
   formsaval: formNufi = {
     curp: '',
@@ -98,7 +106,11 @@ export class InfoComponent implements OnInit {
     domicilio_municipio: '',
     domicilio_colonia: '',
     domicilio_direccion: '',
-    estado_civil: ''
+    estado_civil: '',
+    solicitante_fecha_constitucion: '',
+    solicitante_nombre_contacto: '',
+    solicitante_acta_constitutiva: '',
+    solicitante_poderes_representante: ''
   };
 
 
@@ -178,14 +190,22 @@ export class InfoComponent implements OnInit {
     }else{
       this.formrepresentante.apply_legal_condicional=20;
     }
-    if (this.formsolicitante.curp == '' || this.formrepresentante.curp == '' || this.formsaval.curp == '') {
+    if (this.formsolicitante.rfc == '' || this.formrepresentante.rfc == '' || this.formsaval.rfc == '') {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: ' Formularios incompletos' });
       return;
     }
-    if (this.formsolicitante.reporte_id == '' || this.formrepresentante.reporte_id == '' || this.formsaval.reporte_id == '') {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Reportes incompletos' });
-      return;
+    if(this.persona == 'Moral'){
+      if (this.formrepresentante.reporte_id == '' || this.formsaval.reporte_id == '') {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Reportes incompletos' });
+        return;
+      }
+    }else{
+      if (this.formsolicitante.reporte_id == '' || this.formrepresentante.reporte_id == '' || this.formsaval.reporte_id == '') {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Reportes incompletos' });
+        return;
+      }
     }
+    
     let bandera: boolean = false;
     for (let uno of this.Cuestionario) {
       for (let dos of uno.items) {
@@ -286,11 +306,15 @@ export class InfoComponent implements OnInit {
   solicitarreporte(event: any) {
     if (event['message']) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Campos incompletos, revisa tu informacion' });
-    } else if (event['curp']) {
+    } else if (event['rfc']) {
       switch (this.activeIndex) {
         case 0:
           this.formsolicitante = event;
-          this.generareporte(event);
+          if(this.formsolicitante.tipo_persona=='Fisica'){
+            this.generareporte(event);
+          }else{
+            this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Las Personas Morales no se genera Reporte' });
+          }
           break;
         case 1:
           this.formrepresentante = event;
@@ -306,7 +330,7 @@ export class InfoComponent implements OnInit {
     }
   }
   generareporte(event: any) {
-    /*  switch (this.activeIndex) {
+      switch (this.activeIndex) {
         case 0:
           this.formsolicitante.reporte_id = '67276a45-4559-4397-8ce9-4102afd06796';
           this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'reporte ID generado' });
@@ -322,7 +346,7 @@ export class InfoComponent implements OnInit {
         default:
           break;
       }
-      return;*/
+      return;
     this.local.show();
     this.nufi.solicitarReportenufi(event)
       .subscribe({
@@ -349,6 +373,8 @@ export class InfoComponent implements OnInit {
         },
         error: () => {
           this.local.hide();
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No pudimos completar la solicitud, intenta mas tarde' });
+
         }
       });
   }

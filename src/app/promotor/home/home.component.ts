@@ -57,13 +57,17 @@ export class HomeComponent implements OnInit {
     domicilio_municipio: '',
     domicilio_colonia: '',
     domicilio_direccion: '',
-    estado_civil: ''
+    estado_civil: '',
+    solicitante_fecha_constitucion: '',
+    solicitante_nombre_contacto: '',
+    solicitante_acta_constitutiva: '',
+    solicitante_poderes_representante: ''
   };
   
 
   constructor(private post: PostService,
-    private local: LocalService,
-    private router: Router) { }
+              private local: LocalService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.post.getSolicitudes().subscribe({

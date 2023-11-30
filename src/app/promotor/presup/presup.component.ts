@@ -59,7 +59,7 @@ export class PresupComponent {
             comision_apertura: [null,[Validators.required],],
             seguro_equipo: [null,[Validators.required],],
             inversion_total: [{ value: null, disabled: true },[Validators.required],],
-            precio_venta: [{ value: null, disabled: true },[Validators.required],],
+            precio_venta: [ null,[Validators.required],],
             importe_final: [{ value: null, disabled: true },[Validators.required],],
             aportacion_producto_porcentaje: [null,[Validators.required],],
             aportacion_producto_valor: [null,[Validators.required],],

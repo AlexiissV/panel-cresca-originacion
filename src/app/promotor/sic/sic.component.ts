@@ -72,7 +72,11 @@ export class SicComponent implements OnInit {
    domicilio_municipio: '',
    domicilio_colonia: '',
    domicilio_direccion: '',
-   estado_civil: ''
+   estado_civil: '',
+   solicitante_fecha_constitucion: '',
+   solicitante_nombre_contacto: '',
+   solicitante_acta_constitutiva: '',
+   solicitante_poderes_representante: ''
  };
  legal: formNufi = {
    curp: '',
@@ -96,7 +100,11 @@ export class SicComponent implements OnInit {
    domicilio_municipio: '',
    domicilio_colonia: '',
    domicilio_direccion: '',
-   estado_civil: ''
+   estado_civil: '',
+   solicitante_fecha_constitucion: '',
+   solicitante_nombre_contacto: '',
+   solicitante_acta_constitutiva: '',
+   solicitante_poderes_representante: ''
  };
  aval: formNufi = {
    curp: '',
@@ -120,7 +128,11 @@ export class SicComponent implements OnInit {
    domicilio_municipio: '',
    domicilio_colonia: '',
    domicilio_direccion: '',
-   estado_civil: ''
+   estado_civil: '',
+   solicitante_fecha_constitucion: '',
+   solicitante_nombre_contacto: '',
+   solicitante_acta_constitutiva: '',
+   solicitante_poderes_representante: ''
  };
 
 
