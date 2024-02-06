@@ -67,7 +67,7 @@
                                 mode="currency" currency="USD" locale="en-US"
                                 styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
                         </div>
-                        <div *ngIf="bindings[i].apply_iva==10 || bindings[i].apply_iva==0"
+                       <!-- <div *ngIf="bindings[i].apply_iva==10 || bindings[i].apply_iva==0"
                             class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center p-0 text-center">
                             IVA
                         </div>
@@ -76,7 +76,7 @@
                             <p-inputNumber class="w-full" formControlName="iva" [minFractionDigits]="2" mode="currency"
                                 currency="USD" locale="en-US"
                                 styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
-                        </div>
+                        </div>-->
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center p-0 text-center">
                             Núm. Unidades
                         </div>
@@ -97,34 +97,24 @@
                 </div>
                 <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6">
                     <div class="grid">
-                        <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center p-1 text-center">
-                            Comisión por apertura del Crédito
-                        </div>
-                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
-                            <div class="grid">
-                                <div class="sm:col-12 md:col-3 lg:col-3 xl:col-3">
-                                    <p-inputNumber inputStyleClass="w-full" suffix="%" [minFractionDigits]="1"
-                                        styleClass="p-inputtext-sm w-full text-center" (onInput)="otromas(i)"
-                                        formControlName="comision_apertura_porcentaje"></p-inputNumber>
-                                </div>
-                                <div class="sm:col-12 md:col-9 lg:col-9 xl:col-9">
-                                    <p-inputNumber class="w-full" formControlName="comision_apertura"
-                                        (onBlur)="cambiocomsion(i)" [minFractionDigits]="2" mode="currency"
-                                        currency="MXN" locale="es-MX"
-                                        styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
-                                </div>
-                            </div>
-                        </div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center p-0 text-center">
-                            gatos de contratación
+                            gastos de contratación
                         </div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
                             <p-inputNumber class="w-full" formControlName="seguro_equipo" [minFractionDigits]="2"
                                 mode="currency" currency="USD" locale="en-US" (onBlur)="elresto(i)"
                                 styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
                         </div>
+                        <!-- <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center p-0 text-center">
+                            Seguro del Bien
+                        </div>
+                        <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
+                            <p-inputNumber class="w-full" formControlName="seguro_bien" [minFractionDigits]="2"
+                                mode="currency" currency="USD" locale="en-US" (onBlur)="elresto(i)"
+                                styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                        </div>-->
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center p-0 text-center">
-                            Descuentos;
+                            Descuentos
                         </div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
                             <p-inputNumber class="w-full" formControlName="descuento_valor" [minFractionDigits]="2"
@@ -188,6 +178,40 @@
                                         styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
                                 </div>
                             </div>
+                        </div>
+                        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 align-self-center p-0 text-right">
+                            Monto del Crédito
+                        </div>
+                        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 p-1 align-self-center">
+                            <p-inputNumber class="w-full" formControlName="monto_credito" [minFractionDigits]="2"
+                                mode="currency" currency="USD" locale="en-US"
+                                styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                        </div>
+                        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 align-self-center p-0 text-right">
+                            Comisión por apertura del Crédito
+                        </div>
+                        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 p-1 align-self-center">
+                            <div class="grid">
+                                <div class="sm:col-12 md:col-3 lg:col-3 xl:col-3">
+                                    <p-inputNumber inputStyleClass="w-full" suffix="%" [minFractionDigits]="1"
+                                        styleClass="p-inputtext-sm w-full text-center" (onInput)="otromas(i)"
+                                        formControlName="comision_apertura_porcentaje"></p-inputNumber>
+                                </div>
+                                <div class="sm:col-12 md:col-9 lg:col-9 xl:col-9">
+                                    <p-inputNumber class="w-full" formControlName="comision_apertura"
+                                        (onInput)="cambiocomsion(i)" [minFractionDigits]="2" mode="currency"
+                                        currency="MXN" locale="es-MX"
+                                        styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 align-self-center p-0 text-right">
+                            Pago Inicial
+                        </div>
+                        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 p-1 align-self-center">
+                            <p-inputNumber class="w-full" formControlName="pago_inicial" [minFractionDigits]="2"
+                                mode="currency" currency="USD" locale="en-US"
+                                styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
                         </div>
                     </div>
                 </div>

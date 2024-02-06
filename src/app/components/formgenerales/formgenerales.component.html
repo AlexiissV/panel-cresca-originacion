@@ -1,4 +1,7 @@
 <form class="grid mt-3" [formGroup]="infoforms" (ngSubmit)="generareporte()">
+        <div class="col-12 p-0">
+                <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
+        </div>
         <div class=" sm:col-12 md:col-6 lg:col-6 xl:col-6">
                 <div class="grid">
                         <div *ngIf="check" class="col-12 text-center">
@@ -38,17 +41,17 @@
                                 int;</div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
                                 <input type="text" name="address" id="address" formControlName="domicilio_direccion"
-                                        pInputText class="p-inputtext-sm w-full">
+                                        pInputText class="p-inputtext-sm w-full uppercase">
                         </div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Colonia</div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
                                 <input type="text" pInputText formControlName="domicilio_colonia"
-                                        class="p-inputtext-sm w-full">
+                                        class="p-inputtext-sm w-full uppercase">
                         </div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Municipio</div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center">
                                 <input type="text" pInputText formControlName="domicilio_municipio"
-                                        class="p-inputtext-sm w-full">
+                                        class="p-inputtext-sm w-full uppercase">
                         </div>
                 </div>
         </div>

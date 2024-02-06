@@ -52,14 +52,14 @@ export class PresupComponent {
             peso_valor: [{ value: null, disabled: false },[Validators.required],],
             cantidad: [null,[Validators.required],],
             moneda: [null,[Validators.required],],
-            iva: [{ value: null, disabled: true },[Validators.required],],
+           // iva: [{ value: null, disabled: true },[Validators.required],],
             descuento_porcentaje: [null,[Validators.required],],
             descuento_valor: [null,[Validators.required],],
             tipo_cambio: [null,[Validators.required],],
             comision_apertura: [null,[Validators.required],],
             seguro_equipo: [null,[Validators.required],],
             inversion_total: [{ value: null, disabled: true },[Validators.required],],
-            precio_venta: [ null,[Validators.required],],
+            precio_venta: [{ value: null, disabled: false },[Validators.required],],
             importe_final: [{ value: null, disabled: true },[Validators.required],],
             aportacion_producto_porcentaje: [null,[Validators.required],],
             aportacion_producto_valor: [null,[Validators.required],],
@@ -68,8 +68,11 @@ export class PresupComponent {
             cotizacion: [{ value: null, disabled: true },[Validators.required],],
             comision_apertura_porcentaje: [3,[Validators.required],],
             cotizacion_total_porcentaje: [null,[Validators.required],],
-            iva_porcentaje: [null,[Validators.required],],
+          //  iva_porcentaje: [null,[Validators.required],],
             precio_venta_porcentaje: [null,[Validators.required],],
+            monto_credito:[{ value: null, disabled: true },[Validators.required],],
+          //  seguro_bien: [null,[Validators.required],],
+            pago_inicial:[{ value: null, disabled: true },[Validators.required],],
           }
         );
         this.equipos.push(primero);        
@@ -109,7 +112,7 @@ export class PresupComponent {
           peso_valor: [{ value: null, disabled: false },[Validators.required],],
           cantidad: [null,[Validators.required],],
           moneda: [null,[Validators.required],],
-          iva: [{ value: null, disabled: true },[Validators.required],],
+         // iva: [{ value: null, disabled: true },[Validators.required],],
           descuento_porcentaje: [null,[Validators.required],],
           descuento_valor: [null,[Validators.required],],
           tipo_cambio: [null,[Validators.required],],
@@ -125,8 +128,12 @@ export class PresupComponent {
           cotizacion: [{ value: null, disabled: true },[Validators.required],],
           comision_apertura_porcentaje: [3,[Validators.required],],
           cotizacion_total_porcentaje: [null,[Validators.required],],
-          iva_porcentaje: [null,[Validators.required],],
+        //  iva_porcentaje: [null,[Validators.required],],
           precio_venta_porcentaje: [null,[Validators.required],],
+          monto_credito:[{ value: null, disabled: true },[Validators.required],],
+        //  seguro_bien: [null,[Validators.required],],
+          pago_inicial:[{ value: null, disabled: true },[Validators.required],],
+          
         }
       );
       this.equipos.push(primero);
@@ -172,7 +179,7 @@ export class PresupComponent {
         peso_valor: [{ value: null, disabled: false },[Validators.required],],
         cantidad: [null,[Validators.required],],
         moneda: [null,[Validators.required],],
-        iva: [{ value: null, disabled: true },[Validators.required],],
+       // iva: [{ value: null, disabled: true },[Validators.required],],
         descuento_porcentaje: [null,[Validators.required],],
         descuento_valor: [null,[Validators.required],],
         tipo_cambio: [null,[Validators.required],],
@@ -188,15 +195,22 @@ export class PresupComponent {
         cotizacion: [{ value: null, disabled: true },[Validators.required],],
         comision_apertura_porcentaje: [3,[Validators.required],],
         cotizacion_total_porcentaje: [null,[Validators.required],],
-        iva_porcentaje: [null,[Validators.required],],
+      //  iva_porcentaje: [null,[Validators.required],],
         precio_venta_porcentaje: [null,[Validators.required],],
+        monto_credito:[{ value: null, disabled: true },[Validators.required],],
+      //  seguro_bien: [null,[Validators.required],],
+        pago_inicial:[{ value: null, disabled: true },[Validators.required],],
       }
     );
     this.equipos.push(primero);
   }
-
-  productoselect(event: string, i: number) {
-    this.equipos.controls[i].reset();
+  eliminarpresupuesto(i: number) {
+    this.bindings.pop();
+    this.equipos.controls.pop();
+    this.alrevez(i-1);
+    }
+    productoselect(event: string, i: number) {
+      this.equipos.controls[i].reset();
     //@ts-ignore
     this.equipos.controls[i]['controls'].peso_valor.enable();
 
@@ -230,92 +244,101 @@ export class PresupComponent {
       //@ts-ignore
        this.equipos.controls[i]['controls'].peso_valor.disable();
       }
-  }
-  cambiomxn(i: number) {
-    //@ts-ignore
+      }
+      cambiomxn(i: number) {
+        //@ts-ignore
     this.equipos.controls[i]['controls'].precio_venta.setValue(this.bindings[i].precio);
     //@ts-ignore
     this.equipos.controls[i]['controls'].tipo_cambio.disable();
-      if(this.bindings[i].apply_iva==10){
+    /*  if(this.bindings[i].apply_iva==10){
         //@ts-ignore
         this.equipos.controls[i]['controls'].iva.setValue(this.equipos.controls[i]['controls'].precio_venta.value * 0.16);
       }else{
         //@ts-ignore
         this.equipos.controls[i]['controls'].iva.setValue(0);
-      }
+      }*/
       //@ts-ignore
       this.equipos.controls[i]['controls'].cantidad.setValue(1);
       //@ts-ignore
       this.equipos.controls[i]['controls'].tipo_cambio.setValue(0);
       //@ts-ignore
-      this.equipos.controls[i]['controls'].cotizacion.setValue((this.equipos.controls[i]['controls'].precio_venta.value + this.equipos.controls[i]['controls'].iva.value) * this.equipos.controls[i]['controls'].cantidad.value);
+      // this.equipos.controls[i]['controls'].cotizacion.setValue((this.equipos.controls[i]['controls'].precio_venta.value + this.equipos.controls[i]['controls'].iva.value) * this.equipos.controls[i]['controls'].cantidad.value);
+      this.equipos.controls[i]['controls'].cotizacion.setValue(this.equipos.controls[i]['controls'].precio_venta.value * this.equipos.controls[i]['controls'].cantidad.value);
       //@ts-ignore
       let p_venta = this.equipos.controls[i]['controls'].precio_venta.value / this.equipos.controls[i]['controls'].cotizacion.value;
       let p_venta_entero = Number(p_venta.toFixed(2)) * 100;
         //@ts-ignore
         this.equipos.controls[i]['controls'].precio_venta_porcentaje.setValue(parseInt(p_venta_entero + ''));
-        //@ts-ignore
+       /* //@ts-ignore
         let p_iva = this.equipos.controls[i]['controls'].iva.value / this.equipos.controls[i]['controls'].cotizacion.value;
         const iva_entero = Number(Number(p_iva.toFixed(2)) * 100);
         //@ts-ignore
       this.equipos.controls[i]['controls'].iva_porcentaje.setValue(parseInt(iva_entero + ''));
-      //@ts-ignore
+      //@ts-ignore*/
       let p_coti = this.equipos.controls[i]['controls'].cotizacion.value / this.equipos.controls[i]['controls'].cotizacion.value * 100;
       //@ts-ignore
       this.equipos.controls[i]['controls'].cotizacion_total_porcentaje.setValue(parseInt(p_coti + ''));
       this.cambiocantidad(i);
-  }
-  
-  cambiodolar(i:number) {
-    //@ts-ignore
+
+      }
+      cambiodolar(i: number) {
+      //@ts-ignore
     this.equipos.controls[i]['controls'].precio_venta.setValue(this.bindings[i].precio * this.equipos.controls[i]['controls'].peso_valor.value);
     //@ts-ignore
     this.equipos.controls[i]['controls'].tipo_cambio.setValue(this.equipos.controls[i]['controls'].peso_valor.value);
-    if(this.bindings[i].apply_iva==10){
+   /* if(this.bindings[i].apply_iva==10){
       //@ts-ignore
       this.equipos.controls[i]['controls'].iva.setValue(this.equipos.controls[i]['controls'].precio_venta.value * 0.16);
     }else{
       //@ts-ignore
       this.equipos.controls[i]['controls'].iva.setValue(0);
-    }
+    }*/
     //@ts-ignore
     this.equipos.controls[i]['controls'].cantidad.setValue(1);
     //@ts-ignore
-    this.equipos.controls[i]['controls'].cotizacion.setValue((this.equipos.controls[i]['controls'].precio_venta.value + this.equipos.controls[i]['controls'].iva.value) * this.equipos.controls[i]['controls'].cantidad.value);
+    //this.equipos.controls[i]['controls'].cotizacion.setValue((this.equipos.controls[i]['controls'].precio_venta.value + this.equipos.controls[i]['controls'].iva.value) * this.equipos.controls[i]['controls'].cantidad.value);
+    this.equipos.controls[i]['controls'].cotizacion.setValue(this.equipos.controls[i]['controls'].precio_venta.value * this.equipos.controls[i]['controls'].cantidad.value);
     this.cambiocantidad(i);
-    }
-
-    cambiocantidad(i:number) {
+      }
+      cambiocantidad(i: number) {
+        //@ts-ignore
+      this.equipos.controls[i]['controls'].cotizacion.setValue(this.equipos.controls[i]['controls'].precio_venta.value * this.equipos.controls[i]['controls'].cantidad.value);
       //@ts-ignore
-      this.equipos.controls[i]['controls'].cotizacion.setValue((this.equipos.controls[i]['controls'].precio_venta.value + this.equipos.controls[i]['controls'].iva.value) * this.equipos.controls[i]['controls'].cantidad.value);
+      // let dos = this.equipos.controls[i]['controls'].cotizacion.value *(this.equipos.controls[i]['controls'].comision_apertura_porcentaje.value / 100);
       //@ts-ignore
-      let dos = this.equipos.controls[i]['controls'].cotizacion.value *(this.equipos.controls[i]['controls'].comision_apertura_porcentaje.value / 100);
-      //@ts-ignore
-      this.equipos.controls[i]['controls'].comision_apertura.setValue(dos);
+      // this.equipos.controls[i]['controls'].comision_apertura.setValue(dos);
       if(this.equipos.controls[i].valid){
         this.elresto(i);
       }
       return true;
       }
       async otromas(i:number) { 
+        //@ts-ignore
+         //this.equipos.controls[i]['controls'].cotizacion.setValue((this.equipos.controls[i]['controls'].precio_venta.value + this.equipos.controls[i]['controls'].iva.value) * this.equipos.controls[i]['controls'].cantidad.value);
+         this.equipos.controls[i]['controls'].cotizacion.setValue(this.equipos.controls[i]['controls'].precio_venta.value * this.equipos.controls[i]['controls'].cantidad.value);
        //@ts-ignore
-        this.equipos.controls[i]['controls'].cotizacion.setValue((this.equipos.controls[i]['controls'].precio_venta.value + this.equipos.controls[i]['controls'].iva.value) * this.equipos.controls[i]['controls'].cantidad.value);
-      //@ts-ignore
-        let dos = this.equipos.controls[i]['controls'].cotizacion.value *(this.equipos.controls[i]['controls'].comision_apertura_porcentaje.value / 100);
+         let dos = this.equipos.controls[i]['controls'].importe_financiamiento_valor.value *(this.equipos.controls[i]['controls'].comision_apertura_porcentaje.value / 100);
+         let iva_apertura= dos *0.16;
+         let com_ap=dos+iva_apertura;
+         //@ts-ignore
+         this.equipos.controls[i]['controls'].comision_apertura.setValue(com_ap);
+         this.elresto(i);
+       }
+       cambiocomsion(i: number) {
+         //@ts-ignore
+         let dos = (this.equipos.controls[i]['controls'].comision_apertura.value * 100) / this.equipos.controls[i]['controls'].importe_financiamiento_valor.value;
+         //@ts-ignore
+         this.equipos.controls[i]['controls'].comision_apertura_porcentaje.setValue(Number(dos.toFixed(2)));
+         // this.elresto(i);
+         // @ts-ignore
+          let cua =this.equipos.controls[i]['controls'].seguro_equipo.value + this.equipos.controls[i]['controls'].comision_apertura.value + this.equipos.controls[i]['controls'].aportacion_producto_valor.value;
+          //@ts-ignore
+        this.equipos.controls[i]['controls'].pago_inicial.setValue(cua);
+         }
+      elresto(i: number) {
+        // this.equipos.controls[i]['controls'].inversion_total.setValue((this.equipos.controls[i]['controls'].cotizacion.value + this.equipos.controls[i]['controls'].comision_apertura.value +this.equipos.controls[i]['controls'].seguro_bien.value +this.equipos.controls[i]['controls'].seguro_equipo.value)-this.equipos.controls[i]['controls'].descuento_valor.value);
         //@ts-ignore
-        this.equipos.controls[i]['controls'].comision_apertura.setValue(dos);
-        this.elresto(i);
-      }
-      cambiocomsion(i: number) {
-        //@ts-ignore
-        let dos = (this.equipos.controls[i]['controls'].comision_apertura.value * 100) / this.equipos.controls[i]['controls'].cotizacion.value;
-        //@ts-ignore
-        this.equipos.controls[i]['controls'].comision_apertura_porcentaje.setValue(Number(dos.toFixed(2)));
-        this.elresto(i);
-        }
-      elresto(i: number){
-        //@ts-ignore
-        this.equipos.controls[i]['controls'].inversion_total.setValue((this.equipos.controls[i]['controls'].cotizacion.value + this.equipos.controls[i]['controls'].comision_apertura.value + this.equipos.controls[i]['controls'].seguro_equipo.value)-this.equipos.controls[i]['controls'].descuento_valor.value);
+        this.equipos.controls[i]['controls'].inversion_total.setValue((this.equipos.controls[i]['controls'].cotizacion.value +this.equipos.controls[i]['controls'].seguro_equipo.value)-this.equipos.controls[i]['controls'].descuento_valor.value);
         //@ts-ignore
         this.equipos.controls[i]['controls'].importe_final.setValue(this.equipos.controls[i]['controls'].inversion_total.value);
         //@ts-ignore
@@ -331,12 +354,12 @@ export class PresupComponent {
         let p_venta_entero = Number(p_venta.toFixed(2)) * 100;
         //@ts-ignore
         this.equipos.controls[i]['controls'].precio_venta_porcentaje.setValue(parseInt(p_venta_entero + ''));
-        //@ts-ignore
+       /* //@ts-ignore
         let p_iva = this.equipos.controls[i]['controls'].iva.value / this.equipos.controls[i]['controls'].cotizacion.value;
         const iva_entero = Number(Number(p_iva.toFixed(2)) * 100);
         //@ts-ignore
         this.equipos.controls[i]['controls'].iva_porcentaje.setValue(parseInt(iva_entero + ''));
-        //@ts-ignore
+        //@ts-ignore*/
         let p_coti = this.equipos.controls[i]['controls'].cotizacion.value / this.equipos.controls[i]['controls'].cotizacion.value * 100;
         //@ts-ignore
         this.equipos.controls[i]['controls'].cotizacion_total_porcentaje.setValue(parseInt(p_coti + ''));
@@ -345,97 +368,126 @@ export class PresupComponent {
         const descuento_entero = Number(Number(p_descuento.toFixed(2)) * 100);
         //@ts-ignore
         this.equipos.controls[i]['controls'].descuento_porcentaje.setValue(parseInt(descuento_entero + ''));
+        //@ts-ignore
+       let tres =this.equipos.controls[i]['controls'].importe_final.value - this.equipos.controls[i]['controls'].aportacion_producto_valor.value ;
+       //@ts-ignore
+        this.equipos.controls[i]['controls'].monto_credito.setValue(tres);
+
+        //@ts-ignore
+         let dos = this.equipos.controls[i]['controls'].importe_financiamiento_valor.value *(this.equipos.controls[i]['controls'].comision_apertura_porcentaje.value / 100);
+         let iva_apertura= dos *0.16;
+         let com_ap=dos+iva_apertura;
+         //@ts-ignore
+         this.equipos.controls[i]['controls'].comision_apertura.setValue(com_ap);
+        
+        // @ts-ignore
+        let cua =this.equipos.controls[i]['controls'].seguro_equipo.value + this.equipos.controls[i]['controls'].comision_apertura.value + this.equipos.controls[i]['controls'].aportacion_producto_valor.value;
+        //@ts-ignore
+      this.equipos.controls[i]['controls'].pago_inicial.setValue(cua);
+      
       }
-      async importeaprtacion(i: number){
+      importeaprtacion(i: number) {
+      //@ts-ignore
+      this.equipos.controls[i]['controls'].aportacion_producto_valor.setValue(this.equipos.controls[i]['controls'].importe_final.value * (this.equipos.controls[i]['controls'].aportacion_producto_porcentaje.value / 100));
+      //@ts-ignore
+      this.equipos.controls[i]['controls'].importe_financiamiento_porcentaje.setValue(100 - this.equipos.controls[i]['controls'].aportacion_producto_porcentaje.value);
+      //@ts-ignore
+      this.equipos.controls[i]['controls'].importe_financiamiento_valor.setValue(this.equipos.controls[i]['controls'].importe_final.value - this.equipos.controls[i]['controls'].aportacion_producto_valor.value);
+      //@ts-ignore
+      let p_venta = this.equipos.controls[i]['controls'].precio_venta.value / this.equipos.controls[i]['controls'].cotizacion.value;
+      let p_venta_entero = Number(p_venta.toFixed(2)) * 100;
+      //@ts-ignore
+      this.equipos.controls[i]['controls'].precio_venta_porcentaje.setValue(parseInt(p_venta_entero + ''));
+    /*  //@ts-ignore
+      let p_iva = this.equipos.controls[i]['controls'].iva.value / this.equipos.controls[i]['controls'].cotizacion.value;
+      const iva_entero = Number(Number(p_iva.toFixed(2)) * 100);
+      //@ts-ignore
+      this.equipos.controls[i]['controls'].iva_porcentaje.setValue(parseInt(iva_entero + ''));
+      //@ts-ignore*/
+      let p_coti = this.equipos.controls[i]['controls'].cotizacion.value / this.equipos.controls[i]['controls'].cotizacion.value * 100;
+      //@ts-ignore
+      this.equipos.controls[i]['controls'].cotizacion_total_porcentaje.setValue(parseInt(p_coti + ''));
+      //@ts-ignore
+      let p_descuento = this.equipos.controls[i]['controls'].descuento_valor.value / this.equipos.controls[i]['controls'].cotizacion.value;
+      const descuento_entero = Number(Number(p_descuento.toFixed(2)) * 100);
+      //@ts-ignore
+      this.equipos.controls[i]['controls'].descuento_porcentaje.setValue(parseInt(descuento_entero + ''));
+      //@ts-ignore
+      let tres =this.equipos.controls[i]['controls'].importe_final.value - this.equipos.controls[i]['controls'].aportacion_producto_valor.value ;
+      //@ts-ignore
+      this.equipos.controls[i]['controls'].monto_credito.setValue(tres);
+       //@ts-ignore
+       let dos = this.equipos.controls[i]['controls'].importe_financiamiento_valor.value *(this.equipos.controls[i]['controls'].comision_apertura_porcentaje.value / 100);
+       let iva_apertura= dos *0.16;
+       let com_ap=dos+iva_apertura;
+       //@ts-ignore
+       this.equipos.controls[i]['controls'].comision_apertura.setValue(com_ap);
+        // @ts-ignore
+        let cua =this.equipos.controls[i]['controls'].seguro_equipo.value + this.equipos.controls[i]['controls'].comision_apertura.value + this.equipos.controls[i]['controls'].aportacion_producto_valor.value;
         //@ts-ignore
-        this.equipos.controls[i]['controls'].aportacion_producto_valor.setValue(this.equipos.controls[i]['controls'].importe_final.value * (this.equipos.controls[i]['controls'].aportacion_producto_porcentaje.value / 100));
-        //@ts-ignore
-        this.equipos.controls[i]['controls'].importe_financiamiento_porcentaje.setValue(100 - this.equipos.controls[i]['controls'].aportacion_producto_porcentaje.value);
-        //@ts-ignore
-        this.equipos.controls[i]['controls'].importe_financiamiento_valor.setValue(this.equipos.controls[i]['controls'].importe_final.value - this.equipos.controls[i]['controls'].aportacion_producto_valor.value);
-        //@ts-ignore
-        let p_venta = this.equipos.controls[i]['controls'].precio_venta.value / this.equipos.controls[i]['controls'].cotizacion.value;
-        let p_venta_entero = Number(p_venta.toFixed(2)) * 100;
-        //@ts-ignore
-        this.equipos.controls[i]['controls'].precio_venta_porcentaje.setValue(parseInt(p_venta_entero + ''));
-        //@ts-ignore
-        let p_iva = this.equipos.controls[i]['controls'].iva.value / this.equipos.controls[i]['controls'].cotizacion.value;
-        const iva_entero = Number(Number(p_iva.toFixed(2)) * 100);
-        //@ts-ignore
-        this.equipos.controls[i]['controls'].iva_porcentaje.setValue(parseInt(iva_entero + ''));
-        //@ts-ignore
-        let p_coti = this.equipos.controls[i]['controls'].cotizacion.value / this.equipos.controls[i]['controls'].cotizacion.value * 100;
-        //@ts-ignore
-        this.equipos.controls[i]['controls'].cotizacion_total_porcentaje.setValue(parseInt(p_coti + ''));
-        //@ts-ignore
-        let p_descuento = this.equipos.controls[i]['controls'].descuento_valor.value / this.equipos.controls[i]['controls'].cotizacion.value;
-        const descuento_entero = Number(Number(p_descuento.toFixed(2)) * 100);
-        //@ts-ignore
-        this.equipos.controls[i]['controls'].descuento_porcentaje.setValue(parseInt(descuento_entero + ''));
+      this.equipos.controls[i]['controls'].pago_inicial.setValue(cua);
       }
-      async alrevez(i:number) {
-        //@ts-ignore
-        let uno = (this.equipos.controls[i]['controls'].aportacion_producto_valor.value * 100) / this.equipos.controls[i]['controls'].importe_final.value;
-        //@ts-ignore
-        this.equipos.controls[i]['controls'].aportacion_producto_porcentaje.setValue(Number(uno.toFixed(2)));
-        //@ts-ignore
-        this.equipos.controls[i]['controls'].importe_financiamiento_porcentaje.setValue(100 - this.equipos.controls[i]['controls'].aportacion_producto_porcentaje.value);
+      alrevez(i: number) {
+      // @ts-ignore
+      let uno = (this.equipos.controls[i]['controls'].aportacion_producto_valor.value * 100) / this.equipos.controls[i]['controls'].importe_final.value;
+      // @ts-ignore
+      this.equipos.controls[i]['controls'].aportacion_producto_porcentaje.setValue(Number(uno.toFixed(2)));
+      // @ts-ignore
+      this.equipos.controls[i]['controls'].importe_financiamiento_porcentaje.setValue(100 - this.equipos.controls[i]['controls'].aportacion_producto_porcentaje.value);
       //  let si = await this.cambiocantidad(i);
-         this.elresto(i);
+       this.elresto(i);
       }
-  resultados() {
-   for(let i =0; i< this.equipos.controls.length;i++){
-    //@ts-ignore
-    this.equipos.controls[i]['controls'].iva.enable();
-    //@ts-ignore
-    this.equipos.controls[i]['controls'].comision_apertura.enable();
-    //@ts-ignore
-    this.equipos.controls[i]['controls'].inversion_total.enable();
-    //@ts-ignore
-    this.equipos.controls[i]['controls'].precio_venta.enable();
-    //@ts-ignore
-    this.equipos.controls[i]['controls'].importe_final.enable();
-    //@ts-ignore
-    this.equipos.controls[i]['controls'].importe_financiamiento_porcentaje.enable();
-    //@ts-ignore
-    this.equipos.controls[i]['controls'].importe_financiamiento_valor.enable();
-    //@ts-ignore
-    this.equipos.controls[i]['controls'].cotizacion.enable();
-    //@ts-ignore
-    this.equipos.controls[i]['controls'].modelo.enable();
-    //@ts-ignore
-    this.equipos.controls[i]['controls'].marca.enable();
-    //@ts-ignore
-    this.equipos.controls[i]['controls'].serie.enable();
-   }
-    
-    if (this.equipos.invalid) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Campos incompletos' });
-      return Object.values(this.equipos.controls).forEach(control =>{
-        control.markAllAsTouched();
-      });
-    }
-    for(let i =0; i< this.equipos.controls.length;i++){
-      //@ts-ignore
-      this.equipos.controls[i]['controls'].tipo_cambio.enable();
-    }
-    let finalarry: any[]=[];
-    Object.values(this.equipos.controls).forEach(control =>{
-      finalarry.push(control.value);      
-    });
-    this.simula.equipos= finalarry;
-    this.simula.bindings= this.bindings;
-    Object.values(this.equipos.controls).forEach(control =>{
-      //@ts-ignore
-    this.inversiontotal= this.inversiontotal+ control['controls'].importe_financiamiento_valor.value
-    });
-    this.simula.inversiontotal = this.inversiontotal;
-    this.router.navigate(['/promotor/simulador/terminos']);
-    
-  }
-  eliminarpresupuesto(i: number) {
-    this.bindings.pop();
-    this.equipos.controls.pop();
-    this.alrevez(i-1);
-    }
-}
+      resultados() {
+        for(let i =0; i< this.equipos.controls.length;i++){
+        // this.equipos.controls[i]['controls'].iva.enable();
+         //@ts-ignore
+         this.equipos.controls[i]['controls'].comision_apertura.enable();
+         //@ts-ignore
+         this.equipos.controls[i]['controls'].inversion_total.enable();
+         //@ts-ignore
+         this.equipos.controls[i]['controls'].precio_venta.enable();
+         //@ts-ignore
+         this.equipos.controls[i]['controls'].importe_final.enable();
+         //@ts-ignore
+         this.equipos.controls[i]['controls'].importe_financiamiento_porcentaje.enable();
+         //@ts-ignore
+         this.equipos.controls[i]['controls'].importe_financiamiento_valor.enable();
+         //@ts-ignore
+         this.equipos.controls[i]['controls'].cotizacion.enable();
+         //@ts-ignore
+         this.equipos.controls[i]['controls'].modelo.enable();
+         //@ts-ignore
+         this.equipos.controls[i]['controls'].marca.enable();
+         //@ts-ignore
+         this.equipos.controls[i]['controls'].serie.enable();
+         //@ts-ignore
+         this.equipos.controls[i]['controls'].monto_credito.enable();
+         //@ts-ignore
+         this.equipos.controls[i]['controls'].pago_inicial.enable();
+        }
+         
+         if (this.equipos.invalid) {
+           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Campos incompletos' });
+           return Object.values(this.equipos.controls).forEach(control =>{
+             control.markAllAsTouched();
+           });
+         }
+         for(let i =0; i< this.equipos.controls.length;i++){
+           //@ts-ignore
+           this.equipos.controls[i]['controls'].tipo_cambio.enable();
+         }
+         let finalarry: any[]=[];
+         Object.values(this.equipos.controls).forEach(control =>{
+           finalarry.push(control.value);      
+         });
+         this.simula.equipos= finalarry;
+         this.simula.bindings= this.bindings;
+         Object.values(this.equipos.controls).forEach(control =>{
+           //@ts-ignore
+         this.inversiontotal= this.inversiontotal+ control['controls'].monto_credito.value
+         });
+         this.simula.inversiontotal = this.inversiontotal;
+         this.router.navigate(['/promotor/simulador/terminos']);
+         
+       }
+      }

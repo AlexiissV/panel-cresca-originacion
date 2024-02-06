@@ -36,7 +36,8 @@ export class ContratoDetailComponent implements OnInit {
     operador_id: 0,
     operador: '',
     solicitante: '',
-    presupuestos: []
+    presupuestos: [],
+    capacidad_id: 0
   };
   contratobase64: string = '';
   pagarebase64: string = '';
@@ -253,7 +254,7 @@ export class ContratoDetailComponent implements OnInit {
   }
   descargardocspagare(fecha: string) {
     this.local.show();
-    this.post.getfilepagare(this.info.id,fecha).subscribe({
+    this.post.getfilepagare(this.info.id,fecha,this.info.capacidad_id).subscribe({
       next: (resp) => {
         this.local.hide();
         if (resp.code == 202) {
@@ -283,7 +284,7 @@ export class ContratoDetailComponent implements OnInit {
     document.body.removeChild(link);*/
   }
   descargardocscontrato() {
-    this.post.getfilecontrato(this.info.id).subscribe({
+    this.post.getfilecontrato(this.info.id,this.info.capacidad_id).subscribe({
       next: (resp) => {
         if (resp.code == 202) {
           this.dwcontrato = resp.contrato+'';

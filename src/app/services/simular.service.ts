@@ -10,7 +10,7 @@ export class SimularService {
   bindings: Producto[] =[];
   equipos:any[]=[];
   inversiontotal: number= 0;
-  terminos_credito: any=null;
+  terminos_credito :any = null;
   capacidad_id:any=null;
   tabla_amortizacion: TablaAmortizacion[] = [];
 

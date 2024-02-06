@@ -194,7 +194,7 @@ export class InfoComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: ' Formularios incompletos' });
       return;
     }
-    if(this.persona == 'Moral'){
+   /* if(this.persona == 'Moral'){
       if (this.formrepresentante.reporte_id == '' || this.formsaval.reporte_id == '') {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Reportes incompletos' });
         return;
@@ -204,7 +204,7 @@ export class InfoComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Reportes incompletos' });
         return;
       }
-    }
+    }*/
     
     let bandera: boolean = false;
     for (let uno of this.Cuestionario) {
@@ -330,7 +330,7 @@ export class InfoComponent implements OnInit {
     }
   }
   generareporte(event: any) {
-      switch (this.activeIndex) {
+    /*  switch (this.activeIndex) {
         case 0:
           this.formsolicitante.reporte_id = '67276a45-4559-4397-8ce9-4102afd06796';
           this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'reporte ID generado' });
@@ -346,7 +346,7 @@ export class InfoComponent implements OnInit {
         default:
           break;
       }
-      return;
+      return;*/
     this.local.show();
     this.nufi.solicitarReportenufi(event)
       .subscribe({

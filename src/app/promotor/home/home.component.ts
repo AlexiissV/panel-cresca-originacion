@@ -33,7 +33,8 @@ export class HomeComponent implements OnInit {
     operador_id: 0,
     operador: '',
     solicitante: '',
-    presupuestos: []
+    presupuestos: [],
+    capacidad_id: 0
   };
   restu : formNufi = {
     curp: '',
@@ -94,6 +95,7 @@ export class HomeComponent implements OnInit {
         this.local.formsaval = resp.solicitud_detail.aval;
         if (resp.solicitud_detail.presupuesto.length>=1) {
           this.local.equipos = resp.solicitud_detail.presupuesto;
+          this.local.proveedor_id= resp.solicitud_detail.proveedor_id;
           let inversion=0;
           this.local.equipos.forEach(item=>{
             inversion= inversion+Number(item['importe_financiamiento_valor']);

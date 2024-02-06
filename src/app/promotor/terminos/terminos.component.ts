@@ -31,10 +31,8 @@ export class TerminosComponent implements OnInit {
   list_Meses: string[] = [
     '',
     'Mensual',
-    'Trimestal',
     'Semestral',
     'Anual',
-    'Al Vencimiento',
   ];
   meses_gracia: string[] = [
     '', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'

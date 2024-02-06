@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { LocalService } from '../../services/local.service';
-import { SolicitudDetail } from 'src/app/interfaces/general.interface';
+import { SolicitudDetail } from '../../interfaces/general.interface';
 import { Group } from '../../interfaces/general.interface';
+import { TablaAmortizacion } from '../../interfaces/productof.interface';
 
 @Component({
   selector: 'app-solicitud',
@@ -13,6 +14,7 @@ import { Group } from '../../interfaces/general.interface';
 export class SolicitudComponent implements OnInit {
   bandera: boolean= false;
   Cuestionario: Group[]=[];
+  tabla: TablaAmortizacion[] = [];
   list_Meses:string[]=[
     '',
     'Mensual',
@@ -158,7 +160,13 @@ export class SolicitudComponent implements OnInit {
       solicitante_poderes_representante: ''
     },
     file_sic: '',
-    producto: []
+    producto: [],
+    proveedor_id: {
+      id: 0,
+      nombre: '',
+      rfc: '',
+      razon_social: ''
+    }
   };
 
   constructor(private active: ActivatedRoute, private post: PostService, private local: LocalService) {
@@ -169,6 +177,7 @@ export class SolicitudComponent implements OnInit {
       next: async (resp) => {
         this.detalle_solicitud= resp.solicitud_detail;
         this.Cuestionario = resp.solicitud_detail['cuestionario-identificacion'][0].groups;
+        this.tabla= resp.solicitud_detail.tabla_amortizacion;
         await this.local.hide();
         this.bandera=true;
       },

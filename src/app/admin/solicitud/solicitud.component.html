@@ -50,28 +50,29 @@
         </div>
     </div>
         </p-tabPanel>
-        <!--<p-tabPanel header="PRESUPUESTO">
-            <div class="grid" *ngIf="detalle_solicitud.presupuesto[0].producto_id!=null">
+        <p-tabPanel header="PRESUPUESTO">
+            <div *ngIf="detalle_solicitud.presupuesto.length>=1">
+            <div class="grid my-4" *ngFor="let producto of detalle_solicitud.presupuesto; let i = index;">
                 <div class="col-12">
                     <div class="grid">
                         <div class="col-3 text-center">
                             <div>Producto</div>
-                            <input type="text" [ngModel]="detalle_solicitud.presupuesto[0].producto.nombre"
+                            <input type="text" [ngModel]="detalle_solicitud.producto[i].nombre"
                                 [disabled]="true" class="p-inputtext-sm w-full my-2 text-center" pInputText />
                         </div>
                         <div class="col-3 text-center">
                             <div>Marca</div>
-                            <input type="text" [ngModel]="detalle_solicitud.presupuesto[0].producto.marca"
+                            <input type="text" [ngModel]="detalle_solicitud.producto[i].marca"
                                 [disabled]="true" class="p-inputtext-sm w-full my-2 text-center" pInputText />
                         </div>
                         <div class="col-3 text-center">
                             <div>Serie</div>
-                            <input type="text" [ngModel]="detalle_solicitud.presupuesto[0].producto.serie"
+                            <input type="text" [ngModel]="detalle_solicitud.producto[i].serie"
                                 [disabled]="true" class="p-inputtext-sm w-full my-2 text-center" pInputText />
                         </div>
                         <div class="col-3 text-center">
                             <div>Modelo</div>
-                            <input type="text" [ngModel]="detalle_solicitud.presupuesto[0].producto.modelo"
+                            <input type="text" [ngModel]="detalle_solicitud.producto[i].modelo"
                                 [disabled]="true" class="p-inputtext-sm w-full my-2 text-center" pInputText />
                         </div>
                     </div>
@@ -80,17 +81,17 @@
                     <div class="grid text-center">
                         <div class="col-4">
                             <div>Precio de Lista (moneda de origen);</div>
-                            <p-inputNumber class="w-full" [ngModel]="detalle_solicitud.presupuesto[0].producto.precio"
+                            <p-inputNumber class="w-full" [ngModel]="detalle_solicitud.producto[i].precio"
                                 [minFractionDigits]="2" mode="currency" currency="USD" locale="en-US" [disabled]="true"
                                 styleClass="p-inputtext-sm w-full my-2 text-center"></p-inputNumber>
                         </div>
                         <div class="col-4">
                             <div>Moneda</div>
                             <input type="text" [disabled]="true"
-                                [ngModel]="detalle_solicitud.presupuesto[0].producto.moneda_text"
+                                [ngModel]="detalle_solicitud.producto[i].moneda_text"
                                 class="p-inputtext-sm w-full my-2 text-center" pInputText />
                         </div>
-                        <div *ngIf="detalle_solicitud.presupuesto[0].producto.moneda==20" class="sm:col-12 md:col-4 lg:col-4 xl:col-4">
+                        <div *ngIf="detalle_solicitud.producto[i].moneda==20" class="sm:col-12 md:col-4 lg:col-4 xl:col-4">
                             <div>Tipo Cambio</div>
                             <p-inputNumber class="w-full" [disabled]="true" [ngModel]="detalle_solicitud.presupuesto[0].tipo_cambio" [minFractionDigits]="2"
                                 mode="currency" currency="USD" locale="en-US" styleClass="p-inputtext-sm w-full my-2 text-center"></p-inputNumber>
@@ -111,11 +112,11 @@
                                         [disabled]="true"
                                         styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
                                 </div>
-                                <div *ngIf="detalle_solicitud.presupuesto[0].producto.apply_iva==10 || detalle_solicitud.presupuesto[0].producto.apply_iva==0"
+                                <div *ngIf="detalle_solicitud.producto[i].apply_iva==10 || detalle_solicitud.producto[i].apply_iva==0"
                                     class="col-5 align-self-center p-0 text-center">
                                     IVA;
                                 </div>
-                                <div *ngIf="detalle_solicitud.presupuesto[0].producto.apply_iva==10 || detalle_solicitud.presupuesto[0].producto.apply_iva==0"
+                                <div *ngIf="detalle_solicitud.producto[i].apply_iva==10 || detalle_solicitud.producto[i].apply_iva==0"
                                     class="col-7 p-1 align-self-center">
                                     <p-inputNumber class="w-full" [ngModel]="detalle_solicitud.presupuesto[0].iva"
                                         [minFractionDigits]="2" mode="currency" currency="USD" locale="en-US"
@@ -259,7 +260,8 @@
                     </div>
                 </div>
             </div>
-        </p-tabPanel>-->
+        </div>
+        </p-tabPanel>
         <p-tabPanel header="TERMINOS DE CRÉDITO">
             <div class="grid p-3">
                 <div class="col-6">
@@ -332,6 +334,46 @@
                     </div>
                 </div>
             </div>
+        </p-tabPanel>
+        <p-tabPanel header="SIMULADOR">
+            <section class="p-4">
+                <p-table [value]="tabla" [tableStyle]="{'width': '100%'}" selectionMode="single" [showCurrentPageReport]="true"
+                    selectionMode="single" styleClass="p-datatable-sm">
+                    <ng-template pTemplate="caption">
+                        <div class="flex align-items-center justify-content-between">
+                            <div class="text-3xl">
+                                TABLA DE AMORTIZACIÓN
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="text-center">No. Pago</th>
+                            <th class="text-center">Fecha Inicial</th>
+                            <th class="text-center">Fecha Final</th>
+                            <th class="text-center">Días</th>
+                            <th class="text-center">Deuda Inicial</th>
+                            <th class="text-center">Interés</th>
+                            <th class="text-center">IVA Interés</th>
+                            <th class="text-center">Capital</th>
+                            <th class="text-center">Monto Pago</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-solicitud>
+                        <tr>
+                            <td class="text-center">{{solicitud.num_pago}}</td>
+                            <td class="text-center">{{solicitud.fecha_inicial}}</td>
+                            <td class="text-center">{{solicitud.fecha_fin}}</td>
+                            <td class="text-center">{{solicitud.plazo_dias}}</td>
+                            <td class="text-center">{{solicitud.saldo_inicial | currency}}</td>
+                            <td class="text-center">{{solicitud.pago_interes | currency}}</td>
+                            <td class="text-center">{{solicitud.iva_interes | currency}}</td>
+                            <td class="text-center">{{solicitud.pago_capital | currency}}</td>
+                            <td class="text-center">{{solicitud.monto_pago | currency}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </section>
         </p-tabPanel>
         <p-tabPanel header="FICHA DE CAPACIDAD">
             <div class="grid p-3" *ngIf="detalle_solicitud.capacidad.length>=1">

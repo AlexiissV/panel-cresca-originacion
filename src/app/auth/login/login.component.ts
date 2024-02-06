@@ -85,7 +85,7 @@ export class LoginComponent implements OnInit {
             this.auth.usuario = resp.data;
             await localStorage.setItem('usuario', JSON.stringify(resp.data));
             setTimeout(() => {
-              if (resp.data.perfil == 20 || 30) {
+              if (resp.data.perfil == 20 || resp.data.perfil == 30) {
                 this.router.navigate(['/promotor']);
               } else {
                 this.router.navigate(['/admin']);

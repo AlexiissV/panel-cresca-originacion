@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environments';
 import { Respuesta, RestGenerales, RestProductos } from '../interfaces/general.interface';
-import { restProductofinanciero } from '../interfaces/productof.interface';
+import { Restproveedor, restProductofinanciero } from '../interfaces/productof.interface';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 const url= environment.url+'empresa/'
@@ -39,6 +39,10 @@ export class SolicitudService {
   getProductos(){
     //http://localhost/dev.originacion/web/v1/empresa/get-productos
    return this.http.post<RestProductos>(`${url}get-productos`,{token: this.auth.usuario.token});
+  }
+  getproveedores(){
+    // http://localhost/dev.originacion/web/v1/empresa/get-proveedores
+    return this.http.post<Restproveedor>(`${url}get-proveedores`,{token: this.auth.usuario.token});
   }
   guardarsolicitud(form: any){
     // http://localhost/dev.originacion/web/v1/empresa/post-solicitud

@@ -18,13 +18,13 @@ export class ContratoService {
     // originacion.lerco.agency/web/v1/empresa/post-load-factura-producto
     return this.http.post<Respuesta>(`${url}post-load-factura-producto`,{token: this.auth.usuario.token, solicitud_id,detail});
   }
-  getfilecontrato(solicitud_id: number){
+  getfilecontrato(solicitud_id: number,capacidad_id: number){
     // http://localhost/dev.originacion/web/v1/empresa/get-file-contrato
-    return this.http.post<Restcontratofiles>(`${url}get-file-contrato`,{token: this.auth.usuario.token,solicitud_id});
+    return this.http.post<Restcontratofiles>(`${url}get-file-contrato`,{token: this.auth.usuario.token,solicitud_id,capacidad_id});
   }
-  getfilepagare(solicitud_id: number,fecha: string){
+  getfilepagare(solicitud_id: number,fecha: string,capacidad_id: number){
     // http://localhost/dev.originacion/web/v1/empresa/get-file-pagare
-    return this.http.post<Restcontratofiles>(`${url}get-file-pagare`,{token: this.auth.usuario.token,solicitud_id, fecha});
+    return this.http.post<Restcontratofiles>(`${url}get-file-pagare`,{token: this.auth.usuario.token,solicitud_id, fecha, capacidad_id});
   }
   postloadcontrato(solicitud_id: number,contrato:string){
     // http://localhost/dev.originacion/web/v1/empresa/post-load-contrato

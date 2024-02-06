@@ -13,12 +13,15 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th class="text-center">num_pago</th>
+                <th class="text-center">No. Pago</th>
                 <th class="text-center">Fecha Inicial</th>
                 <th class="text-center">Fecha Final</th>
                 <th class="text-center">Días</th>
-                <th class="text-center">Deuda Inicial</th>
-                <th class="text-center">Intereses</th>
+                <th class="text-center">Saldo Insoluto</th>
+               <!-- <th class="text-center">Deuda Inicial</th>-->
+                <th class="text-center">Interés</th>
+                <th class="text-center">IVA Interés</th>
+                <th class="text-center">Seguro</th>
                 <th class="text-center">Capital</th>
                 <th class="text-center">Monto Pago</th>
             </tr>
@@ -31,6 +34,8 @@
                 <td class="text-center">{{solicitud.plazo_dias}}</td>
                 <td class="text-center">{{solicitud.saldo_inicial | currency}}</td>
                 <td class="text-center">{{solicitud.pago_interes | currency}}</td>
+                <td class="text-center">{{solicitud.iva_interes | currency}}</td>
+                <td class="text-center">{{solicitud.seguro | currency}}</td>
                 <td class="text-center">{{solicitud.pago_capital | currency}}</td>
                 <td class="text-center">{{solicitud.monto_pago | currency}}</td>
             </tr>

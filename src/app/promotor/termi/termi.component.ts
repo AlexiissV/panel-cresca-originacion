@@ -32,10 +32,8 @@ export class TermiComponent {
   list_Meses: string[] = [
     '',
     'Mensual',
-    'Trimestal',
     'Semestral',
     'Anual',
-    'Al Vencimiento',
   ];
   meses_gracia: string[] = [
     '', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'
@@ -163,7 +161,7 @@ export class TermiComponent {
     this.local.show();
     this.taza_fija_anual.enable();
     this.productof.disable();
-    this.post.unicosimulador({...this.terminosForm.value,apply_periodo_gracia:this.apply_periodo,meses_gracia: this.mesnum,pago_gracia:this.value_pago,  token: this.auth.usuario.token, apply_iva: this.simula.bindings[0].apply_iva}).subscribe({
+    this.post.unicosimulador({...this.terminosForm.value,apply_periodo_gracia:this.apply_periodo,meses_gracia: this.mesnum,pago_gracia:this.value_pago,  token: this.auth.usuario.token, apply_iva: this.simula.bindings[0].apply_iva, capacidad_id:this.simula.capacidad_id}).subscribe({
       next: (resp) => {
         this.local.hide();
         if (resp.code == 202) {

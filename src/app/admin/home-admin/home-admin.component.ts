@@ -31,7 +31,8 @@ export class HomeAdminComponent {
     operador_id: 0,
     operador: '',
     solicitante: '',
-    presupuestos: []
+    presupuestos: [],
+    capacidad_id: 0
   };
   
   

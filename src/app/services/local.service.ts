@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Group, Producto, RestInfoLogin, arraydocs, formNufi } from '../interfaces/general.interface';
-import { TablaAmortizacion } from '../interfaces/productof.interface';
+import { Proveedore, TablaAmortizacion } from '../interfaces/productof.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -114,6 +114,12 @@ export class LocalService {
   tabla_amortizacion: TablaAmortizacion[] = [];
   capacidad_id:any=null;
   capacidad_info:any=null;
+  proveedor_id:Proveedore ={
+    id: 0,
+    nombre: '',
+    rfc: '',
+    razon_social: ''
+  };
   doc_general:arraydocs[] = [];
   doc_finaciero:arraydocs[] = [];
   

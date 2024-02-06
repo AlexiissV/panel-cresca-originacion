@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { formNufi } from '../../interfaces/general.interface';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-formgenerales',
@@ -43,45 +44,45 @@ export class FormgeneralesComponent implements AfterViewInit {
   @Input() view: boolean = true;
   @Input() check: boolean = false;
   list_genero: string[] = [
-    'Seleccionar',
-    'Hombre',
-    'Mujer',
+    'SELECCIONAR',
+    'HOMBRE',
+    'MUJER',
   ];
   list_estados: string[] = [
     '',
-    'Aguascalientes',
-    'Baja California',
-    'Baja California Sur',
-    'Campeche',
-    'Coahuila',
-    'Colima',
-    'Chiapas',
-    'Chihuahua',
-    'Ciudad de México',
-    'Durango',
-    'Guanajuato',
-    'Guerrero',
-    'Hidalgo',
-    'Jalisco',
-    'Estado de México',
-    'Michoacán',
-    'Morelos',
-    'Nayarit',
-    'Nuevo León',
-    'Oaxaca',
-    'Puebla',
-    'Querétaro',
-    'Quintana Roo',
-    'San Luis Potosí',
-    'Sinaloa',
-    'Sonora',
-    'Tabasco',
-    'Tamaulipas',
-    'Tlaxcala',
-    'Veracruz',
-    'Yucatán',
-    'Zacatecas',
-    'Nacido en el extranjero',
+    'AGUASCALIENTES',
+    'BAJA CALIFORNIA',
+    'BAJA CALIFORNIA SUR',
+    'CAMPECHE',
+    'COAHUILA',
+    'COLIMA',
+    'CHIAPAS',
+    'CHIHUAHUA',
+    'CIUDAD DE MÉXICO',
+    'DURANGO',
+    'GUANAJUATO',
+    'GUERRERO',
+    'HIDALGO',
+    'JALISCO',
+    'ESTADO DE MÉXICO',
+    'MICHOACÁN',
+    'MORELOS',
+    'NAYARIT',
+    'NUEVO LEÓN',
+    'OAXACA',
+    'PUEBLA',
+    'QUERÉTARO',
+    'QUINTANA ROO',
+    'SAN LUIS POTOSÍ',
+    'SINALOA',
+    'SONORA',
+    'TABASCO',
+    'TAMAULIPAS',
+    'TLAXCALA',
+    'VERACRUZ',
+    'YUCATÁN',
+    'ZACATECAS',
+    'NACIDO EN EL EXTRANJERO',
   ];
   list_persona: string[] = [
     '',
@@ -126,6 +127,7 @@ export class FormgeneralesComponent implements AfterViewInit {
   solicitante_poderes_representante: AbstractControl;
   //@ts-ignore
   myfile: File;
+  messages: Message[] =[];
 
 
   constructor(private fb: FormBuilder) {
@@ -300,9 +302,13 @@ export class FormgeneralesComponent implements AfterViewInit {
   }
   ngAfterViewInit(): void {
     if (this.formulario.rfc != '') {
+
       this.infoforms.reset(this.formulario);
       if(this.formulario.tipo_persona=='Fisica'){
         this.infoforms.reset(this.formulario);
+        if(this.formulario.reporte_id==''){
+          this.messages = [{ severity: 'warn', summary: 'Advertencia', detail: 'Reporte de NUFI no solicitado, Solicitalo dando click en el botón  "Solicitar Reporte"  ' }];
+        }
       this.solicitante_fecha_constitucion.disable();
       this.solicitante_nombre_contacto.disable();
       this.solicitante_acta_constitutiva.disable();
@@ -357,33 +363,70 @@ export class FormgeneralesComponent implements AfterViewInit {
   tipodepersona(event: any) {
     if(event.value=='Fisica'){
       this.infoforms.reset({tipo_persona:'Fisica'});
+      this.curp.enable();
+      this.curp.updateValueAndValidity();
+      this.fecha_nacimiento.enable();
+      this.fecha_nacimiento.updateValueAndValidity();
+      this.sexo.enable();
+      this.sexo.updateValueAndValidity();
+      this.apellido_paterno.enable();
+      this.apellido_paterno.updateValueAndValidity();
+      this.apellido_materno.enable();
+      this.apellido_materno.updateValueAndValidity();
+      this.img_frente.enable();
+      this.img_frente.updateValueAndValidity();
+      this.img_reverso.enable();
+      this.img_reverso.updateValueAndValidity();
+      this.ine_numero.enable();
+      this.ine_numero.updateValueAndValidity();
+      this.ine_vigencia.enable();
+      this.ine_vigencia.updateValueAndValidity();
+      this.estado_civil.enable();
+      this.estado_civil.updateValueAndValidity();
       this.solicitante_fecha_constitucion.disable();
+      this.solicitante_fecha_constitucion.updateValueAndValidity();
       this.solicitante_nombre_contacto.disable();
+      this.solicitante_nombre_contacto.updateValueAndValidity();
       this.solicitante_acta_constitutiva.disable();
+      this.solicitante_acta_constitutiva.updateValueAndValidity();
       this.solicitante_poderes_representante.disable();
+      this.solicitante_poderes_representante.updateValueAndValidity();
     }else if(event.value=='Moral'){
       this.infoforms.reset({tipo_persona:'Moral'});
       this.solicitante_fecha_constitucion.enable();
+      this.solicitante_fecha_constitucion.updateValueAndValidity();
       this.solicitante_nombre_contacto.enable();
+      this.solicitante_nombre_contacto.updateValueAndValidity();
       this.solicitante_acta_constitutiva.enable();
+      this.solicitante_acta_constitutiva.updateValueAndValidity();
       this.solicitante_poderes_representante.enable();
+      this.solicitante_poderes_representante.updateValueAndValidity();
       this.curp.disable();
+      this.curp.updateValueAndValidity();
       this.fecha_nacimiento.disable();
+      this.fecha_nacimiento.updateValueAndValidity();
       this.sexo.disable();
+      this.sexo.updateValueAndValidity();
       this.apellido_paterno.disable();
+      this.apellido_paterno.updateValueAndValidity();
       this.apellido_materno.disable();
+      this.apellido_materno.updateValueAndValidity();
       this.img_frente.disable();
+      this.img_frente.updateValueAndValidity();
       this.img_reverso.disable();
+      this.img_reverso.updateValueAndValidity();
       this.ine_numero.disable();
+      this.ine_numero.updateValueAndValidity();
       this.ine_vigencia.disable();
+      this.ine_vigencia.updateValueAndValidity();
       this.estado_civil.disable();
+      this.estado_civil.updateValueAndValidity();
     }
     this.tipopersona.emit(event.value);
     
 
   }
   generareporte() {    
-    console.log(this.infoforms.value);
     
     if (this.infoforms.invalid) {      
         this.form.emit({ message: 'Campos incompletos, revisa tu informacion' });
@@ -400,6 +443,25 @@ export class FormgeneralesComponent implements AfterViewInit {
       this.ine_numero.enable();
       this.ine_vigencia.enable();
       this.estado_civil.enable();*/
+      if(this.tipo_persona.value=='Fisica'){
+        this.rfc.setValue(this.rfc.value.toUpperCase());
+        this.curp.setValue(this.curp.value.toUpperCase());
+        this.nombre.setValue(this.nombre.value.toUpperCase());
+        this.apellido_paterno.setValue(this.apellido_paterno.value.toUpperCase());
+        this.apellido_materno.setValue(this.apellido_materno.value.toUpperCase());
+        this.domicilio_estado.setValue(this.domicilio_estado.value.toUpperCase());
+        this.domicilio_colonia.setValue(this.domicilio_colonia.value.toUpperCase());
+        this.domicilio_direccion.setValue(this.domicilio_direccion.value.toUpperCase());
+        this.domicilio_municipio.setValue(this.domicilio_municipio.value.toUpperCase());
+      }else{
+        this.rfc.setValue(this.rfc.value.toUpperCase());
+        this.nombre.setValue(this.nombre.value.toUpperCase());
+        this.domicilio_estado.setValue(this.domicilio_estado.value.toUpperCase());
+        this.domicilio_colonia.setValue(this.domicilio_colonia.value.toUpperCase());
+        this.domicilio_direccion.setValue(this.domicilio_direccion.value.toUpperCase());
+        this.domicilio_municipio.setValue(this.domicilio_municipio.value.toUpperCase());
+        this.solicitante_nombre_contacto.setValue(this.solicitante_nombre_contacto.value.toUpperCase());
+      }
       this.form.emit(this.infoforms.value);
   }
   tambienaval(event: any) {
