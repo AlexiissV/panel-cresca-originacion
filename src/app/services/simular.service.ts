@@ -12,6 +12,8 @@ export class SimularService {
   inversiontotal: number= 0;
   terminos_credito :any = null;
   capacidad_id:any=null;
+  comisionxapertura: number =0;
+  gastos_contratacion: number =0;
   tabla_amortizacion: TablaAmortizacion[] = [];
 
   constructor() { }

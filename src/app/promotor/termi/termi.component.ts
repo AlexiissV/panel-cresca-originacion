@@ -161,7 +161,7 @@ export class TermiComponent {
     this.local.show();
     this.taza_fija_anual.enable();
     this.productof.disable();
-    this.post.unicosimulador({...this.terminosForm.value,apply_periodo_gracia:this.apply_periodo,meses_gracia: this.mesnum,pago_gracia:this.value_pago,  token: this.auth.usuario.token, apply_iva: this.simula.bindings[0].apply_iva, capacidad_id:this.simula.capacidad_id}).subscribe({
+    this.post.unicosimulador({...this.terminosForm.value,apply_periodo_gracia:this.apply_periodo,meses_gracia: this.mesnum,pago_gracia:this.value_pago,  token: this.auth.usuario.token, apply_iva: this.simula.bindings[0].apply_iva, capacidad_id:this.simula.capacidad_id,comisionxapertura: this.simula.comisionxapertura, gastos_contratacion: this.simula.gastos_contratacion}).subscribe({
       next: (resp) => {
         this.local.hide();
         if (resp.code == 202) {

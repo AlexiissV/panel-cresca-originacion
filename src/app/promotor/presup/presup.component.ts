@@ -484,7 +484,11 @@ export class PresupComponent {
          this.simula.bindings= this.bindings;
          Object.values(this.equipos.controls).forEach(control =>{
            //@ts-ignore
-         this.inversiontotal= this.inversiontotal+ control['controls'].monto_credito.value
+           this.inversiontotal= this.inversiontotal+ control['controls'].monto_credito.value;
+           //@ts-ignore
+           this.simula.comisionxapertura+=control['controls'].comision_apertura.value
+           //@ts-ignore
+         this.simula.gastos_contratacion+=control['controls'].seguro_equipo.value
          });
          this.simula.inversiontotal = this.inversiontotal;
          this.router.navigate(['/promotor/simulador/terminos']);

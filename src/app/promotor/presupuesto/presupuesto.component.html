@@ -6,7 +6,7 @@
                 Proveedor General
             </div>
             <p-dropdown  optionLabel="nombre" [options]="proveedor"
-            [(ngModel)]="proveedor_id" (onChange)="selectproveedor($event)"
+             (onChange)="selectproveedor($event)" [(ngModel)]="proveedor_id"
             styleClass="p-inputtext-sm w-full"></p-dropdown>
         </div>
     </div>
