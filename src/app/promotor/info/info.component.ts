@@ -368,12 +368,12 @@ export class InfoComponent implements OnInit {
             }
             this.messageService.add({ severity: 'success', summary: 'Correcto', detail: resp.message });
           } else {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });
+           //  this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });
           }
         },
         error: () => {
           this.local.hide();
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No pudimos completar la solicitud, intenta mas tarde' });
+        //  this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No pudimos completar la solicitud, intenta mas tarde' });
 
         }
       });
