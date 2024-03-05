@@ -3,6 +3,8 @@ import { LocalService } from '../../services/local.service';
 import { TablaAmortizacion } from 'src/app/interfaces/productof.interface';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { SolicitudService } from '../../services/solicitud.service';
+import { Router } from '@angular/router';
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -77,7 +79,7 @@ export class SimuladorComponent implements OnInit {
 
 
 
-  constructor(private local: LocalService) {
+  constructor(private local: LocalService, private post: SolicitudService, private router: Router) {
   }
   ngOnInit(): void {
     this.tabla = this.local.tabla_amortizacion;
@@ -93,7 +95,7 @@ export class SimuladorComponent implements OnInit {
     if(this.local.formsolicitante.tipo_persona=='Fisica'){
       this.elnombre=`${this.local.formsolicitante.nombre} ${this.local.formsolicitante.apellido_paterno} ${this.local.formsolicitante.apellido_materno}`;
     }else{
-      this.elnombre=`${this.local.formrepresentante.nombre} ${this.local.formrepresentante.apellido_paterno} ${this.local.formrepresentante.apellido_materno}`;
+      this.elnombre=`${this.local.formsolicitante.nombre}`;
     }
     this.local.bindings.forEach((item)=>{
       this.productos+=item.nombre+', ';
@@ -110,6 +112,9 @@ export class SimuladorComponent implements OnInit {
     if (this.tabla.length == 0) {
       return;
     }
+    this.generarpdf(10);
+  }
+  generarpdf(tipo: number){
     let pdfin: any[] = [];
     pdfin.push([
       { text: 'No. pago', style: 'tableHeader' },
@@ -201,8 +206,34 @@ export class SimuladorComponent implements OnInit {
       },
       styles: this.misestilos,
     };
-     pdfMake.createPdf(docDefinition).download('Tabla de Amortización');
-     // pdfMake.createPdf(docDefinition).open();
+    if(tipo==10){
+      pdfMake.createPdf(docDefinition).download('Tabla de Amortización'+ this.local.formsolicitante.nombre);
+      // pdfMake.createPdf(docDefinition).open();
+    }else{
+      const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+      pdfDocGenerator.getBase64((data) => {
+        this.posttabla(data);
+      });
+      
+    }
+
+  }
+  async posttabla(base64: string) {
+    await this.local.show();
+    this.post.enviarTabladeamortizacion(base64,this.local.solicitud_id).subscribe({
+      next:async (resp)=>{
+        await this.local.hide();
+        this.router.navigate(['/promotor/originacion/sic'])
+      },error:async (e)=>{
+        await this.local.hide();
+      }
+    });
   }
 
+  enviaramortizacion(){
+    if (this.tabla.length == 0) {
+      return;
+    }
+    this.generarpdf(20);
+  }
 }

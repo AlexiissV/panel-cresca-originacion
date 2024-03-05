@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
   }
 
   async onRowSelect(event: any) {
-    await this.local.show();
+  await this.local.show();  
     let id= event.data['id'];
     this.post.getdetallesolicitud(id).subscribe({
       next: async (resp) => {

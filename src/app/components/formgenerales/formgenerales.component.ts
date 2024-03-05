@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { formNufi } from '../../interfaces/general.interface';
 import { Message } from 'primeng/api';
@@ -8,7 +8,7 @@ import { Message } from 'primeng/api';
   templateUrl: './formgenerales.component.html',
   styleUrls: ['./formgenerales.component.scss']
 })
-export class FormgeneralesComponent implements AfterViewInit {
+export class FormgeneralesComponent implements OnInit {
 
   @Output() form: EventEmitter<any> = new EventEmitter();
   @Output() tipopersona: EventEmitter<string> = new EventEmitter();
@@ -300,36 +300,36 @@ export class FormgeneralesComponent implements AfterViewInit {
     this.solicitante_acta_constitutiva = this.infoforms.controls['solicitante_acta_constitutiva'];
     this.solicitante_poderes_representante = this.infoforms.controls['solicitante_poderes_representante'];
   }
-  ngAfterViewInit(): void {
-    if (this.formulario.rfc != '') {
-
-      this.infoforms.reset(this.formulario);
-      if(this.formulario.tipo_persona=='Fisica'){
+  ngOnInit(): void {
+      if (this.formulario.rfc != '') {
         this.infoforms.reset(this.formulario);
-        if(this.formulario.reporte_id==''){
-          this.messages = [{ severity: 'warn', summary: 'Advertencia', detail: 'Reporte de NUFI no solicitado, Solicitalo dando click en el botón  "Solicitar Reporte"  ' }];
+        if(this.formulario.tipo_persona=='Fisica'){
+          this.infoforms.reset(this.formulario);          
+          if(this.formulario.reporte_id=='' || this.formulario.reporte_id== null){
+              this.messages = [{ severity: 'warn', summary: 'Advertencia', detail: 'Reporte de NUFI no solicitado, Solicitalo dando click en el botón  "Solicitar Reporte"  ' }];
+          }
+        this.solicitante_fecha_constitucion.disable();
+        this.solicitante_nombre_contacto.disable();
+        this.solicitante_acta_constitutiva.disable();
+        this.solicitante_poderes_representante.disable();
+        }else if(this.formulario.tipo_persona=='Moral'){
+        this.solicitante_fecha_constitucion.enable();
+        this.solicitante_nombre_contacto.enable();
+        this.solicitante_acta_constitutiva.enable();
+        this.solicitante_poderes_representante.enable();
+        this.curp.disable();
+        this.fecha_nacimiento.disable();
+        this.sexo.disable();
+        this.apellido_paterno.disable();
+        this.apellido_materno.disable();
+        this.img_frente.disable();
+        this.img_reverso.disable();
+        this.ine_numero.disable();
+        this.ine_vigencia.disable();
+        this.estado_civil.disable();
         }
-      this.solicitante_fecha_constitucion.disable();
-      this.solicitante_nombre_contacto.disable();
-      this.solicitante_acta_constitutiva.disable();
-      this.solicitante_poderes_representante.disable();
-      }else if(this.formulario.tipo_persona=='Moral'){
-      this.solicitante_fecha_constitucion.enable();
-      this.solicitante_nombre_contacto.enable();
-      this.solicitante_acta_constitutiva.enable();
-      this.solicitante_poderes_representante.enable();
-      this.curp.disable();
-      this.fecha_nacimiento.disable();
-      this.sexo.disable();
-      this.apellido_paterno.disable();
-      this.apellido_materno.disable();
-      this.img_frente.disable();
-      this.img_reverso.disable();
-      this.ine_numero.disable();
-      this.ine_vigencia.disable();
-      this.estado_civil.disable();
       }
-    }
+    
   }
 
   async file(event: any, tipo: number) {

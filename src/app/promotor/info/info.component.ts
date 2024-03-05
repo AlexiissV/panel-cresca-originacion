@@ -123,6 +123,7 @@ export class InfoComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    scroll(0,0);
     if (this.local.Cuestionario.length >= 1) {
       this.Cuestionario = this.local.Cuestionario;
       this.doc_general = this.local.doc_general;

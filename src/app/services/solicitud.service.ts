@@ -48,4 +48,14 @@ export class SolicitudService {
     // http://localhost/dev.originacion/web/v1/empresa/post-solicitud
     return this.http.post<Respuesta>(`${url}post-solicitud`,form);
   }
+  enviarTabladeamortizacion(file_amortizacion: string, solicitud_id: number){
+    // empresa/post-load-tabla-amortiza
+   let data= {
+      token: this.auth.usuario.token,
+      file_amortizacion,
+      solicitud_id
+    }
+    return this.http.post<Respuesta>(`${url}post-load-tabla-amortiza`,data);
+}
+
 }
