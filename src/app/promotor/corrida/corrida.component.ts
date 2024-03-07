@@ -166,7 +166,7 @@ export class CorridaComponent {
               [{}, { text: 'Precio de Venta', colSpan: 2, style: 'items' }, {}, { text: this.formatdinero.format(this.T_precioventa), style: 'resp' }, {}],
               [{}, { text: 'Comisión x Apertura', colSpan: 2, style: 'items' }, {}, { text: this.formatdinero.format(this.T_comisionxap), style: 'resp' }, {}],
               [{}, { text: 'Gastos de Originación', colSpan: 2, style: 'items' }, {}, { text: this.formatdinero.format(this.T_gastoscontratacion), style: 'resp' }, {}],
-              [{}, { text: 'Seguro', colSpan: 2, style: 'items' }, {}, { text: this.formatdinero.format(this.tabla[1].seguro), style: 'resp' }, {}],
+              [{}, { text: 'Seguro', colSpan: 2, style: 'items' }, {}, { text: this.formatdinero.format(this.tabla[0].seguro), style: 'resp' }, {}],
               [{}, { text: 'Enganche', colSpan: 2, style: 'items' }, {}, { text: this.formatdinero.format(this.T_enganche), style: 'resp' }, {}],
               [{}, { text: 'Pago Inicial', colSpan: 2, style: 'items' }, {}, { text: this.formatdinero.format(this.T_pagoinicial), style: 'resp' }, {}],
               [{}, { text: 'Importe del Préstamo', colSpan: 2, style: 'items' }, {}, { text: this.formatdinero.format(Math.round(this.simular.terminos_credito['importe_credito'])), style: 'resp' }, {}],
