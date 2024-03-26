@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalService } from '../../services/local.service';
-import { arraydocs } from 'src/app/interfaces/general.interface';
+import { arraydocs } from '../../interfaces/general.interface';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { SolicitudService } from '../../services/solicitud.service';
+import { tipofile } from '../../interfaces/productof.interface';
 
 @Component({
   selector: 'app-documentacion',
@@ -59,9 +60,42 @@ export class DocumentacionComponent implements OnInit {
       } else {
         this.doc_finaciero[i].file_base64 = reader.result + '';
       }
+      if (this.local.solicitud_id == null || this.local.solicitud_id == 0){
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Aun no ha iniciado una Solicitud ' });
+        return;
+      }
+    this.cargardocone(i,array);
     };
     reader.onerror = (error) => {
     };
+  }
+  cargardocone(i: number, array: number) {
+    this.local.show();
+    let file: tipofile={
+      file_id: 0,
+      file_base64: ''
+    };
+    if (array == 10) {
+      file.file_base64 = this.doc_general[i].file_base64||'';
+      file.file_id= this.doc_general[i].documento_id;
+    } else {
+      file.file_base64 = this.doc_finaciero[i].file_base64||'';
+      file.file_id= this.doc_finaciero[i].documento_id;
+    }
+    this.post.enviaronedoc(this.local.solicitud_id,file).subscribe({
+      next:(resp)=>{
+        this.local.hide();
+        if(resp.code==202){
+          if (array == 10) {
+            this.doc_general[i].file_url=resp.file||'';
+          } else {
+            this.doc_finaciero[i].file_url=resp.file||'';
+          }
+        }
+      },error:()=>{
+        this.local.hide();
+      }
+    });
   }
   guardar() {
     let final: arraydocs[] = [];
@@ -69,7 +103,7 @@ export class DocumentacionComponent implements OnInit {
     final.push(...this.doc_finaciero);
     let bandera: boolean = false;
     for (let uno of final) {
-      if (uno.file_base64 == null || uno.file_base64 == '') {
+      if (uno.file_url == null || uno.file_url == '') {
         bandera = true;
       }
     }
@@ -81,27 +115,11 @@ export class DocumentacionComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Aun no ha iniciado una Solicitud ' });
       return;
     }
-    let archivos: any[] = [];
-    for (let uno of final) {
-      if (uno.file_base64 != '') {
-        let obj = {
-          file_id: uno.documento_id,
-          file_base64: uno.file_base64,
-          remplace: uno.remplace,
-          create: uno.create
-        };
-        archivos.push(obj);
-      }
-    }
-    if (archivos.length == 0) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No a Cargado los documentos Necesarios' });
-      return;
-    }
     this.local.show();
     if (this.salir == false) {
       this.apply_envio = 10;
     }
-    this.post.guardarsolicitud({ token: this.auth.usuario.token, seccion: 50, files: archivos, solicitud_id: this.local.solicitud_id, apply_envio: this.apply_envio }).subscribe({
+    this.post.guardarsolicitud({ token: this.auth.usuario.token, seccion: 50, files: null, solicitud_id: this.local.solicitud_id, apply_envio: this.apply_envio }).subscribe({
       next: (resp) => {
         this.local.hide();
         if (resp.code == 202) {

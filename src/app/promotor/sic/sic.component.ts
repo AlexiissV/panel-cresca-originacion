@@ -143,7 +143,16 @@ export class SicComponent implements OnInit {
 			  private post: SolicitudService) { }
 
   ngOnInit(): void {
-		this.solicitante= this.local.formsolicitante;
+    if(this.local.formsolicitante.tipo_persona=='Fisica'){
+      this.solicitante= this.local.formsolicitante;
+    }else{
+      this.solicitante= this.local.formsolicitante;
+      this.solicitante.curp='';
+      this.solicitante.apellido_paterno='';
+      this.solicitante.apellido_materno='';
+      this.solicitante.fecha_nacimiento=this.solicitante.solicitante_fecha_constitucion;
+      
+    }
 		this.legal= this.local.formrepresentante;
 		this.aval= this.local.formsaval;
     this.estatus_solicitud= this.local.estatus_solicitud;

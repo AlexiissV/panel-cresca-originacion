@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environments.prod';
+import { environment } from '../../environments/environments';
 import { AuthService } from './auth.service';
 import { Respuesta, RestDetailSolicitud, RestSolicitudes } from '../interfaces/general.interface';
 

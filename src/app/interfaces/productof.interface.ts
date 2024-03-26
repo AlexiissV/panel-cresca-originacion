@@ -123,3 +123,7 @@ export interface Proveedore {
     rfc:          string;
     razon_social: string;
 }
+export interface tipofile{
+        file_id : number;
+        file_base64: string;
+}

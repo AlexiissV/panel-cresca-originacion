@@ -180,7 +180,7 @@ export class SimuladorComponent implements OnInit {
               [{}, { text: 'Gastos de Originación', colSpan: 2, style: 'items' }, {}, { text: this.formatdinero.format(this.T_gastoscontratacion), style: 'resp' }, {}],
               [{}, { text: 'Seguro', colSpan: 2, style: 'items' }, {}, { text: this.formatdinero.format(this.tabla[0].seguro), style: 'resp' }, {}],
               [{}, { text: 'Enganche', colSpan: 2, style: 'items' }, {}, { text: this.formatdinero.format(this.T_enganche), style: 'resp' }, {}],
-              [{}, { text: 'Pago Inicial', colSpan: 2, style: 'items' }, {}, { text: this.formatdinero.format(this.T_pagoinicial), style: 'resp' }, {}],
+              [{}, { text: 'Pago Inicial', colSpan: 2, style: 'items' }, {}, { text: this.formatdinero.format(this.T_pagoinicial + this.tabla[0].seguro), style: 'resp' }, {}],
               [{}, { text: 'Importe del Préstamo', colSpan: 2, style: 'items' }, {}, { text: this.formatdinero.format(Math.round(this.local.terminos_credito['importe_credito'])), style: 'resp' }, {}],
               [{}, { text: 'Periodo del Préstamo en Meses', colSpan: 2, style: 'items' }, {}, { text: this.local.terminos_credito['plazo_credito'], style: 'resp' }, {}],
               [{}, { text: 'Tasa de Interés Anual', colSpan: 2, style: 'items' }, {}, { text: this.local.terminos_credito['taza_fija_anual'] + '%', style: 'resp' }, {}],

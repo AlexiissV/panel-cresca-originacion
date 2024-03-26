@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environments';
 import { Respuesta, RestGenerales, RestProductos } from '../interfaces/general.interface';
-import { Restproveedor, restProductofinanciero } from '../interfaces/productof.interface';
+import { Restproveedor, restProductofinanciero, tipofile } from '../interfaces/productof.interface';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 const url= environment.url+'empresa/'
@@ -47,6 +47,11 @@ export class SolicitudService {
   guardarsolicitud(form: any){
     // http://localhost/dev.originacion/web/v1/empresa/post-solicitud
     return this.http.post<Respuesta>(`${url}post-solicitud`,form);
+  }
+  enviaronedoc(solicitud_id: number,file:tipofile){
+    // https://originacion.lerco.agency/web/v1/empresa/save-file-solicitud
+  
+    return this.http.post<Respuesta>(`${url}save-file-solicitud`,{ token : this.auth.usuario.token, solicitud_id,file });
   }
   enviarTabladeamortizacion(file_amortizacion: string, solicitud_id: number){
     // empresa/post-load-tabla-amortiza

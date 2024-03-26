@@ -131,6 +131,7 @@ export interface Restcontratofiles {
 export interface Respuesta {
     code:    number;
     solicitud_id?:    number;
+    file?: string;
     name:    string;
     message: string;
     type:    string;
