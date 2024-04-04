@@ -70,6 +70,7 @@ export interface TablaAmortizacion {
     plazo_dias:    number;
     seguro:        number;
     saldo_final:   number;
+    seguro_pago_inicial:   number;
     fecha_inicial: string;
     fecha_fin:     string;
 }
