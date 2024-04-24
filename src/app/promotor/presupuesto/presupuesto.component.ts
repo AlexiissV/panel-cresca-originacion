@@ -402,13 +402,6 @@ this.cambiocantidad(i);
      //@ts-ignore
      this.equipos.controls[i]['controls'].comision_apertura.setValue(com_ap);
     // @ts-ignore
-    console.log('castos de contrtatcion',this.equipos.controls[i]['controls'].seguro_equipo.value);
-    // @ts-ignore
-    console.log('comisión por apertura',this.equipos.controls[i]['controls'].comision_apertura.value);
-    // @ts-ignore
-    console.log('enganche',this.equipos.controls[i]['controls'].aportacion_producto_valor.value);
-    
-    // @ts-ignore
     let cua =this.equipos.controls[i]['controls'].seguro_equipo.value + this.equipos.controls[i]['controls'].comision_apertura.value + this.equipos.controls[i]['controls'].aportacion_producto_valor.value;
     //@ts-ignore
   this.equipos.controls[i]['controls'].pago_inicial.setValue(cua);

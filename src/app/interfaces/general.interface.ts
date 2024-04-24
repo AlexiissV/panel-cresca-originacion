@@ -101,6 +101,7 @@ export interface RestInfoLogin {
     empresa_logo:   string;
     empresa_logo_base64:   string;
     empresa_nombre: string;
+    empresa_banner: string;
     empresa_color:  string;
     type:           string;
 }

@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PostService } from '../../services/post.service';
 import { LocalService } from '../../services/local.service';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../services/auth.service';
@@ -14,6 +13,8 @@ import { Title } from '@angular/platform-browser';
   providers: [MessageService]
 })
 export class LoginComponent implements OnInit {
+  //@ts-ignore
+  @ViewChild('bg_overlay8', {static: false}) fondo: ElementRef;
   loginForm: FormGroup;
   email: AbstractControl;
   password: AbstractControl;
@@ -57,6 +58,14 @@ export class LoginComponent implements OnInit {
       this.local.empresa.token = token;
       await localStorage.setItem('empresa', JSON.stringify(resp));
       // --color-principal: #003f5a;
+      // this.fondo.nativeElement.style.setProperty('background-image', 'none');
+      //@ts-ignore
+      document.getElementById('favicon').setAttribute('href', resp.empresa_logo);
+      if(resp.empresa_banner){
+        this.fondo.nativeElement.style.setProperty('background-image', `url(${resp.empresa_banner})`);
+      }else{
+        this.fondo.nativeElement.style.setProperty('background-image', `url(/assets/img/bg-home.jpeg)`);
+      }
       document.documentElement.style.setProperty('--color-principal', resp.empresa_color);
     }, async (e) => {
       await this.local.hide();

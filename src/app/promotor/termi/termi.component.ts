@@ -51,6 +51,7 @@ export class TermiComponent {
   fecha_estimada_otorgamiento: AbstractControl;
   forma_pago_capital: AbstractControl;
   forma_pago_interes: AbstractControl;
+  T_precioventa: number = 0;
 
   constructor(private formBuilder: FormBuilder,
     private soli: SolicitudService,
@@ -113,6 +114,9 @@ export class TermiComponent {
       documentos: [],
       tasa_porcentual: null
     });
+    this.simula.equipos.forEach((item)=>{
+      this.T_precioventa+=item['precio_venta'];
+    });
    this.soli.getProductoFinaciero()
       .subscribe({
         next: (resp) => {
@@ -161,7 +165,7 @@ export class TermiComponent {
     this.local.show();
     this.taza_fija_anual.enable();
     this.productof.disable();
-    this.post.unicosimulador({...this.terminosForm.value,apply_periodo_gracia:this.apply_periodo,meses_gracia: this.mesnum,pago_gracia:this.value_pago,  token: this.auth.usuario.token, apply_iva: this.simula.bindings[0].apply_iva, capacidad_id:this.simula.capacidad_id,comisionxapertura: this.simula.comisionxapertura, gastos_contratacion: this.simula.gastos_contratacion}).subscribe({
+    this.post.unicosimulador({...this.terminosForm.value,apply_periodo_gracia:this.apply_periodo,meses_gracia: this.mesnum,pago_gracia:this.value_pago,  token: this.auth.usuario.token, apply_iva: this.simula.bindings[0].apply_iva, capacidad_id:this.simula.capacidad_id,comisionxapertura: this.simula.comisionxapertura, gastos_contratacion: this.simula.gastos_contratacion, precio_venta:this.T_precioventa}).subscribe({
       next: (resp) => {
         this.local.hide();
         if (resp.code == 202) {

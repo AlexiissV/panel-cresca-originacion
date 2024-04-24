@@ -20,7 +20,8 @@ export class LocalService {
     empresa_nombre: '',
     empresa_color: '',
     type: '',
-    empresa_logo_base64: ''
+    empresa_logo_base64: '',
+    empresa_banner: '/assets/img/bg-home.jpeg'
   };
   Cuestionario: Group[]= [];
   bindings: Producto[] =[];

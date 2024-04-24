@@ -24,7 +24,11 @@ export class AppComponent {
     if(empresa!= null){
      local.empresa= JSON.parse(empresa);
      this.titulo.setTitle(local.empresa.empresa_nombre);
-     document.documentElement.style.setProperty('--color-principal', local.empresa.empresa_color);
+      document.documentElement.style.setProperty('--color-principal', local.empresa.empresa_color);
+      //@ts-ignore
+      document.getElementById('favicon').setAttribute('href', local.empresa.empresa_logo);
+
+
     }
     let data = localStorage.getItem('usuario');   
     if(data!= null){
