@@ -321,7 +321,7 @@ export class PresupComponent {
          let iva_apertura= dos *0.16;
          let com_ap=dos+iva_apertura;
          //@ts-ignore
-         this.equipos.controls[i]['controls'].comision_apertura.setValue(com_ap);
+         this.equipos.controls[i]['controls'].comision_apertura.setValue(Math.round(com_ap));
          this.elresto(i);
        }
        cambiocomsion(i: number) {
@@ -338,7 +338,7 @@ export class PresupComponent {
       elresto(i: number) {
         // this.equipos.controls[i]['controls'].inversion_total.setValue((this.equipos.controls[i]['controls'].cotizacion.value + this.equipos.controls[i]['controls'].comision_apertura.value +this.equipos.controls[i]['controls'].seguro_bien.value +this.equipos.controls[i]['controls'].seguro_equipo.value)-this.equipos.controls[i]['controls'].descuento_valor.value);
         //@ts-ignore
-        this.equipos.controls[i]['controls'].inversion_total.setValue((this.equipos.controls[i]['controls'].cotizacion.value +this.equipos.controls[i]['controls'].seguro_equipo.value)-this.equipos.controls[i]['controls'].descuento_valor.value);
+        this.equipos.controls[i]['controls'].inversion_total.setValue((this.equipos.controls[i]['controls'].cotizacion.value)-this.equipos.controls[i]['controls'].descuento_valor.value);
         //@ts-ignore
         this.equipos.controls[i]['controls'].importe_final.setValue(this.equipos.controls[i]['controls'].inversion_total.value);
         //@ts-ignore
@@ -378,7 +378,7 @@ export class PresupComponent {
          let iva_apertura= dos *0.16;
          let com_ap=dos+iva_apertura;
          //@ts-ignore
-         this.equipos.controls[i]['controls'].comision_apertura.setValue(com_ap);
+         this.equipos.controls[i]['controls'].comision_apertura.setValue(Math.round(com_ap));
         
         // @ts-ignore
         let cua =this.equipos.controls[i]['controls'].seguro_equipo.value + this.equipos.controls[i]['controls'].comision_apertura.value + this.equipos.controls[i]['controls'].aportacion_producto_valor.value;
@@ -421,7 +421,7 @@ export class PresupComponent {
        let iva_apertura= dos *0.16;
        let com_ap=dos+iva_apertura;
        //@ts-ignore
-       this.equipos.controls[i]['controls'].comision_apertura.setValue(com_ap);
+       this.equipos.controls[i]['controls'].comision_apertura.setValue(Math.round(com_ap));
         // @ts-ignore
         let cua =this.equipos.controls[i]['controls'].seguro_equipo.value + this.equipos.controls[i]['controls'].comision_apertura.value + this.equipos.controls[i]['controls'].aportacion_producto_valor.value;
         //@ts-ignore

@@ -109,12 +109,9 @@
                 <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6">
                     <div class="grid">
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center p-0 text-center">
-                            gastos de contratación
                         </div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
-                            <p-inputNumber class="w-full" formControlName="seguro_equipo" [minFractionDigits]="2"
-                                mode="currency" currency="USD" locale="en-US" (onBlur)="elresto(i)"
-                                styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
+                            <p-inputNumber class="w-full" styleClass="p-inputtext-sm w-full text-center" style="visibility: collapse;"></p-inputNumber>
                         </div>
                         <!-- <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center p-0 text-center">
                             Seguro del Bien
@@ -215,6 +212,14 @@
                                         styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
                                 </div>
                             </div>
+                        </div>
+                        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 align-self-center p-0 text-right">
+                            gastos de originación
+                        </div>
+                        <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 p-1 align-self-center">
+                            <p-inputNumber class="w-full" formControlName="seguro_equipo" [minFractionDigits]="2"
+                                mode="currency" currency="USD" locale="en-US" (onBlur)="elresto(i)"
+                                styleClass="p-inputtext-sm w-full text-center"></p-inputNumber>
                         </div>
                         <div class="sm:col-12 md:col-6 lg:col-6 xl:col-6 align-self-center p-0 text-right">
                             Pago Inicial

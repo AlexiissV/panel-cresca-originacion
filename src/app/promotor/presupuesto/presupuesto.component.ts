@@ -328,7 +328,7 @@ this.cambiocantidad(i);
   //@ts-ignore
   // let dos = this.equipos.controls[i]['controls'].cotizacion.value *(this.equipos.controls[i]['controls'].comision_apertura_porcentaje.value / 100);
   //@ts-ignore
-  // this.equipos.controls[i]['controls'].comision_apertura.setValue(dos);
+  // this.equipos.controls[i]['controls'].comision_apertura.setValue(Math.round(dos));
   if(this.equipos.controls[i].valid){
     this.elresto(i);
   }
@@ -343,7 +343,7 @@ this.cambiocantidad(i);
      let iva_apertura= dos *0.16;
      let com_ap=dos+iva_apertura;
      //@ts-ignore
-     this.equipos.controls[i]['controls'].comision_apertura.setValue(com_ap);
+     this.equipos.controls[i]['controls'].comision_apertura.setValue(Math.round(com_ap));
      this.elresto(i);
    }
    cambiocomsion(i: number) {
@@ -360,7 +360,7 @@ this.cambiocantidad(i);
   elresto(i: number) {
     // this.equipos.controls[i]['controls'].inversion_total.setValue((this.equipos.controls[i]['controls'].cotizacion.value + this.equipos.controls[i]['controls'].comision_apertura.value +this.equipos.controls[i]['controls'].seguro_bien.value +this.equipos.controls[i]['controls'].seguro_equipo.value)-this.equipos.controls[i]['controls'].descuento_valor.value);
     //@ts-ignore
-    this.equipos.controls[i]['controls'].inversion_total.setValue((this.equipos.controls[i]['controls'].cotizacion.value +this.equipos.controls[i]['controls'].seguro_equipo.value)-this.equipos.controls[i]['controls'].descuento_valor.value);
+    this.equipos.controls[i]['controls'].inversion_total.setValue((this.equipos.controls[i]['controls'].cotizacion.value)-this.equipos.controls[i]['controls'].descuento_valor.value);
     //@ts-ignore
     this.equipos.controls[i]['controls'].importe_final.setValue(this.equipos.controls[i]['controls'].inversion_total.value);
     //@ts-ignore
@@ -400,7 +400,7 @@ this.cambiocantidad(i);
      let iva_apertura= dos *0.16;
      let com_ap=dos+iva_apertura;
      //@ts-ignore
-     this.equipos.controls[i]['controls'].comision_apertura.setValue(com_ap);
+     this.equipos.controls[i]['controls'].comision_apertura.setValue(Math.round(com_ap));
     // @ts-ignore
     let cua =this.equipos.controls[i]['controls'].seguro_equipo.value + this.equipos.controls[i]['controls'].comision_apertura.value + this.equipos.controls[i]['controls'].aportacion_producto_valor.value;
     //@ts-ignore
@@ -442,7 +442,7 @@ this.cambiocantidad(i);
    let iva_apertura= dos *0.16;
    let com_ap=dos+iva_apertura;
    //@ts-ignore
-   this.equipos.controls[i]['controls'].comision_apertura.setValue(com_ap);
+   this.equipos.controls[i]['controls'].comision_apertura.setValue(Math.round(com_ap));
     // @ts-ignore
     let cua =this.equipos.controls[i]['controls'].seguro_equipo.value + this.equipos.controls[i]['controls'].comision_apertura.value + this.equipos.controls[i]['controls'].aportacion_producto_valor.value;
     //@ts-ignore
