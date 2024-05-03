@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { formNufi } from '../../interfaces/general.interface';
 import { Message } from 'primeng/api';
+import { LocalService } from '../../services/local.service';
 
 @Component({
   selector: 'app-formgenerales',
@@ -9,7 +10,6 @@ import { Message } from 'primeng/api';
   styleUrls: ['./formgenerales.component.scss']
 })
 export class FormgeneralesComponent implements OnInit {
-
   @Output() form: EventEmitter<any> = new EventEmitter();
   @Output() tipopersona: EventEmitter<string> = new EventEmitter();
   @Output() vaaseraval: EventEmitter<boolean> = new EventEmitter();
@@ -39,10 +39,15 @@ export class FormgeneralesComponent implements OnInit {
     solicitante_fecha_constitucion: '',
     solicitante_nombre_contacto: '',
     solicitante_acta_constitutiva: '',
-    solicitante_poderes_representante: ''
+    solicitante_poderes_representante: '',
+    click:0
   };
   @Input() view: boolean = true;
   @Input() check: boolean = false;
+  mensaje: string='';
+  bandera: boolean = false;
+  empresa_logo: string ='';
+
   list_genero: string[] = [
     'SELECCIONAR',
     'HOMBRE',
@@ -103,6 +108,7 @@ export class FormgeneralesComponent implements OnInit {
   curp: AbstractControl;
   fecha_nacimiento: AbstractControl;
   reporte_id: AbstractControl;
+  click: AbstractControl;
   entidad: AbstractControl;
   sexo: AbstractControl;
   nombre: AbstractControl;
@@ -130,7 +136,8 @@ export class FormgeneralesComponent implements OnInit {
   messages: Message[] =[];
 
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private local: LocalService) {
+    this.empresa_logo = local.empresa.empresa_logo;
     this.infoforms = this.fb.group({
       curp: [
         '',
@@ -270,6 +277,9 @@ export class FormgeneralesComponent implements OnInit {
       ],
       reporte_id: [
         ''
+      ],
+      click: [
+        ''
       ]
     });
     this.tipo_persona = this.infoforms.controls['tipo_persona'];
@@ -285,6 +295,7 @@ export class FormgeneralesComponent implements OnInit {
     this.img_frente = this.infoforms.controls['img_frente'];
     this.img_reverso = this.infoforms.controls['img_reverso'];
     this.reporte_id = this.infoforms.controls['reporte_id'];
+    this.click = this.infoforms.controls['click'];
     this.rfc = this.infoforms.controls['rfc'];
     this.estado_civil = this.infoforms.controls['estado_civil'];
     this.ine_numero = this.infoforms.controls['ine_numero'];
@@ -306,7 +317,7 @@ export class FormgeneralesComponent implements OnInit {
         if(this.formulario.tipo_persona=='Fisica'){
           this.infoforms.reset(this.formulario);          
           if(this.formulario.reporte_id=='' || this.formulario.reporte_id== null){
-              this.messages = [{ severity: 'warn', summary: 'Advertencia', detail: 'Reporte de NUFI no solicitado, Solicitalo dando click en el botón  "Solicitar Reporte"  ' }];
+              this.messages = [{ severity: 'warn', summary: 'Advertencia', detail: 'Precuación Reporte de NUFI no solicitado, Es posible obtenerlo posteriormente dando click en el botón  "Solicitar Reporte y Guardar"' }];
           }
         this.solicitante_fecha_constitucion.disable();
         this.solicitante_nombre_contacto.disable();
@@ -426,10 +437,10 @@ export class FormgeneralesComponent implements OnInit {
     
 
   }
-  generareporte() {    
-    
+  generareporte() {
+    this.bandera=false;
     if (this.infoforms.invalid) {      
-        this.form.emit({ message: 'Campos incompletos, revisa tu informacion' });
+      this.form.emit({ message: 'Campos incompletos, revisa tu informacion' });
       return;
     }
     this.domicilio_estado.setValue(this.entidad.value);
@@ -467,4 +478,13 @@ export class FormgeneralesComponent implements OnInit {
   tambienaval(event: any) {
     this.vaaseraval.emit(event['checked']);
     }
+    viewalert(click: number) {
+      if(click==10){
+        this.mensaje = '¿Estás por solicitar el Reporte de esta persona, esta actividad podrá demorar unos minutos, quieres continuar con la consulta?';
+      }else{
+        this.mensaje = 'Recuerda que estás guardando información sin generar el reporte de está persona, esta actividad es posible realizarla posteriormente, ¿Deseas continuar?';
+      }
+      this.click.setValue(click);
+      this.bandera= true;
+      }
 }

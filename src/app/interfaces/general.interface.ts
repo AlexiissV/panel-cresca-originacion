@@ -315,6 +315,7 @@ export interface TerminoCredito {
 export interface formNufi{
     curp: string;
     is_aval?: boolean;
+    click?: number;
     fecha_nacimiento: string;
     entidad: string;
     tipo_persona: string;

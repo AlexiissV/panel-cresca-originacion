@@ -16,7 +16,7 @@ import { SolicitudService } from '../../services/solicitud.service';
 })
 export class InfoComponent implements OnInit {
   persona: string = '';
-  view_aval: boolean=false;
+  view_aval: boolean = false;
   salir: boolean = false;
   view: boolean = true;
   info: postInfo[] = [];
@@ -123,7 +123,7 @@ export class InfoComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    scroll(0,0);
+    scroll(0, 0);
     if (this.local.Cuestionario.length >= 1) {
       this.Cuestionario = this.local.Cuestionario;
       this.doc_general = this.local.doc_general;
@@ -131,20 +131,20 @@ export class InfoComponent implements OnInit {
       this.persona = this.formsolicitante.tipo_persona;
       this.formrepresentante = this.local.formrepresentante;
       this.formsaval = this.local.formsaval;
-      if(this.formrepresentante.is_aval){
-        this.view_aval=true;
+      if (this.formrepresentante.is_aval) {
+        this.view_aval = true;
       }
-      for(let uno of this.Cuestionario){
-        for(let dos of uno.items){
-          if(dos.tipo_dato==40){
-          if(dos.value_register!=null || dos.value_register!=''){
-            dos.items_list?.forEach(item=>{
-              if(item.text===dos.value_register){
-                dos.select= item;
-              }
-            });
+      for (let uno of this.Cuestionario) {
+        for (let dos of uno.items) {
+          if (dos.tipo_dato == 40) {
+            if (dos.value_register != null || dos.value_register != '') {
+              dos.items_list?.forEach(item => {
+                if (item.text === dos.value_register) {
+                  dos.select = item;
+                }
+              });
+            }
           }
-        }
         }
       }
       setTimeout(() => {
@@ -153,14 +153,14 @@ export class InfoComponent implements OnInit {
           this.view = false;
         }
       }, 500);
-    }else{
+    } else {
       this.doc_general = this.local.doc_general;
       this.formsolicitante = this.local.formsolicitante;
       this.persona = this.formsolicitante.tipo_persona;
       this.formrepresentante = this.local.formrepresentante;
       this.formsaval = this.local.formsaval;
-      if(this.formrepresentante.is_aval){
-        this.view_aval=true;
+      if (this.formrepresentante.is_aval) {
+        this.view_aval = true;
       }
       this.post.getGenerales().subscribe(
         {
@@ -176,7 +176,7 @@ export class InfoComponent implements OnInit {
         }
       );
     }
-    
+
   }
   selectuno(event: any, n: number, i: number) {
     this.Cuestionario[n].items[i].value_register = event.value['text'];
@@ -185,28 +185,28 @@ export class InfoComponent implements OnInit {
     if (this.persona == 'Fisica') {
       this.formrepresentante = this.formsolicitante;
     }
-    if(this.view_aval){
+    if (this.view_aval) {
       this.formsaval = this.formrepresentante;
-      this.formrepresentante.apply_legal_condicional=10;
-    }else{
-      this.formrepresentante.apply_legal_condicional=20;
+      this.formrepresentante.apply_legal_condicional = 10;
+    } else {
+      this.formrepresentante.apply_legal_condicional = 20;
     }
     if (this.formsolicitante.rfc == '' || this.formrepresentante.rfc == '' || this.formsaval.rfc == '') {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: ' Formularios incompletos' });
       return;
     }
-   /* if(this.persona == 'Moral'){
-      if (this.formrepresentante.reporte_id == '' || this.formsaval.reporte_id == '') {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Reportes incompletos' });
-        return;
-      }
-    }else{
-      if (this.formsolicitante.reporte_id == '' || this.formrepresentante.reporte_id == '' || this.formsaval.reporte_id == '') {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Reportes incompletos' });
-        return;
-      }
-    }*/
-    
+    /* if(this.persona == 'Moral'){
+       if (this.formrepresentante.reporte_id == '' || this.formsaval.reporte_id == '') {
+         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Reportes incompletos' });
+         return;
+       }
+     }else{
+       if (this.formsolicitante.reporte_id == '' || this.formrepresentante.reporte_id == '' || this.formsaval.reporte_id == '') {
+         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Reportes incompletos' });
+         return;
+       }
+     }*/
+
     let bandera: boolean = false;
     for (let uno of this.Cuestionario) {
       for (let dos of uno.items) {
@@ -311,19 +311,31 @@ export class InfoComponent implements OnInit {
       switch (this.activeIndex) {
         case 0:
           this.formsolicitante = event;
-          if(this.formsolicitante.tipo_persona=='Fisica'){
-            this.generareporte(event);
-          }else{
+          if (this.formsolicitante.tipo_persona == 'Fisica') {
+            if (this.formsolicitante.click == 10) {
+              this.generareporte(event);
+            } else {
+              this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Guardado sin Reporte' });
+            }
+          } else {
             this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Las Personas Morales no se genera Reporte' });
           }
           break;
         case 1:
           this.formrepresentante = event;
-          this.generareporte(event);
+          if (this.formrepresentante.click == 10) {
+            this.generareporte(event);
+          } else {
+            this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Guardado sin Reporte' });
+          }
           break;
         case 2:
           this.formsaval = event;
-          this.generareporte(event);
+          if (this.formsaval.click == 10) {
+            this.generareporte(event);
+          } else {
+            this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Guardado sin Reporte' });
+          }
           break;
         default:
           break;
@@ -369,12 +381,12 @@ export class InfoComponent implements OnInit {
             }
             this.messageService.add({ severity: 'success', summary: 'Correcto', detail: resp.message });
           } else {
-           //  this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });
+            //  this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });
           }
         },
         error: () => {
           this.local.hide();
-        //  this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No pudimos completar la solicitud, intenta mas tarde' });
+          //  this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No pudimos completar la solicitud, intenta mas tarde' });
 
         }
       });
@@ -382,7 +394,7 @@ export class InfoComponent implements OnInit {
   solicitantepersona(event: string) {
     this.persona = event;
   }
-  tambienaval(event:boolean) {
-    this.view_aval= event;    
-    }
+  tambienaval(event: boolean) {
+    this.view_aval = event;
+  }
 }
