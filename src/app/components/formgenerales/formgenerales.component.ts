@@ -279,7 +279,7 @@ export class FormgeneralesComponent implements OnInit {
         ''
       ],
       click: [
-        ''
+        20
       ]
     });
     this.tipo_persona = this.infoforms.controls['tipo_persona'];
@@ -317,7 +317,7 @@ export class FormgeneralesComponent implements OnInit {
         if(this.formulario.tipo_persona=='Fisica'){
           this.infoforms.reset(this.formulario);          
           if(this.formulario.reporte_id=='' || this.formulario.reporte_id== null){
-              this.messages = [{ severity: 'warn', summary: 'Advertencia', detail: 'Precuación Reporte de NUFI no solicitado, Es posible obtenerlo posteriormente dando click en el botón  "Solicitar Reporte y Guardar"' }];
+              this.messages = [{ severity: 'warn', summary: 'Advertencia', detail: 'Precuación Reporte de NUFI no solicitado' }];
           }
         this.solicitante_fecha_constitucion.disable();
         this.solicitante_nombre_contacto.disable();

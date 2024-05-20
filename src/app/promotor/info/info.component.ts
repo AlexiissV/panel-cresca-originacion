@@ -315,10 +315,10 @@ export class InfoComponent implements OnInit {
             if (this.formsolicitante.click == 10) {
               this.generareporte(event);
             } else {
-              this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Guardado sin Reporte' });
+              this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Información Guardada' });
             }
           } else {
-            this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Las Personas Morales no se genera Reporte' });
+            this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Información Guardada' });
           }
           break;
         case 1:
@@ -326,7 +326,7 @@ export class InfoComponent implements OnInit {
           if (this.formrepresentante.click == 10) {
             this.generareporte(event);
           } else {
-            this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Guardado sin Reporte' });
+            this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Información Guardada' });
           }
           break;
         case 2:
@@ -334,7 +334,7 @@ export class InfoComponent implements OnInit {
           if (this.formsaval.click == 10) {
             this.generareporte(event);
           } else {
-            this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Guardado sin Reporte' });
+            this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Información Guardada' });
           }
           break;
         default:
@@ -343,7 +343,7 @@ export class InfoComponent implements OnInit {
     }
   }
   generareporte(event: any) {
-    switch (this.activeIndex) {
+   /* switch (this.activeIndex) {
         case 0:
           this.formsolicitante.reporte_id = '67276a45-4559-4397-8ce9-4102afd06796';
           this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'reporte ID generado' });
@@ -359,7 +359,7 @@ export class InfoComponent implements OnInit {
         default:
           break;
       }
-      return;
+      return;*/
     this.local.show();
     this.nufi.solicitarReportenufi(event)
       .subscribe({
@@ -387,7 +387,6 @@ export class InfoComponent implements OnInit {
         error: () => {
           this.local.hide();
           //  this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No pudimos completar la solicitud, intenta mas tarde' });
-
         }
       });
   }
