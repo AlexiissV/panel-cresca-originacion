@@ -4,6 +4,11 @@
         </div>
         <div class=" sm:col-12 md:col-6 lg:col-6 xl:col-6">
                 <div class="grid">
+                        <div *ngIf="check" class="col-12 text-center">
+                                <p-checkbox [binary]="true" formControlName="is_aval"
+                                        label="Es aval u obligado solidario"
+                                        (onChange)="tambienaval($event)"></p-checkbox>
+                        </div>
                         <div class="sm:col-12 md:col-5 lg:col-5 xl:col-5 align-self-center">Tipo de Persona</div>
                         <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 align-self-center"><p-dropdown
                                         formControlName="tipo_persona" styleClass=" text-center p-inputtext-sm w-full"
