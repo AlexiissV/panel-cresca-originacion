@@ -84,34 +84,7 @@ export class InfoComponent implements OnInit {
     solicitante_acta_constitutiva: '',
     solicitante_poderes_representante: ''
   };
-  formsaval: formNufi = {
-    curp: '',
-    fecha_nacimiento: '',
-    entidad: '',
-    tipo_persona: '',
-    reporte_id: '',
-    sexo: '',
-    nombre: '',
-    apellido_paterno: '',
-    apellido_materno: '',
-    correo: '',
-    telefono: '',
-    img_frente: '',
-    img_reverso: '',
-    rfc: '',
-    ine_numero: '',
-    ine_vigencia: '',
-    domicilio_cp: '',
-    domicilio_estado: '',
-    domicilio_municipio: '',
-    domicilio_colonia: '',
-    domicilio_direccion: '',
-    estado_civil: '',
-    solicitante_fecha_constitucion: '',
-    solicitante_nombre_contacto: '',
-    solicitante_acta_constitutiva: '',
-    solicitante_poderes_representante: ''
-  };
+  formsaval: formNufi[] =[];
 
 
   constructor(private post: SolicitudService,
@@ -186,12 +159,12 @@ export class InfoComponent implements OnInit {
       this.formrepresentante = this.formsolicitante;
     }
     if (this.view_aval) {
-      this.formsaval = this.formrepresentante;
+      this.formsaval.push(this.formrepresentante);
       this.formrepresentante.apply_legal_condicional = 10;
     } else {
       this.formrepresentante.apply_legal_condicional = 20;
     }
-    if (this.formsolicitante.rfc == '' || this.formrepresentante.rfc == '' || this.formsaval.rfc == '') {
+    if (this.formsolicitante.rfc == '' || this.formrepresentante.rfc == '' || this.formsaval.length==0) {//  || this.formsaval.rfc == ''
       this.messageService.add({ severity: 'error', summary: 'Error', detail: ' Formularios incompletos' });
       return;
     }
@@ -329,14 +302,14 @@ export class InfoComponent implements OnInit {
             this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Información Guardada' });
           }
           break;
-        case 2:
+       /* case 2:
           this.formsaval = event;
           if (this.formsaval.click == 10) {
             this.generareporte(event);
           } else {
             this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Información Guardada' });
           }
-          break;
+          break;*/
         default:
           break;
       }
@@ -373,9 +346,9 @@ export class InfoComponent implements OnInit {
               case 1:
                 this.formrepresentante.reporte_id = resp.data.id_reporte;
                 break;
-              case 2:
+             /* case 2:
                 this.formsaval.reporte_id = resp.data.id_reporte;
-                break;
+                break;*/
               default:
                 break;
             }
@@ -396,4 +369,12 @@ export class InfoComponent implements OnInit {
   tambienaval(event: boolean) {
     this.view_aval = event;
   }
+  formmultiaval(event: any) {
+    if (event['message']) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Campos incompletos, revisa tu informacion' });
+      return;
+    } 
+    this.formsaval = event;
+    this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Información Guardada' });
+    }
 }

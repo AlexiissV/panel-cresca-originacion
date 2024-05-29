@@ -13,6 +13,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { FormgeneralesComponent } from './formgenerales/formgenerales.component';
 import { ReportenufiComponent } from './reportenufi/reportenufi.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormmultiavalComponent } from './formmultiaval/formmultiaval.component';
 
 
 
@@ -26,6 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PerfilComponent,
     FormgeneralesComponent,
     ReportenufiComponent,
+    FormmultiavalComponent,
   ],
   exports:[
     LoaderComponent,
@@ -33,7 +35,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     SidenavComponent,
     FormgeneralesComponent,
-    ReportenufiComponent],
+    ReportenufiComponent,
+    FormmultiavalComponent,
+  ],
   imports: [
     CommonModule,
     OverlayModule,

@@ -9,8 +9,8 @@
             <app-formgenerales class="scalein animation-duration-500" (vaaseraval)="tambienaval($event)" [check]="true" (form)="solicitarreporte($event)" [view]="view" [formulario]="formrepresentante"></app-formgenerales>
         </p-tabPanel>
         <p-tabPanel header="AVAL U OBLIGADO SOLIDARIO" [disabled]="view_aval">
-        <app-formgenerales class="scalein animation-duration-500" (form)="solicitarreporte($event)" [view]="view" [formulario]="formsaval"></app-formgenerales>-->
-         <!-- <app-formmultiaval></app-formmultiaval>-->
+        <!--<app-formgenerales class="scalein animation-duration-500" (form)="solicitarreporte($event)" [view]="view" [formulario]="formsaval"></app-formgenerales>-->
+        <app-formmultiaval class="scalein animation-duration-500" [view]="view" (formevent)="formmultiaval($event)" [formulario]="formsaval"></app-formmultiaval>
         </p-tabPanel>
     </p-tabView>
     <br>

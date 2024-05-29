@@ -81,34 +81,7 @@ export class LocalService {
     solicitante_acta_constitutiva: '',
     solicitante_poderes_representante: ''
   };
-  formsaval: formNufi = {
-    curp: '',
-    fecha_nacimiento: '',
-    entidad: '',
-    tipo_persona: '',
-    sexo: '',
-    nombre: '',
-    apellido_paterno: '',
-    apellido_materno: '',
-    correo: '',
-    telefono: '',
-    img_frente: '',
-    img_reverso: '',
-    reporte_id: '',
-    rfc: '',
-    ine_numero: '',
-    ine_vigencia: '',
-    domicilio_cp: '',
-    domicilio_estado: '',
-    domicilio_municipio: '',
-    domicilio_colonia: '',
-    domicilio_direccion: '',
-    estado_civil: '',
-    solicitante_fecha_constitucion: '',
-    solicitante_nombre_contacto: '',
-    solicitante_acta_constitutiva: '',
-    solicitante_poderes_representante: ''
-  };
+  formsaval: formNufi[] = [];
   equipos: any[] = [];
   inversiontotal: number= 0;
   terminos_credito: any=null;

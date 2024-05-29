@@ -129,7 +129,7 @@ export class HomeComponent implements OnInit {
     this.local.bindings = []
     this.local.formsolicitante = this.restu;
     this.local.formrepresentante = this.restu;
-    this.local.formsaval = this.restu;
+    this.local.formsaval=[];
     this.local.equipos = [];
     this.local.terminos_credito = null;
     this.local.tabla_amortizacion = [];
