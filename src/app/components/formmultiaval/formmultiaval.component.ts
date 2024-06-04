@@ -84,6 +84,7 @@ tipo_persona: any;
       for(let uno of this.formulario){
         control.push(this.unolleno(uno));
         this.tipodepersona({value:uno.tipo_persona},i,10);
+        i++;
       }
     }else{
       control.push(this.initaval());
@@ -431,8 +432,6 @@ tipo_persona: any;
       };
     }
     tipodepersona(event: any,i: number,bandera:number=20) {
-      console.log(bandera);
-      
       if(event.value=='Fisica'){
         if(bandera==20){
           //@ts-ignore

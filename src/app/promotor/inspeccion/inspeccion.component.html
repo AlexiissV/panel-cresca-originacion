@@ -95,14 +95,21 @@
         </div>
         <hr>
         <div class="text-lg my-3 font-bold">
-            cargar fotografias del numero de serie del equipo.
+            cargar fotografias del numero de serie del equipo, evidencias de la firma del contrato y pagare
         </div>
-        <input class="input-file my-2" accept="image/*" (change)="file($event)" type="file" />
+        <span class="p-float-label mt-4 mb-3">
+            <p-dropdown class="p-inputtext-sm w-full" [options]="tiposvisita" [(ngModel)]="selecttipo" placeholder="Select a City" optionLabel="name" styleClass="p-inputtext-sm w-full" inputId="float-label"></p-dropdown>
+            <label for="float-label">Selecciona el tipo de Evidencia</label>
+        </span>
+        
+        <input id="inputfile" class="input-file my-2" accept="image/*" [disabled]="selecttipo==undefined || selecttipo==null" (change)="file($event,10)" type="file" />
         <div class="grid" *ngFor="let item of imges; let i = index">
             <div class="col-12">
-
                 <div class="flex align-items-center justify-content-between">
-                    <img [src]="item" width="10%">
+                    <img [src]="item.file" width="10%">
+                    <div *ngIf="item.tipo==10">Evidencia de firma contrato</div>
+                    <div *ngIf="item.tipo==20">Evidencia de firma de pagare</div>
+                    <div *ngIf="item.tipo==30">Evidencia evidencia de existencia del equipo</div>
                     <p-button icon="pi pi-times" (click)="eliminarimg(i)"
                         styleClass=" p-button-sm p-button-danger p-button-text"></p-button>
                 </div>
@@ -134,7 +141,7 @@
             Cargar fotografias del numero de serie del equipo, del acreditado junto al equipo y fachada de las
             instalaciones.
         </div>
-        <input class="input-file my-2" accept="image/*" (change)="file($event)" type="file" />
+        <input id="inputfile" class="input-file my-2" accept="image/*" (change)="file($event,20)" type="file" />
         <div class="grid" *ngFor="let item of imges; let i = index">
             <div class="col-12">
                 <div class="flex align-items-center justify-content-between">

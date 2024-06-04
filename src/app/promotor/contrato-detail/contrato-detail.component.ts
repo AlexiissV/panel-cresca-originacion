@@ -64,12 +64,8 @@ export class ContratoDetailComponent implements OnInit {
     let algo = localStorage.getItem('info');
     if (algo != null) {
       this.info = JSON.parse(algo);
-      if (this.info.status == 40) {
+      if (this.info.status == 48) {
         this.activeIndex = 1;
-        this.descargardocscontrato();
-      }
-      if (this.info.status == 46) {
-        this.activeIndex = 2;
         
       }
     } else {
@@ -125,8 +121,8 @@ export class ContratoDetailComponent implements OnInit {
     };
   }
 
-  descargarcontrato(url: string) {
-    let win = window.open(url, '_blank');
+  descargarcontrato() {
+    let win = window.open(this.dwcontrato, '_blank');
     // Cambiar el foco al nuevo tab (punto opcional)
     //@ts-ignore
       win.focus();
@@ -195,7 +191,7 @@ export class ContratoDetailComponent implements OnInit {
       });
   }
 
-  enviarcontrato() {
+  /*enviarcontrato() {
     if (this.contratobase64 == '') {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'debes cargar el archivo antes de enviarlo' });
       return;
@@ -219,14 +215,14 @@ export class ContratoDetailComponent implements OnInit {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Contacta al soporte de Cresca' });
         }
       });
-  }
+  }*/
   enviarpagare() {
-    if (this.pagarebase64 == '') {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'debes cargar el archivo antes de enviarlo' });
+    if (this.pagarebase64 == '' || this.contratobase64=='') {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'debes cargar los archivo antes de enviarlos' });
       return;
     }
     this.local.show();
-    this.post.postloadpagare(this.info.id, this.pagarebase64)
+    this.post.postloadpagare(this.info.id, this.pagarebase64, this.contratobase64)
       .subscribe({
         next: (resp) => {
           this.local.hide();
@@ -245,13 +241,6 @@ export class ContratoDetailComponent implements OnInit {
         }
       });
   }
-  seccionselect(event: any) {
-    if (event['index'] == 1) {
-      this.descargardocscontrato();
-    }
-    if (event['index'] == 2) {
-    }
-  }
   descargardocspagare(fecha: string) {
     this.local.show();
     this.post.getfilepagare(this.info.id,fecha,this.info.capacidad_id).subscribe({
@@ -259,6 +248,7 @@ export class ContratoDetailComponent implements OnInit {
         this.local.hide();
         if (resp.code == 202) {
           this.dwpagare = resp.pagare+'';
+          this.dwcontrato = resp.contrato+'';
           this.descargararchivo();
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });
@@ -275,6 +265,7 @@ export class ContratoDetailComponent implements OnInit {
     // Cambiar el foco al nuevo tab (punto opcional)
     // @ts-ignore
      win.focus();
+     this.descargarcontrato();
       /*
     var link = document.createElement("a");
     link.download = `pagare.pdf`;
@@ -283,7 +274,7 @@ export class ContratoDetailComponent implements OnInit {
     link.click();
     document.body.removeChild(link);*/
   }
-  descargardocscontrato() {
+  /*descargardocscontrato() {
     this.post.getfilecontrato(this.info.id,this.info.capacidad_id).subscribe({
       next: (resp) => {
         if (resp.code == 202) {
@@ -302,5 +293,5 @@ export class ContratoDetailComponent implements OnInit {
 
       }
     });
-  }
+  }*/
 }

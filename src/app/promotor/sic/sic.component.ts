@@ -287,10 +287,12 @@ export class SicComponent implements OnInit {
   },
 ];
   for(let uno of this.aval){
-    uno.curp='';
+    if(uno.tipo_persona=='Moral'){
+      uno.curp='';
       uno.apellido_paterno='';
       uno.apellido_materno='';
       uno.fecha_nacimiento=uno.solicitante_fecha_constitucion;
+    }
     conet.push({ text: `Carta Autorización para solicitar Reportes de Crédito`,pageBreak: 'before', style: 'titulo' });
     conet.push({ text: `Personas Físicas / Personas Morales.`, style: 'subtitulo' });
     conet.push({ text: `Por este conducto autorizo expresamente a  Crédito Especializado al Campo, S.A. de C.V.  SOFOM, E.N.R., PARA QUE POR CONDUCTO DE SUS FUNCIONARIOS FACULTADOS LLEVE A CABO Investigaciones, sobre mi comportamiento crediticio ó el de la Empresa que represento en Trans Union de México, S.A. SIC y/o Dun & bradstreet, S.A. SIC.`,style:'texto' });

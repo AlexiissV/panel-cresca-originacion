@@ -18,21 +18,21 @@ export class ContratoService {
     // originacion.lerco.agency/web/v1/empresa/post-load-factura-producto
     return this.http.post<Respuesta>(`${url}post-load-factura-producto`,{token: this.auth.usuario.token, solicitud_id,detail});
   }
-  getfilecontrato(solicitud_id: number,capacidad_id: number){
+  /*getfilecontrato(solicitud_id: number,capacidad_id: number){
     // http://localhost/dev.originacion/web/v1/empresa/get-file-contrato
     return this.http.post<Restcontratofiles>(`${url}get-file-contrato`,{token: this.auth.usuario.token,solicitud_id,capacidad_id});
-  }
+  }*/
   getfilepagare(solicitud_id: number,fecha: string,capacidad_id: number){
     // http://localhost/dev.originacion/web/v1/empresa/get-file-pagare
-    return this.http.post<Restcontratofiles>(`${url}get-file-pagare`,{token: this.auth.usuario.token,solicitud_id, fecha, capacidad_id});
+    return this.http.post<Restcontratofiles>(`${url}get-file-contrato`,{token: this.auth.usuario.token,solicitud_id, fecha, capacidad_id});
   }
-  postloadcontrato(solicitud_id: number,contrato:string){
+ /* postloadcontrato(solicitud_id: number,contrato:string){
     // http://localhost/dev.originacion/web/v1/empresa/post-load-contrato
     return this.http.post<Respuesta>(`${url}post-load-contrato`,{token: this.auth.usuario.token, solicitud_id,contrato});
-  }
-  postloadpagare(solicitud_id: number,pagare:string){
-    // http://localhost/dev.originacion/web/v1/empresa/post-load-pagare
-    return this.http.post<Respuesta>(`${url}post-load-pagare`,{token: this.auth.usuario.token, solicitud_id,pagare});
+  }*/
+  postloadpagare(solicitud_id: number,pagare:string, contrato:string){
+    // http://localhost/dev.originacion/web/v1/empresa/post-load-pagare // http://localhost/proyect.originacion/web/v1/empresa/post-load-contrato-pagare
+    return this.http.post<Respuesta>(`${url}post-load-contrato-pagare`,{token: this.auth.usuario.token, solicitud_id,pagare, contrato});
   }
   getsolicitudescontrato(){
     // v1/empresa/get-solicitudes-contratacion

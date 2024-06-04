@@ -17,7 +17,22 @@ export class InspeccionComponent implements OnInit {
   ingredient: string = '';
   verifica: boolean = false;
   entrega: boolean = false;
+  tiposvisita:any[]=[
+    {
+      name:'Evidencia de firma contrato',
+      tipo:10
+    },
+    {
+      name:'Evidencia de firma de pagare',
+      tipo:20
+    },
+    {
+      name:'Evidencia evidencia de existencia del equipo',
+      tipo:30
+    }
+  ];
   vistaentregas: Visita[] = [];
+  selecttipo:any;
   selectedProduct: Visita = {
     id: 0,
     solicitud: '',
@@ -29,7 +44,7 @@ export class InspeccionComponent implements OnInit {
     visita_asignado: '',
     solicitante: ''
   };
-  imges: string[] = [];
+  imges: any[] = [];
   //@ts-ignore
   myfile: File;
 
@@ -83,18 +98,24 @@ export class InspeccionComponent implements OnInit {
       this.entrega= true;
     }
   }
-  async file(event: any) {
+  async file(event: any, tipo: number) {
     this.myfile = event.target.files[0];
     if (this.myfile != null || this.myfile != undefined) {
-      this.getBase64(this.myfile);
+      this.getBase64(this.myfile, tipo);
+        //@ts-ignore
+        document.getElementById("inputfile").value = "";
     }
 
   }
-  getBase64(file: File) {
+  getBase64(file: File, tipo: number) {
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async () => {
-      this.imges.push(reader.result + '');
+      if(tipo==10){
+        this.imges.push({tipo: this.selecttipo['tipo'],file:reader.result + ''});
+      }else{
+        this.imges.push(reader.result + '');
+      }
     };
     reader.onerror = (error) => {
     };

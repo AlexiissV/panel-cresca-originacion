@@ -73,7 +73,7 @@
         </div>
     </p-fieldset>
     <br>
-    <p-tabView *ngIf="info.status!=40 && info.status != 30 && info.status != 46">
+    <p-tabView *ngIf="info.status!=40 && info.status != 30 && info.status != 48">
         <p-tabPanel [disabled]="info.status!=30" header="FACTURA DEL EQUIPO">
         </p-tabPanel>
         <p-tabPanel [disabled]="info.status!=40" header="CONTRATO">
@@ -81,8 +81,8 @@
         <p-tabPanel [disabled]="info.status!=40" header="PAGARE">
         </p-tabPanel>
     </p-tabView>
-    <p-tabView *ngIf="info.status_text=='CONTRATACION' || info.status_text=='PAGARE'|| info.status_text=='RESOLUCION'"
-        [(activeIndex)]="activeIndex" (onChange)="seccionselect($event)">
+    <p-tabView *ngIf="info.status_text=='VISITA PREV ENTREGA / CONTRATO & PAGARE' || info.status_text=='RESOLUCION'"
+        [(activeIndex)]="activeIndex">
         <p-tabPanel [disabled]="info.status!=30" header="FACTURA DEL EQUIPO">
             <div class="text-2xl font-bold" *ngIf="info.presupuestos.length>=2">
                 Subir Facturas De Los Equipos a Financiar<i class=" ml-2 pi pi-cloud-upload"
@@ -103,7 +103,7 @@
             <button pButton label="Enviar Factura" icon="pi pi-cloud-upload" (click)="enviarFactura()"
                 class="mt-3 bg-red-700"></button>
         </p-tabPanel>
-        <p-tabPanel [disabled]="info.status!=40" header="CONTRATO">
+       <!-- <p-tabPanel [disabled]="info.status!=40" header="CONTRATO">
             <div class="text-xl my-2 font-bold">Descargar y/o Carga de Contrato</div>
             <div class="grid">
                 <div class="sm:col-12 md:col-2 lg:col-2 xl:col-2 text-center">
@@ -121,23 +121,26 @@
             <br>
             <button pButton label="Enviar Contrato" (click)="enviarcontrato()" icon="pi pi-cloud-upload"
                 class="mt-3 bg-red-700"></button>
-        </p-tabPanel>
-        <p-tabPanel [disabled]="info.status!=46" header="PAGARE">
-            <div class="text-lg my-2 font-bold">Descargar y/o Carga de Pagaré</div>
+        </p-tabPanel>-->
+        <p-tabPanel [disabled]="info.status!=48" header="CONTRATO & PAGARE">
+            <div class="text-lg my-2 font-bold">Descargar y/o Carga de Pagaré y Contrato</div>
             <div class="grid">
                 <div class="sm:col-12 md:col-3 lg:col-3 xl:col-3">
                     <div class="my-2 text-md font-bold">Fecha de emision del Pagare</div>
                             <p-calendar [(ngModel)]="fecha" [minDate]="minimo" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
                 </div>
             </div>
-            <p-button label="descargar Pagaré" [disabled]="fecha==undefined" icon="pi pi-download"
+            <p-button label="descargar Pagaré & Contrato" [disabled]="fecha==undefined" icon="pi pi-download"
                 (click)="descargarpagare()" styleClass="mt-3 mb-2 p-button-sm p-button-success"></p-button>
             <hr>
             <div class="my-3 text-lg font-bold">Subir pagare Firmado</div>
             <input class="input-file my-2" type="file" accept=".pdf" (change)="file($event,30)" />
             <br>
+            <div class="my-3 text-lg font-bold">Subir contrato Firmado</div>
+            <input class="input-file my-2" type="file" accept=".pdf" (change)="file($event,20)" />
             <br>
-            <button pButton label="Enviar Pagaré" icon="pi pi-cloud-upload" (click)="enviarpagare()"
+            <br>
+            <button pButton label="Enviar Pagaré & Contrato" icon="pi pi-cloud-upload" (click)="enviarpagare()"
                 class="mt-3 bg-red-700"></button>
         </p-tabPanel>
     </p-tabView>
