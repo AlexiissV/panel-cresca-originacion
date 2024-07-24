@@ -180,7 +180,7 @@ export class SicComponent implements OnInit {
               [{text:`Lugar y Fecha donde se firma la autorización:`,colSpan:4,style:'gene',border:[false,false,false,false]},{},{},{},{text:'',colSpan:4,border:[false,false,false,false]},{},{},{}],
               [{text:``,border:[false,false,false,false]},{text:`Avenida Isidro Fabela Norte 931, Colonia Los Ángeles; Toluca, México C.P. 50020,  ${this.Mipipe.transform(new Date(), 'dd/MM/yyyy')}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}],
               [{text:`Nombre del Funcionario que recaba la autorización:`,colSpan:5,style:'gene',border:[false,false,false,false]},{},{},{},{},{text:'',colSpan:3,border:[false,false,false,false]},{},{}],
-              [{text:``,border:[false,false,false,false]},{text:`${this.auth.usuario.nombre} ${this.auth.usuario.apellidos}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}]
+              [{text:``,border:[false,false,false,false]},{text:`${this.auth.usuario.nombre.toUpperCase()} ${this.auth.usuario.apellidos.toUpperCase()}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}]
           ]
         }
       },
@@ -255,7 +255,7 @@ export class SicComponent implements OnInit {
           [{text:`Lugar y Fecha donde se firma la autorización:`,colSpan:4,style:'gene',border:[false,false,false,false]},{},{},{},{text:'',colSpan:4,border:[false,false,false,false]},{},{},{}],
           [{text:``,border:[false,false,false,false]},{text:`Avenida Isidro Fabela Norte 931, Colonia Los Ángeles; Toluca, México C.P. 50020,  ${this.Mipipe.transform(new Date(), 'dd/MM/yyyy')}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}],
           [{text:`Nombre del Funcionario que recaba la autorización:`,colSpan:5,style:'gene',border:[false,false,false,false]},{},{},{},{},{text:'',colSpan:3,border:[false,false,false,false]},{},{}],
-          [{text:``,border:[false,false,false,false]},{text:`${this.auth.usuario.nombre} ${this.auth.usuario.apellidos}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}]
+          [{text:``,border:[false,false,false,false]},{text:`${this.auth.usuario.nombre.toUpperCase()} ${this.auth.usuario.apellidos.toUpperCase()}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}]
       ]
     }
   },
@@ -328,17 +328,17 @@ export class SicComponent implements OnInit {
       table: {
       widths: [60,60,55,55,55,55,50,60],
       body: [
-          [{text:`Nombre del Solicitante:`,style:'gene',colSpan:2,border:[false,false,false,false]},{},{text:`${uno.nombre} ${uno.apellido_paterno} ${uno.apellido_materno}`,colSpan:6,border:[false,false,false,true],fontSize:10},{},{},{},{},{}],
+          [{text:`Nombre del Solicitante:`,style:'gene',colSpan:2,border:[false,false,false,false]},{},{text:`${uno.nombre.toUpperCase()} ${uno.apellido_paterno.toUpperCase()} ${uno.apellido_materno.toUpperCase()}`,colSpan:6,border:[false,false,false,true],fontSize:10},{},{},{},{},{}],
           [{text:`Fecha de constitución o nacimiento`,style:'gene',colSpan:3,border:[false,false,false,false]},{},{},{text:`(dd/mmm/aaaa);`, colSpan:2, fontSize:9,margin:[0,2,0,0],border:[false,false,false,false]},{},{text:uno.fecha_nacimiento,colSpan:3,border:[false,false,false,true],fontSize:10},{},{}],
           [{text:`R.F.C.:`,style:'gene',border:[false,false,false,false]},{text:uno.rfc.toUpperCase(),colSpan:3,border:[false,false,false,true],fontSize:10},{},{},{text:'CURP:',style:'gene',border:[false,false,false,false]},{text:uno.curp.toUpperCase(),colSpan:3,border:[false,false,false,true],fontSize:10},{},{}],
-          [{text:`Domicilio`,style:'gene',border:[false,false,false,false]},{text:uno.domicilio_direccion,colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}],
-          [{text:`Colonia`,style:'gene',border:[false,false,false,false]},{text:uno.domicilio_colonia,colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}],
-          [{text:`Estado`,style:'gene',border:[false,false,false,false]},{text:uno.entidad, colSpan:2,border:[false,false,false,true],fontSize:10},{},{text:'Municipio',style:'gene',border:[false,false,false,false]},{text:uno.domicilio_municipio,colSpan:2,border:[false,false,false,true],fontSize:10},{},{text:'C.P.:',alignment: 'center',style:'gene',border:[false,false,false,false]},{text:uno.domicilio_cp,border:[false,false,false,true],fontSize:10}],
+          [{text:`Domicilio`,style:'gene',border:[false,false,false,false]},{text:uno.domicilio_direccion.toUpperCase(),colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}],
+          [{text:`Colonia`,style:'gene',border:[false,false,false,false]},{text:uno.domicilio_colonia.toUpperCase(),colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}],
+          [{text:`Estado`,style:'gene',border:[false,false,false,false]},{text:uno.entidad.toUpperCase(), colSpan:2,border:[false,false,false,true],fontSize:10},{},{text:'Municipio',style:'gene',border:[false,false,false,false]},{text:uno.domicilio_municipio.toUpperCase(),colSpan:2,border:[false,false,false,true],fontSize:10},{},{text:'C.P.:',alignment: 'center',style:'gene',border:[false,false,false,false]},{text:uno.domicilio_cp,border:[false,false,false,true],fontSize:10}],
           [{text:`Teléfono:`,style:'gene',border:[false,false,false,false]},{text:uno.telefono,colSpan:3,border:[false,false,false,true],fontSize:10},{},{},{text:'',colSpan:4,border:[false,false,false,false]},{},{},{}],
           [{text:`Lugar y Fecha donde se firma la autorización:`,colSpan:4,style:'gene',border:[false,false,false,false]},{},{},{},{text:'',colSpan:4,border:[false,false,false,false]},{},{},{}],
           [{text:``,border:[false,false,false,false]},{text:`Avenida Isidro Fabela Norte 931, Colonia Los Ángeles; Toluca, México C.P. 50020,  ${this.Mipipe.transform(new Date(), 'dd/MM/yyyy')}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}],
           [{text:`Nombre del Funcionario que recaba la autorización:`,colSpan:5,style:'gene',border:[false,false,false,false]},{},{},{},{},{text:'',colSpan:3,border:[false,false,false,false]},{},{}],
-          [{text:``,border:[false,false,false,false]},{text:`${this.auth.usuario.nombre} ${this.auth.usuario.apellidos}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}]
+          [{text:``,border:[false,false,false,false]},{text:`${this.auth.usuario.nombre.toUpperCase()} ${this.auth.usuario.apellidos.toUpperCase()}`,alignment:'center',colSpan:7,border:[false,false,false,true],fontSize:10},{},{},{},{},{},{}]
       ]
       }
       });
@@ -350,7 +350,7 @@ export class SicComponent implements OnInit {
       table: {
       widths: [60,60,55,55,55,55,50,60],
       body: [
-          [{text:'',colSpan:2,border:[false,false,false,false]},{},{text:`${uno.nombre} ${uno.apellido_paterno} ${uno.apellido_materno}`,fontSize:10,colSpan:4,border:[false,false,false,true],alignment:'center'},{},{},{},{text:'',colSpan:2,border:[false,false,false,false]},{}],
+          [{text:'',colSpan:2,border:[false,false,false,false]},{},{text:`${uno.nombre.toUpperCase()} ${uno.apellido_paterno.toUpperCase()} ${uno.apellido_materno.toUpperCase()}`,fontSize:10,colSpan:4,border:[false,false,false,true],alignment:'center'},{},{},{},{text:'',colSpan:2,border:[false,false,false,false]},{}],
           [{text:'',colSpan:3,border:[false,false,false,false]},{},{},{text:'Nombre y Firma',style:'gene', alignment:'center', colSpan:2,border:[false,false,false,false]},{},{text:'',colSpan:3,border:[false,false,false,false]},{},{}]
       ]
       }
