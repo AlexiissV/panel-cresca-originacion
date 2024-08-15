@@ -93,6 +93,7 @@ export class HomeComponent implements OnInit {
         this.local.formsolicitante = resp.solicitud_detail.solicitante;
         this.local.formrepresentante = {...resp.solicitud_detail.legal,is_aval:(resp.solicitud_detail.legal.apply_legal_condicional==10)?true:false};
         this.local.formsaval = resp.solicitud_detail.aval;
+        this.local.equipos=[];
         if (resp.solicitud_detail.presupuesto.length>=1) {
           this.local.equipos = resp.solicitud_detail.presupuesto;
           this.local.proveedor_id= resp.solicitud_detail.proveedor_id;
@@ -106,10 +107,15 @@ export class HomeComponent implements OnInit {
         if(resp.solicitud_detail.file_sic!=null){
           this.local.file_sic = resp.solicitud_detail.file_sic;
         }
+        this.local.terminos_credito=null;
+        this.local.tabla_amortizacion=[];
         if (resp.solicitud_detail.termino_credito[0].importe_credito != null) {
           this.local.terminos_credito = resp.solicitud_detail.termino_credito[0];
           this.local.tabla_amortizacion = resp.solicitud_detail.tabla_amortizacion;
         }
+          this.local.capacidad_info=null;
+          this.local.capacidad_id=null;
+          this.local.doc_finaciero=[];
         if (resp.solicitud_detail.capacidad.length >= 1) {
           this.local.capacidad_info = resp.solicitud_detail.capacidad[0].groups;
           this.local.capacidad_id = resp.solicitud_detail.capacidad_id;

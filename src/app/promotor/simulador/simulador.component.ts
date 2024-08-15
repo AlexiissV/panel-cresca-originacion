@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./simulador.component.scss']
 })
 export class SimuladorComponent implements OnInit {
+  banderafn: boolean= false;
   tabla: TablaAmortizacion[] = [];
   elnombre: string='';
   productos: string='';
@@ -206,7 +207,7 @@ export class SimuladorComponent implements OnInit {
       styles: this.misestilos,
     };
     if(tipo==10){
-      pdfMake.createPdf(docDefinition).download('Tabla de Amortización'+ this.local.formsolicitante.nombre);
+      pdfMake.createPdf(docDefinition).download(`Tabla de Amortización-#${this.local.solicitud_id}`);
       // pdfMake.createPdf(docDefinition).open();
     }else{
       const pdfDocGenerator = pdfMake.createPdf(docDefinition);
@@ -221,9 +222,11 @@ export class SimuladorComponent implements OnInit {
     await this.local.show();
     this.post.enviarTabladeamortizacion(base64,this.local.solicitud_id).subscribe({
       next:async (resp)=>{
+        this.banderafn= false;
         await this.local.hide();
         this.router.navigate(['/promotor/originacion/sic'])
       },error:async (e)=>{
+        this.banderafn= false;
         await this.local.hide();
       }
     });
@@ -232,6 +235,9 @@ export class SimuladorComponent implements OnInit {
   enviaramortizacion(){
     if (this.tabla.length == 0) {
       return;
+    }
+    if(!this.banderafn){
+      this.banderafn= true;
     }
     this.generarpdf(20);
   }

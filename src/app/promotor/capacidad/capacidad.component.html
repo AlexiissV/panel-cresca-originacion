@@ -29,8 +29,8 @@
             <div class="flex align-items-center justify-content-between">
                 <button pButton label="Anterior" routerLink="/promotor/originacion/sic"
                     class="mt-3 bg-primary-700"></button>
-                    <button pButton label="Guardar y Salir" (click)="guardasale()" class="mt-3 mr-3 bg-yellow-500"></button>
-                <button pButton (click)="findelproceso()" label="Guardar y Continuar" class="mt-3 bg-red-700"></button>
+                    <button pButton label="Guardar y Salir" [disabled]="banderafn" (click)="guardasale()" class="mt-3 mr-3 bg-yellow-500"></button>
+                <button pButton [disabled]="banderafn" (click)="findelproceso()" label="Guardar y Continuar" class="mt-3 bg-red-700"></button>
             </div>
         </div>
     </div>

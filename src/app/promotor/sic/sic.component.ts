@@ -22,6 +22,7 @@ export class SicComponent implements OnInit {
   midata: any;
   Mipipe = new DatePipe('en-US');
   pdfObject: any;
+  banderafn: boolean = false;
   salir: boolean=false;
   misestilos: any = {
     titulo: {
@@ -406,6 +407,7 @@ export class SicComponent implements OnInit {
       .subscribe({
         next: (resp) => {
           this.local.hide();
+          this.banderafn= false;
           if (resp.code == 202) {
 			//@ts-ignore
 			this.local.solicitud_id = resp.solicitud_id;
@@ -419,6 +421,7 @@ export class SicComponent implements OnInit {
 		  }
 		},
 		error: (e) => {
+      this.banderafn= false;
 		  this.local.hide();
 		  this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Contacta al soporte de Cresca' });
 		}
@@ -426,6 +429,10 @@ export class SicComponent implements OnInit {
   }
   guardasale() {
     this.salir= true;
+    if(!this.banderafn){
+      this.banderafn= true;
+    }
     this.enviarsic();
+    
     }
 }

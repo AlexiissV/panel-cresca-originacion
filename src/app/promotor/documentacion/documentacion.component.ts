@@ -21,6 +21,7 @@ export class DocumentacionComponent implements OnInit {
   //@ts-ignore
   myfile: File;
   salir: boolean = false;
+  banderafn: boolean = false;
   //@ts-ignore
   apply_envio: number = null;
 
@@ -115,6 +116,9 @@ export class DocumentacionComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Aun no ha iniciado una Solicitud ' });
       return;
     }
+    if(!this.banderafn){
+      this.banderafn= true;
+    }
     this.local.show();
     if (this.salir == false) {
       this.apply_envio = 10;
@@ -122,6 +126,7 @@ export class DocumentacionComponent implements OnInit {
     this.post.guardarsolicitud({ token: this.auth.usuario.token, seccion: 50, files: null, solicitud_id: this.local.solicitud_id, apply_envio: this.apply_envio }).subscribe({
       next: (resp) => {
         this.local.hide();
+        this.banderafn= false;
         if (resp.code == 202) {
           this.router.navigateByUrl('/promotor');
           setTimeout(() => {
@@ -132,6 +137,7 @@ export class DocumentacionComponent implements OnInit {
         }
       },
       error: (e) => {
+        this.banderafn= false;
         this.local.hide();
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Contacta al soporte de Cresca' });
       }

@@ -14,6 +14,7 @@ import { SolicitudService } from '../../services/solicitud.service';
   providers: [MessageService]
 })
 export class CapacidadComponent implements OnInit {
+  banderafn:boolean=false;
   salir:boolean=false;
   estatus_solicitud:number = 0;
   formulario: Group[] = [];
@@ -81,11 +82,15 @@ export class CapacidadComponent implements OnInit {
         info.push(pregunta);
       }
     }
+    if(!this.banderafn){
+      this.banderafn= true;
+    }
     this.local.show();   
     this.post.guardarsolicitud({ token: this.auth.usuario.token, solicitud_id: this.local.solicitud_id, seccion: 40,capacidad:info})
     .subscribe({
       next: (resp) => {
         this.local.hide();
+        this.banderafn= false;
         if (resp.code == 202) {
           //@ts-ignore
           this.local.solicitud_id = resp.solicitud_id;
@@ -100,6 +105,7 @@ export class CapacidadComponent implements OnInit {
         }
       },
       error: (e) => {
+        this.banderafn= false;
         this.local.hide();
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Contacta al soporte de Cresca' });
       }

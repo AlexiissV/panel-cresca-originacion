@@ -13,7 +13,7 @@
             <input class="input-file max-w-full" type="file" accept=".pdf" (change)="file($event)"/>
             <div *ngIf="estatus_solicitud==2 || estatus_solicitud==0" class="flex align-items-center justify-content-between">
                 <button pButton label="Anterior" routerLink="/promotor/originacion/simulador" class="mt-3 bg-primary-700"></button>
-                <button pButton label="Guardar y Salir" (click)="guardasale()" class="mt-3 mr-3 bg-yellow-500"></button>
-            <button pButton (click)="enviarsic()" label="Guardar y Continuar" class="mt-3 bg-red-700"></button>
+                <button pButton label="Guardar y Salir" [disabled]="banderafn" (click)="guardasale()" class="mt-3 mr-3 bg-yellow-500"></button>
+            <button pButton [disabled]="banderafn" (click)="enviarsic()" label="Guardar y Continuar" class="mt-3 bg-red-700"></button>
              </div>
 </section>

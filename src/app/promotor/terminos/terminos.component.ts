@@ -16,7 +16,7 @@ import { SolicitudService } from '../../services/solicitud.service';
   providers: [MessageService]
 })
 export class TerminosComponent implements OnInit {
-
+  banderafn: boolean = false;
   salir: boolean = false;
   gracias: boolean = false;
   estatus_solicitud: number = 0;
@@ -164,11 +164,15 @@ export class TerminosComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Aun no ha iniciado una Solicitud ' });
       return;
     }
+    if (!this.banderafn) {
+      this.banderafn = true;
+    }
     this.local.show();
     this.taza_fija_anual.enable();
     this.post.guardarsolicitud({ token: this.auth.usuario.token, solicitud_id: this.local.solicitud_id, seccion: 30,capacidad_id:this.capacidad_id, termino_credito: {...this.terminosForm.value,apply_periodo_gracia:this.apply_periodo,meses_gracia: this.mesnum,pago_gracia:this.value_pago} }).subscribe({
       next: (resp) => {
         this.local.hide();
+        this.banderafn= false;
         if (resp.code == 202) {
           //@ts-ignore
           this.local.solicitud_id = resp.solicitud_id;
@@ -185,6 +189,7 @@ export class TerminosComponent implements OnInit {
       },
       error: (e) => {
         this.local.hide();
+        this.banderafn= false;
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Contacta al soporte de Cresca' });
       }
     });
