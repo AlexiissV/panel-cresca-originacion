@@ -139,10 +139,13 @@ export class InfoComponent implements OnInit {
       this.post.getGenerales().subscribe(
         {
           next: (resp) => {
-            this.Cuestionario = resp['cuestionario-identificacion'][0].groups;
+            if (resp['cuestionario-identificacion'].length>=1) {
+              this.Cuestionario = resp['cuestionario-identificacion'][0].groups;
+              
             for (let i = 0; i < this.Cuestionario.length; i++) {
               this.Cuestionario[i].items = this.Cuestionario[i].items.map(item => ({ ...item, value_register: '' }));
             }
+          }
             this.doc_general = resp.documentos;
           },
           error: () => {

@@ -139,7 +139,7 @@ export class InspeccionComponent implements OnInit {
             this.verifica= false;
             this.messageService.add({ severity: 'success', summary: 'Correcto', detail: resp.message });
             setTimeout(() => {
-              location.reload();
+               location.reload();
             }, 800);
           } else {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });
@@ -170,7 +170,7 @@ export class InspeccionComponent implements OnInit {
             this.entrega= false;
             this.messageService.add({ severity: 'success', summary: 'Correcto', detail: resp.message });
             setTimeout(() => {
-              location.reload();
+               location.reload();
             }, 800);
           } else {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });
