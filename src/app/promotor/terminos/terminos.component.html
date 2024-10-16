@@ -47,9 +47,11 @@
                         Plazo del crédito (meses) >
                     </div>
                     <div class="sm:col-12 md:col-7 lg:col-7 xl:col-7 p-1 align-self-center">
-                        <p-inputNumber class="w-full" [max]="60" mode="decimal" locale="es-MX" [minFractionDigits]="1"
+                        <!--<p-inputNumber class="w-full" [max]="60" mode="decimal" locale="es-MX" [minFractionDigits]="1"
                             formControlName="plazo_credito" inputStyleClass="text-center"
-                            styleClass="p-inputtext-sm w-full"></p-inputNumber>
+                            styleClass="p-inputtext-sm w-full"></p-inputNumber>-->
+                            <p-dropdown styleClass="p-inputtext-sm w-full" formControlName="plazo_credito"
+                            [options]="list_plazos"></p-dropdown>
                     </div>
                 </div>
             </div>

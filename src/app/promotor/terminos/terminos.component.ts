@@ -28,6 +28,7 @@ export class TerminosComponent implements OnInit {
   terminosForm: FormGroup;
   p_financiero: ProductoFinanciero[] = [];
   capacidad_id: number = 0;
+  list_plazos: number[] = [];
   list_Meses: string[] = [
     '',
     'Mensual',
@@ -108,7 +109,8 @@ export class TerminosComponent implements OnInit {
       nombre: '',
       secciones: [],
       documentos: [],
-      tasa_porcentual: null
+      tasa_porcentual: null,
+      plazos: []
     });
    this.post.getProductoFinaciero()
       .subscribe({
@@ -120,6 +122,7 @@ export class TerminosComponent implements OnInit {
             this.capacidad_id= this.local.capacidad_id;
             this.estatus_solicitud=this.local.estatus_solicitud;
             this.taza_fija_anual.setValue(this.productof.value['tasa_porcentual']);
+            this.list_plazos= this.productof.value['plazos'];
           }
         },
         error: () => {
@@ -203,6 +206,7 @@ export class TerminosComponent implements OnInit {
     this.capacidad_id = event.value['id'];
     this.local.capacidad_id=this.capacidad_id;
     this.taza_fija_anual.setValue(Number(event.value['tasa_porcentual']));
+    this.list_plazos= event.value['plazos'];
     this.local.doc_finaciero= event.value['documentos'];    
     let cuestions: Group[] = event.value.secciones[0]['groups'];
     for (let i = 0; i < cuestions.length; i++) {

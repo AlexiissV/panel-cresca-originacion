@@ -93,14 +93,11 @@ export class LoginComponent implements OnInit {
             this.messageService.add({ severity: 'success', summary: 'Correcto', detail: 'Bienvenido ' + resp.data.nombre });
             this.auth.usuario = resp.data;
             await localStorage.setItem('usuario', JSON.stringify(resp.data));
-            setTimeout(() => {
               if (resp.data.perfil == 20 || resp.data.perfil == 30) {
                 this.router.navigate(['/promotor']);
               } else {
                 this.router.navigate(['/admin']);
               }
-            }, 900);
-
           } else {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: resp.message });
 

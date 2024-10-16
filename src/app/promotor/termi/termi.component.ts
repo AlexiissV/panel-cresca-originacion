@@ -29,6 +29,7 @@ export class TermiComponent {
   terminosForm: FormGroup;
   p_financiero: ProductoFinanciero[] = [];
   capacidad_id: number = 0;
+  list_plazos: number[] = [];
   list_Meses: string[] = [
     '',
     'Mensual',
@@ -112,7 +113,8 @@ export class TermiComponent {
       nombre: '',
       secciones: [],
       documentos: [],
-      tasa_porcentual: null
+      tasa_porcentual: null,
+      plazos: []
     });
     this.simula.equipos.forEach((item)=>{
       this.T_precioventa+=item['precio_venta'];
@@ -125,6 +127,7 @@ export class TermiComponent {
             this.productof.setValue(this.p_financiero.find((item => item.id == this.simula.capacidad_id)));
             this.capacidad_id= this.simula.capacidad_id;
             this.taza_fija_anual.setValue(this.productof.value['tasa_porcentual']);
+            this.list_plazos= this.productof.value['plazos'];
           }
         },
         error: () => {
@@ -195,6 +198,7 @@ export class TermiComponent {
     this.capacidad_id = event.value['id'];
     this.simula.capacidad_id=this.capacidad_id;
     this.taza_fija_anual.setValue(Number(event.value['tasa_porcentual']));
+    this.list_plazos= event.value['plazos'];
   }
   elswich(event: InputSwitchOnChangeEvent) {
     if (event.checked) {

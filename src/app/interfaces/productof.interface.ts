@@ -15,6 +15,7 @@ export interface ProductoFinanciero {
     tasa_porcentual: number | null;
     documentos:     arraydocs[]
     secciones:      Seccione[];
+    plazos:         number[];
 }
 
 export interface Seccione {
